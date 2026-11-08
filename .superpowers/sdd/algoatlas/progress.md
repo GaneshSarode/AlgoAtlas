@@ -9,3 +9,4 @@ Task 6: complete (commits 2da7dcb, Problem detail journal, approaches, code stor
 Task 7: complete (commits 9f021cd, Concept Vault, DAG prerequisite graphs, code templates, mental models)
 Task 8: complete (commits fcecdc9, Roadmap sheets: NeetCode 150, Blind 75, Striver, CSES with cross-roadmap sync)
 Task 9: complete (commits 0c56da0, tests: npx vitest run src/services/__tests__/revisionEngine.test.ts -> 5 passed, distraction-free recall mode)
+Task 10: complete (commits d199348, tests: npx vitest run src/services/__tests__/recommendationEngine.test.ts -> 4 passed, prioritized recommendation engine with reasons)
