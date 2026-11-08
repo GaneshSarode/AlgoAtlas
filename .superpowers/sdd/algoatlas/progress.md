@@ -11,3 +11,4 @@ Task 8: complete (commits fcecdc9, Roadmap sheets: NeetCode 150, Blind 75, Striv
 Task 9: complete (commits 0c56da0, tests: npx vitest run src/services/__tests__/revisionEngine.test.ts -> 5 passed, distraction-free recall mode)
 Task 10: complete (commits d199348, tests: npx vitest run src/services/__tests__/recommendationEngine.test.ts -> 4 passed, prioritized recommendation engine with reasons)
 Task 11: complete (commits 8799a2b, Contest Tracker, Rating progression chart, retrospective reflections)
+Task 12: complete (commits 3900558, tests: npx vitest run src/services/platformAdapters/__tests__/codeforcesAdapter.test.ts -> 3 passed, Codeforces & AtCoder public adapters)
