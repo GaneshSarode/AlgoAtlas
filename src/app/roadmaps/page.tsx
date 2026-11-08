@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { Map, ArrowRight, CheckCircle2, Star, Sparkles } from "lucide-react";
+import { Map as MapIcon, ArrowRight, CheckCircle2, Star, Sparkles } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/ui/card";
 import { Badge } from "@/ui/badge";
 import { RoadmapProgressBar } from "@/components/roadmaps/RoadmapProgressBar";
@@ -51,7 +51,7 @@ export default function RoadmapsPage() {
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-bold tracking-tight text-white flex items-center gap-2.5">
-          <Map className="w-6 h-6 text-brand-400" />
+          <MapIcon className="w-6 h-6 text-brand-400" />
           DSA Learning Roadmaps & Sheets
         </h1>
         <p className="text-xs text-gray-400 mt-1">

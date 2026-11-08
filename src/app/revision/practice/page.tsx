@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import {
@@ -20,7 +20,7 @@ import { Button } from "@/ui/button";
 import { getDbRepository } from "@/lib/db/repository";
 import type { Problem, LearningNote, SolutionApproach, RecallGrade } from "@/types";
 
-export default function RevisionPracticePage() {
+function RevisionPracticeContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const problemId = searchParams.get("problemId");
@@ -338,5 +338,19 @@ export default function RevisionPracticePage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function RevisionPracticePage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="py-20 text-center text-xs text-gray-500 animate-pulse">
+          Loading revision workspace...
+        </div>
+      }
+    >
+      <RevisionPracticeContent />
+    </Suspense>
   );
 }

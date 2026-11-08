@@ -5,7 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import {
   ArrowLeft,
-  Map,
+  Map as MapIcon,
   CheckCircle2,
   ChevronDown,
   ChevronUp,
@@ -165,7 +165,7 @@ export default function RoadmapDetailPage() {
           </Link>
           <div>
             <h1 className="text-2xl font-bold text-white flex items-center gap-2">
-              <Map className="w-6 h-6 text-brand-400" />
+              <MapIcon className="w-6 h-6 text-brand-400" />
               {metadata.title}
             </h1>
             <p className="text-xs text-gray-400 mt-0.5">{metadata.description}</p>

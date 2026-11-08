@@ -9,7 +9,7 @@ import {
   PlusCircle,
   BookOpen,
   BrainCircuit,
-  Map,
+  Map as MapIcon,
   Repeat,
   Sparkles,
   Trophy,
@@ -49,7 +49,7 @@ export function Sidebar({ isMobileOpen = false, onMobileClose, onOpenAddModal }:
     { label: "My Problems", href: "/problems", icon: FolderCode },
     { label: "Learning Journal", href: "/problems/journal", icon: BookOpen },
     { label: "Concept Vault", href: "/concepts", icon: BrainCircuit },
-    { label: "DSA Roadmap", href: "/roadmaps", icon: Map },
+    { label: "DSA Roadmap", href: "/roadmaps", icon: MapIcon },
     {
       label: "Revision Centre",
       href: "/revision",

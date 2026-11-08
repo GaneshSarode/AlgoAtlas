@@ -14,3 +14,6 @@ Task 11: complete (commits 8799a2b, Contest Tracker, Rating progression chart, r
 Task 12: complete (commits 3900558, tests: npx vitest run src/services/platformAdapters/__tests__/codeforcesAdapter.test.ts -> 3 passed, Codeforces & AtCoder public adapters)
 Task 13: complete (commits 1f57e90, tests: npx vitest run src/services/__tests__/exportService.test.ts -> 4 passed, Recharts visual analytics & data portability)
 Task 14: complete (commits 3b049ba, Executive Dashboard with dynamic overall stats, platform stats, learning intelligence, habit heatmap)
+Task 15: complete (commits 7253957, Settings page, profile targets, language preferences, backup & restore)
+Task 16: complete (Playwright E2E browser tests: 9/9 passed; Vitest unit tests: 29/29 passed in 6 test suites)
+Task 17: complete (Production build: 17/17 routes compiled, README.md, docs/ARCHITECTURE.md, docs/DATABASE_SCHEMA.md, docs/PLATFORM_INTEGRATIONS.md, .env.example)

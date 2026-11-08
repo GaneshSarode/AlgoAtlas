@@ -9,7 +9,6 @@ import {
   Repeat,
   Trophy,
   BrainCircuit,
-  Map,
   Sparkles,
   BarChart3,
   Calendar,
