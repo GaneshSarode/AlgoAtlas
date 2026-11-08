@@ -13,3 +13,4 @@ Task 10: complete (commits d199348, tests: npx vitest run src/services/__tests__
 Task 11: complete (commits 8799a2b, Contest Tracker, Rating progression chart, retrospective reflections)
 Task 12: complete (commits 3900558, tests: npx vitest run src/services/platformAdapters/__tests__/codeforcesAdapter.test.ts -> 3 passed, Codeforces & AtCoder public adapters)
 Task 13: complete (commits 1f57e90, tests: npx vitest run src/services/__tests__/exportService.test.ts -> 4 passed, Recharts visual analytics & data portability)
+Task 14: complete (commits 3b049ba, Executive Dashboard with dynamic overall stats, platform stats, learning intelligence, habit heatmap)
