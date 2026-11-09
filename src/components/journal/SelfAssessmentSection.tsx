@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { CheckSquare, Star, Award, ShieldAlert } from "lucide-react";
+import { Star, Award } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/ui/card";
 import type { Problem } from "@/types";
 
@@ -45,9 +45,9 @@ export function SelfAssessmentSection({
   ];
 
   return (
-    <Card className="border-[#1f2433]">
-      <CardHeader className="py-3 px-4 border-b border-[#1f2433]">
-        <CardTitle className="text-sm flex items-center gap-2">
+    <Card className="border-[#232323] bg-[#141414]">
+      <CardHeader className="py-3 px-4 border-b border-[#232323]">
+        <CardTitle className="text-sm flex items-center gap-2 text-white">
           <Award className="w-4 h-4 text-emerald-400" />
           5. Self-Assessment & Mastery Evaluation
         </CardTitle>
@@ -58,13 +58,13 @@ export function SelfAssessmentSection({
           {questions.map((q) => (
             <label
               key={q.id}
-              className="flex items-center gap-3 p-2.5 rounded-lg bg-[#161a26] border border-[#23293a] text-xs text-gray-200 cursor-pointer hover:border-[#333b54] transition-colors"
+              className="flex items-center gap-3 p-3 rounded-lg bg-[#181818] border border-[#262626] text-xs text-neutral-200 cursor-pointer hover:border-neutral-600 transition-colors"
             >
               <input
                 type="checkbox"
                 checked={q.checked}
                 onChange={(e) => q.onChange(e.target.checked)}
-                className="rounded bg-[#1b2030] border-[#2c344d] text-brand-500 focus:ring-0 w-4 h-4"
+                className="rounded bg-[#1f1f1f] border-neutral-700 text-white accent-white focus:ring-0 w-4 h-4"
               />
               <span>{q.label}</span>
             </label>
@@ -72,7 +72,7 @@ export function SelfAssessmentSection({
         </div>
 
         {/* Overall Confidence Slider / Buttons */}
-        <div className="p-3.5 rounded-lg bg-[#141724] border border-[#242b3d] space-y-2">
+        <div className="p-4 rounded-lg bg-[#181818] border border-[#262626] space-y-3">
           <div className="flex items-center justify-between text-xs">
             <span className="font-semibold text-white flex items-center gap-1.5">
               <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
@@ -91,8 +91,8 @@ export function SelfAssessmentSection({
                 onClick={() => onUpdateProblem({ confidence_rating: lvl })}
                 className={`flex-1 py-1.5 rounded-md text-xs font-semibold transition-all border ${
                   problem.confidence_rating === lvl
-                    ? "bg-brand-600 text-white border-brand-500 shadow-sm"
-                    : "bg-[#191d2a] text-gray-400 border-[#282f42] hover:text-white"
+                    ? "bg-white text-neutral-900 border-white shadow-sm"
+                    : "bg-[#141414] text-neutral-400 border-[#262626] hover:text-white hover:border-neutral-600"
                 }`}
               >
                 {lvl} {lvl === 1 ? "(Low)" : lvl === 5 ? "(Mastered)" : ""}
@@ -100,7 +100,7 @@ export function SelfAssessmentSection({
             ))}
           </div>
 
-          <p className="text-[11px] text-gray-400 pt-1">
+          <p className="text-[11px] text-neutral-400 pt-1">
             {problem.confidence_rating <= 2
               ? "Recommended for immediate spaced repetition revision within 24-48 hours."
               : problem.confidence_rating >= 4

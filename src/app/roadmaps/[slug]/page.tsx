@@ -6,17 +6,15 @@ import Link from "next/link";
 import {
   ArrowLeft,
   Map as MapIcon,
-  CheckCircle2,
   ChevronDown,
   ChevronUp,
-  Sparkles,
 } from "lucide-react";
 import { RoadmapProgressBar } from "@/components/roadmaps/RoadmapProgressBar";
 import { RoadmapItemRow } from "@/components/roadmaps/RoadmapItemRow";
 import { ROADMAP_METADATA, ROADMAP_SECTIONS_NEETCODE } from "@/services/roadmapData";
 import { getDbRepository } from "@/lib/db/repository";
 import { slugify } from "@/lib/utils";
-import type { Roadmap, RoadmapItem, Problem } from "@/types";
+import type { RoadmapItem, Problem } from "@/types";
 
 export default function RoadmapDetailPage() {
   const params = useParams();
@@ -159,22 +157,22 @@ export default function RoadmapDetailPage() {
         <div className="flex items-center gap-3">
           <Link
             href="/roadmaps"
-            className="p-2 rounded-lg bg-[#181b26] border border-[#272e42] text-gray-400 hover:text-white transition-colors"
+            className="p-2 rounded-lg bg-[#181818] border border-[#262626] text-neutral-400 hover:text-white transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
           </Link>
           <div>
             <h1 className="text-2xl font-bold text-white flex items-center gap-2">
-              <MapIcon className="w-6 h-6 text-brand-400" />
+              <MapIcon className="w-6 h-6 text-neutral-400" />
               {metadata.title}
             </h1>
-            <p className="text-xs text-gray-400 mt-0.5">{metadata.description}</p>
+            <p className="text-xs text-neutral-400 mt-0.5">{metadata.description}</p>
           </div>
         </div>
       </div>
 
       {/* Progress Bar Card */}
-      <div className="p-5 rounded-xl bg-[#12141e] border border-[#1f2433]">
+      <div className="p-5 rounded-xl bg-[#141414] border border-[#232323]">
         <RoadmapProgressBar
           completed={completedCount}
           total={allItems.length || metadata.total_problems}
@@ -186,7 +184,7 @@ export default function RoadmapDetailPage() {
 
       {/* Sections & Items */}
       {isLoading ? (
-        <div className="py-20 text-center text-xs text-gray-500 animate-pulse">
+        <div className="py-20 text-center text-xs text-neutral-500 animate-pulse">
           Loading roadmap sheet...
         </div>
       ) : (
@@ -198,15 +196,15 @@ export default function RoadmapDetailPage() {
             return (
               <div
                 key={secName}
-                className="rounded-xl border border-[#1f2433] bg-[#12141d] overflow-hidden"
+                className="rounded-xl border border-[#232323] bg-[#141414] overflow-hidden"
               >
                 <div
                   onClick={() => toggleSection(secName)}
-                  className="flex items-center justify-between p-4 bg-[#161a26] cursor-pointer hover:bg-[#1a1f2e] transition-colors"
+                  className="flex items-center justify-between p-4 bg-[#1a1a1a] cursor-pointer hover:bg-[#202020] transition-colors"
                 >
                   <div className="flex items-center gap-2.5">
                     <h3 className="text-sm font-semibold text-white">{secName}</h3>
-                    <span className="text-xs text-gray-400 font-mono">
+                    <span className="text-xs text-neutral-400 font-mono">
                       ({secCompleted} / {items.length})
                     </span>
                   </div>
@@ -218,9 +216,9 @@ export default function RoadmapDetailPage() {
                       </span>
                     )}
                     {isCollapsed ? (
-                      <ChevronDown className="w-4 h-4 text-gray-400" />
+                      <ChevronDown className="w-4 h-4 text-neutral-400" />
                     ) : (
-                      <ChevronUp className="w-4 h-4 text-gray-400" />
+                      <ChevronUp className="w-4 h-4 text-neutral-400" />
                     )}
                   </div>
                 </div>

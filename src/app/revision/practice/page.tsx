@@ -6,13 +6,9 @@ import Link from "next/link";
 import {
   ArrowLeft,
   Eye,
-  CheckCircle2,
-  AlertCircle,
-  HelpCircle,
   Sparkles,
   ExternalLink,
   Brain,
-  Code,
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/ui/card";
 import { Badge } from "@/ui/badge";
@@ -81,8 +77,8 @@ function RevisionPracticeContent() {
     return (
       <div className="py-20 text-center space-y-3">
         <h2 className="text-base font-semibold text-white">No Revision Selected</h2>
-        <p className="text-xs text-gray-400">Select a problem from your revision queue to begin.</p>
-        <Link href="/revision" className="text-xs text-brand-400 hover:underline">
+        <p className="text-xs text-neutral-400">Select a problem from your revision queue to begin.</p>
+        <Link href="/revision" className="text-xs text-neutral-300 hover:text-white underline">
           ← Back to Revision Centre
         </Link>
       </div>
@@ -96,19 +92,19 @@ function RevisionPracticeContent() {
           <Sparkles className="w-8 h-8" />
         </div>
         <h2 className="text-xl font-bold text-white">Revision Session Complete!</h2>
-        <p className="text-xs text-gray-400">
+        <p className="text-xs text-neutral-400">
           You've reviewed your pending queue. All recall outcomes have been saved and intervals updated.
         </p>
         <div className="flex justify-center gap-3 pt-2">
           <Link
             href="/revision"
-            className="px-4 py-2 rounded-lg bg-[#181b26] border border-[#272f44] text-xs font-semibold text-gray-200 hover:text-white"
+            className="px-4 py-2 rounded-lg bg-[#181818] border border-[#2a2a2a] text-xs font-semibold text-neutral-200 hover:text-white"
           >
             Revision Queue
           </Link>
           <Link
             href="/"
-            className="px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-500 text-xs font-semibold text-white"
+            className="px-4 py-2 rounded-lg bg-white hover:bg-neutral-200 text-xs font-semibold text-neutral-950"
           >
             Back to Dashboard
           </Link>
@@ -120,22 +116,22 @@ function RevisionPracticeContent() {
   return (
     <div className="max-w-3xl mx-auto space-y-6 pb-12">
       {/* Top Bar with Exit */}
-      <div className="flex items-center justify-between pb-3 border-b border-[#1f2433]">
+      <div className="flex items-center justify-between pb-3 border-b border-[#232323]">
         <Link
           href="/revision"
-          className="flex items-center gap-1.5 text-xs text-gray-400 hover:text-white transition-colors"
+          className="flex items-center gap-1.5 text-xs text-neutral-400 hover:text-white transition-colors"
         >
           <ArrowLeft className="w-4 h-4" /> Exit Revision Mode
         </Link>
-        <span className="text-xs font-mono text-purple-400 font-semibold tracking-wider uppercase">
+        <span className="text-xs font-mono text-neutral-400 font-semibold tracking-wider uppercase">
           Focus Revision Mode
         </span>
       </div>
 
       {/* Problem Challenge Card */}
-      <div className="p-6 rounded-2xl bg-[#12141e] border border-[#1f2433] space-y-4 text-center">
+      <div className="p-6 rounded-2xl bg-[#141414] border border-[#232323] space-y-4 text-center">
         <div className="flex items-center justify-center gap-2">
-          <span className="text-xs font-mono px-2 py-0.5 rounded bg-[#1c2132] text-gray-300 border border-[#2b334c]">
+          <span className="text-xs font-mono px-2 py-0.5 rounded bg-[#1e1e1e] text-neutral-300 border border-[#2a2a2a]">
             {problem.platform}
           </span>
           <Badge
@@ -149,7 +145,7 @@ function RevisionPracticeContent() {
           >
             {problem.difficulty}
           </Badge>
-          <span className="text-xs text-gray-400 font-medium">
+          <span className="text-xs text-neutral-400 font-medium">
             {problem.primary_topic || "General"}
           </span>
         </div>
@@ -162,38 +158,38 @@ function RevisionPracticeContent() {
           href={problem.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-1 text-xs text-brand-400 hover:underline"
+          className="inline-flex items-center gap-1 text-xs text-neutral-300 hover:text-white hover:underline"
         >
           View original problem on {problem.platform} <ExternalLink className="w-3 h-3" />
         </a>
       </div>
 
       {/* Active Recall Prompts */}
-      <Card className="border-[#1f2433]">
-        <CardHeader className="py-3 px-4">
+      <Card className="border-[#232323] bg-[#141414]">
+        <CardHeader className="py-3 px-4 border-b border-[#232323]">
           <CardTitle className="text-sm flex items-center gap-2">
-            <Brain className="w-4 h-4 text-brand-400" />
+            <Brain className="w-4 h-4 text-neutral-400" />
             Active Recall Self-Test
           </CardTitle>
         </CardHeader>
-        <CardContent className="p-4 space-y-2.5 text-xs text-gray-300">
-          <p className="text-gray-400 pb-1">
+        <CardContent className="p-4 space-y-2.5 text-xs text-neutral-300">
+          <p className="text-neutral-400 pb-1">
             Before revealing your notes, mentally answer these four questions:
           </p>
           <div className="flex items-start gap-2">
-            <span className="text-brand-400 font-bold">1.</span>
+            <span className="text-white font-bold">1.</span>
             <span>Can you identify the underlying algorithmic pattern or data structure?</span>
           </div>
           <div className="flex items-start gap-2">
-            <span className="text-brand-400 font-bold">2.</span>
+            <span className="text-white font-bold">2.</span>
             <span>Can you explain the main intuition and why brute force is suboptimal?</span>
           </div>
           <div className="flex items-start gap-2">
-            <span className="text-brand-400 font-bold">3.</span>
+            <span className="text-white font-bold">3.</span>
             <span>Can you outline the step-by-step algorithm and edge cases from memory?</span>
           </div>
           <div className="flex items-start gap-2">
-            <span className="text-brand-400 font-bold">4.</span>
+            <span className="text-white font-bold">4.</span>
             <span>What are the optimal Time & Space complexities?</span>
           </div>
         </CardContent>
@@ -205,7 +201,7 @@ function RevisionPracticeContent() {
           <Button
             size="lg"
             onClick={() => setRevealed(true)}
-            className="bg-brand-600 hover:bg-brand-500 text-white font-semibold shadow-md shadow-brand-600/30 gap-2"
+            className="bg-white hover:bg-neutral-200 text-neutral-950 font-semibold shadow-md gap-2"
           >
             <Eye className="w-4 h-4" />
             <span>Reveal Saved Notes & Optimal Solution</span>
@@ -215,10 +211,10 @@ function RevisionPracticeContent() {
         /* Revealed Content & Self-Scoring */
         <div className="space-y-6 animate-in fade-in duration-200">
           {/* Saved Notes Card */}
-          <Card className="border-purple-900/40 bg-[#12141e]">
-            <CardHeader className="py-3 px-4 bg-purple-950/20 border-b border-purple-900/30">
-              <CardTitle className="text-sm text-purple-300 flex items-center gap-2">
-                <Sparkles className="w-4 h-4" />
+          <Card className="border-[#232323] bg-[#141414]">
+            <CardHeader className="py-3 px-4 bg-[#181818] border-b border-[#232323]">
+              <CardTitle className="text-sm text-neutral-200 flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-neutral-400" />
                 Your Stored Learning Notes & Intuition
               </CardTitle>
             </CardHeader>
@@ -228,14 +224,14 @@ function RevisionPracticeContent() {
                   <span className="font-bold text-amber-400 text-[11px] uppercase tracking-wider block mb-0.5">
                     Key Observation:
                   </span>
-                  <p className="text-gray-200 italic bg-[#0d0f17] p-2.5 rounded border border-[#202538]">
+                  <p className="text-neutral-200 italic bg-[#0f0f0f] p-2.5 rounded border border-[#242424]">
                     "{learningNote.key_observation}"
                   </p>
                 </div>
               )}
 
               {optimalApproach && (
-                <div className="space-y-2 pt-2 border-t border-[#1f2433]">
+                <div className="space-y-2 pt-2 border-t border-[#232323]">
                   <div className="flex items-center justify-between">
                     <span className="font-bold text-emerald-400 text-[11px] uppercase tracking-wider">
                       Optimal Approach: {optimalApproach.title}
@@ -244,14 +240,14 @@ function RevisionPracticeContent() {
                       Time: {optimalApproach.time_complexity} | Space: {optimalApproach.space_complexity}
                     </span>
                   </div>
-                  <p className="text-gray-300">{optimalApproach.intuition}</p>
+                  <p className="text-neutral-300">{optimalApproach.intuition}</p>
 
                   {optimalApproach.code && (
                     <div className="pt-2">
-                      <span className="text-gray-400 text-[11px] font-semibold block mb-1">
+                      <span className="text-neutral-400 text-[11px] font-semibold block mb-1">
                         Code Snippet ({optimalApproach.language}):
                       </span>
-                      <pre className="p-3 bg-[#0a0c13] text-gray-200 rounded-lg font-mono text-[11px] overflow-x-auto leading-relaxed border border-[#202538]">
+                      <pre className="p-3 bg-[#0a0a0a] text-neutral-200 rounded-lg font-mono text-[11px] overflow-x-auto leading-relaxed border border-[#242424]">
                         <code>{optimalApproach.code}</code>
                       </pre>
                     </div>
@@ -260,22 +256,22 @@ function RevisionPracticeContent() {
               )}
 
               {learningNote?.mistakes_to_avoid && (
-                <div className="pt-2 border-t border-[#1f2433]">
+                <div className="pt-2 border-t border-[#232323]">
                   <span className="font-bold text-rose-400 text-[11px] uppercase tracking-wider block mb-0.5">
                     Mistake to Avoid:
                   </span>
-                  <p className="text-gray-300">{learningNote.mistakes_to_avoid}</p>
+                  <p className="text-neutral-300">{learningNote.mistakes_to_avoid}</p>
                 </div>
               )}
             </CardContent>
           </Card>
 
           {/* Grade Recall Performance Buttons */}
-          <div className="p-5 rounded-2xl bg-[#12141e] border border-[#23293a] space-y-3">
+          <div className="p-5 rounded-2xl bg-[#141414] border border-[#232323] space-y-3">
             <h3 className="text-sm font-bold text-white text-center">
               How did your active recall compare to your notes?
             </h3>
-            <p className="text-[11px] text-gray-400 text-center">
+            <p className="text-[11px] text-neutral-400 text-center">
               Select an honest rating. The spaced repetition algorithm will calculate the next optimal review interval.
             </p>
 
@@ -307,7 +303,7 @@ function RevisionPracticeContent() {
                 size="sm"
                 disabled={isSubmitting}
                 onClick={() => handleGradeRecall("Partial Recall")}
-                className="flex-col h-auto py-2.5 text-center text-xs border-indigo-800/60 text-indigo-300 hover:bg-indigo-950/40"
+                className="flex-col h-auto py-2.5 text-center text-xs border-neutral-700 text-neutral-300 hover:bg-neutral-850"
               >
                 <span className="font-bold">Partial Recall</span>
                 <span className="text-[10px] opacity-80">1.5x interval</span>
@@ -328,7 +324,7 @@ function RevisionPracticeContent() {
                 size="sm"
                 disabled={isSubmitting}
                 onClick={() => handleGradeRecall("Mastered")}
-                className="flex-col h-auto py-2.5 text-center text-xs bg-purple-700 hover:bg-purple-600 text-white col-span-2 sm:col-span-1"
+                className="flex-col h-auto py-2.5 text-center text-xs bg-neutral-800 hover:bg-neutral-700 text-white border border-neutral-700 col-span-2 sm:col-span-1"
               >
                 <span className="font-bold">Mastered (90d)</span>
                 <span className="text-[10px] opacity-80">Pattern mastered</span>
@@ -345,7 +341,7 @@ export default function RevisionPracticePage() {
   return (
     <Suspense
       fallback={
-        <div className="py-20 text-center text-xs text-gray-500 animate-pulse">
+        <div className="py-20 text-center text-xs text-neutral-500 animate-pulse">
           Loading revision workspace...
         </div>
       }

@@ -9,7 +9,6 @@ import {
   Map,
   ArrowRight,
   Clock,
-  CheckCircle,
 } from "lucide-react";
 import { Card, CardContent } from "@/ui/card";
 import { Badge } from "@/ui/badge";
@@ -36,7 +35,7 @@ export function RecommendationCard({ item }: RecommendationCardProps) {
         );
       case "WEAK_TOPIC":
         return (
-          <Badge variant="purple" className="text-[10px] flex items-center gap-1">
+          <Badge variant="default" className="text-[10px] flex items-center gap-1 bg-neutral-800 text-neutral-300 border-neutral-700">
             <Sparkles className="w-3 h-3" /> Priority 3: Weak Topic
           </Badge>
         );
@@ -56,11 +55,11 @@ export function RecommendationCard({ item }: RecommendationCardProps) {
   };
 
   return (
-    <Card className="bg-[#12141e] border-[#1e2333] hover:border-[#323b54] transition-all">
+    <Card className="bg-[#141414] border-[#232323] hover:border-[#383838] transition-all">
       <CardContent className="p-5 space-y-3">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
           {getBadge()}
-          <span className="flex items-center gap-1 text-[11px] text-gray-500 font-mono">
+          <span className="flex items-center gap-1 text-[11px] text-neutral-500 font-mono">
             <Clock className="w-3 h-3" /> ~{item.estimatedMinutes} mins
           </span>
         </div>
@@ -69,23 +68,23 @@ export function RecommendationCard({ item }: RecommendationCardProps) {
           <h3 className="text-base font-bold text-white tracking-tight">
             {item.title}
           </h3>
-          <p className="text-xs text-gray-400 mt-0.5">{item.subtitle}</p>
+          <p className="text-xs text-neutral-400 mt-0.5">{item.subtitle}</p>
         </div>
 
         {/* Explicit Actionable Reason */}
-        <div className="p-3 rounded-lg bg-[#0e1017] border border-[#1b1f2e] text-xs">
-          <span className="text-[10px] font-bold uppercase tracking-wider text-purple-400 block mb-1">
+        <div className="p-3 rounded-lg bg-[#0f0f0f] border border-[#232323] text-xs">
+          <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 block mb-1">
             Why this is recommended for you:
           </span>
-          <p className="text-gray-300 italic font-medium leading-relaxed">
+          <p className="text-neutral-300 italic font-medium leading-relaxed">
             "{item.reason}"
           </p>
         </div>
 
-        <div className="flex justify-end pt-2 border-t border-[#1c2132]">
+        <div className="flex justify-end pt-2 border-t border-[#232323]">
           <Link
             href={item.actionUrl}
-            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-brand-600 hover:bg-brand-500 text-white font-semibold text-xs transition-colors shadow-sm shadow-brand-600/30"
+            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-white hover:bg-neutral-200 text-neutral-950 font-semibold text-xs transition-colors shadow-sm"
           >
             <span>{item.actionText}</span>
             <ArrowRight className="w-3.5 h-3.5" />

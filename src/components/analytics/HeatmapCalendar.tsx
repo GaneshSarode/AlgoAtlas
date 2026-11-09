@@ -39,11 +39,11 @@ export function HeatmapCalendar({ activities }: HeatmapCalendarProps) {
   }
 
   const getColor = (count: number) => {
-    if (count === 0) return "bg-zinc-900 border-white/[0.04]";
+    if (count === 0) return "bg-neutral-900 border-[#242424]";
     if (count === 1) return "bg-emerald-950/80 border-emerald-800/40 text-emerald-300";
     if (count === 2) return "bg-emerald-700/80 border-emerald-500/50 text-emerald-200";
     if (count >= 3) return "bg-emerald-500 border-emerald-400 text-emerald-100 shadow-[0_0_6px_rgba(52,211,153,0.4)]";
-    return "bg-zinc-900 border-white/[0.04]";
+    return "bg-neutral-900 border-[#242424]";
   };
 
   const totalSolvedInPeriod = activities.reduce((sum, a) => sum + (a.problems_solved || 0), 0);

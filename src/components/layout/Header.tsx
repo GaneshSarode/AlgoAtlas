@@ -98,7 +98,7 @@ export function Header({ onMobileOpen, onOpenAddModal }: HeaderProps) {
 
   return (
     <>
-      <header className="h-14 border-b border-white/[0.07] bg-[#090b10]/80 backdrop-blur-xl sticky top-0 z-20 flex items-center justify-between px-4 sm:px-6">
+      <header className="h-14 border-b border-[#222222] bg-[#111111]/90 backdrop-blur-xl sticky top-0 z-20 flex items-center justify-between px-4 sm:px-6">
         <div className="flex items-center gap-3">
           <button
             onClick={onMobileOpen}
@@ -175,7 +175,7 @@ export function Header({ onMobileOpen, onOpenAddModal }: HeaderProps) {
               onChange={(e) => handleSearch(e.target.value)}
               placeholder="Search problems, topics, algorithms (e.g. Two Sum, Dynamic Programming)..."
               autoFocus
-              className="w-full bg-zinc-900 border border-white/[0.12] rounded-lg pl-9 pr-3 py-2 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-indigo-500 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]"
+              className="w-full bg-neutral-900 border border-white/[0.12] rounded-lg pl-9 pr-3 py-2 text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-white/30 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]"
             />
           </div>
 

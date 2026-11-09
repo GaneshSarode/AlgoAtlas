@@ -22,33 +22,33 @@ export function RoadmapProgressBar({
   return (
     <div className="space-y-2">
       <div className="flex items-center justify-between text-xs">
-        <span className="text-gray-300 font-medium">
+        <span className="text-neutral-300 font-medium">
           Completion: <strong className="text-white">{completed}</strong> / {total} problems
         </span>
-        <span className="font-mono font-bold text-brand-400">{percent}%</span>
+        <span className="font-mono font-bold text-white">{percent}%</span>
       </div>
 
       {/* Progress Bar */}
-      <div className="w-full h-2.5 rounded-full bg-[#1b2030] overflow-hidden border border-[#252c42]">
+      <div className="w-full h-2.5 rounded-full bg-[#242424] overflow-hidden border border-[#2a2a2a]">
         <div
-          className="h-full bg-gradient-to-r from-brand-600 via-indigo-500 to-emerald-400 transition-all duration-500 rounded-full"
+          className="h-full bg-emerald-500 transition-all duration-500 rounded-full"
           style={{ width: `${percent}%` }}
         />
       </div>
 
       {/* Difficulty Breakdown */}
-      <div className="flex items-center gap-4 text-[11px] text-gray-400 pt-0.5">
+      <div className="flex items-center gap-4 text-[11px] text-neutral-400 pt-0.5">
         <span className="flex items-center gap-1.5">
           <span className="w-2 h-2 rounded-full bg-emerald-400" />
-          Easy: <strong className="text-gray-200">{easyCount}</strong>
+          Easy: <strong className="text-neutral-200">{easyCount}</strong>
         </span>
         <span className="flex items-center gap-1.5">
           <span className="w-2 h-2 rounded-full bg-amber-400" />
-          Medium: <strong className="text-gray-200">{mediumCount}</strong>
+          Medium: <strong className="text-neutral-200">{mediumCount}</strong>
         </span>
         <span className="flex items-center gap-1.5">
           <span className="w-2 h-2 rounded-full bg-rose-400" />
-          Hard: <strong className="text-gray-200">{hardCount}</strong>
+          Hard: <strong className="text-neutral-200">{hardCount}</strong>
         </span>
       </div>
     </div>

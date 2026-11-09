@@ -28,7 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`dark ${inter.variable} ${jetbrainsMono.variable}`}>
-      <body className="antialiased font-sans bg-[#090b10] text-[#e4e4e7] min-h-screen selection:bg-indigo-500/20 selection:text-indigo-200">
+      <body className="antialiased font-sans bg-[#0f0f0f] text-[#f0f0f0] min-h-screen selection:bg-neutral-800 selection:text-white">
         <AppShell>{children}</AppShell>
       </body>
     </html>

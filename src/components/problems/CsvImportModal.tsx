@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Upload, FileText, CheckCircle, AlertCircle } from "lucide-react";
+import { Upload, CheckCircle, AlertCircle } from "lucide-react";
 import { Dialog } from "@/ui/dialog";
 import { Button } from "@/ui/button";
 import { getDbRepository } from "@/lib/db/repository";
@@ -154,6 +154,7 @@ Subarray Sum Equals K,LeetCode,https://leetcode.com/problems/subarray-sum-equals
                 onClose();
               }}
               size="sm"
+              className="bg-white hover:bg-neutral-200 text-neutral-950 font-semibold"
             >
               Done
             </Button>
@@ -161,21 +162,21 @@ Subarray Sum Equals K,LeetCode,https://leetcode.com/problems/subarray-sum-equals
         ) : (
           <>
             <div>
-              <label className="block text-xs font-semibold text-gray-300 mb-1.5 flex items-center gap-1.5">
-                <Upload className="w-3.5 h-3.5 text-brand-400" />
+              <label className="block text-xs font-semibold text-neutral-300 mb-1.5 flex items-center gap-1.5">
+                <Upload className="w-3.5 h-3.5 text-neutral-400" />
                 Select CSV File
               </label>
               <input
                 type="file"
                 accept=".csv"
                 onChange={handleFileUpload}
-                className="w-full text-xs text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-brand-600 file:text-white hover:file:bg-brand-500 cursor-pointer"
+                className="w-full text-xs text-neutral-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-neutral-800 file:text-white hover:file:bg-neutral-700 cursor-pointer"
               />
             </div>
 
             <div>
               <div className="flex items-center justify-between mb-1.5">
-                <label className="text-xs font-semibold text-gray-300">
+                <label className="text-xs font-semibold text-neutral-300">
                   Or Paste Raw CSV Text
                 </label>
                 <button
@@ -184,7 +185,7 @@ Subarray Sum Equals K,LeetCode,https://leetcode.com/problems/subarray-sum-equals
                     setCsvContent(sampleCsv);
                     parseCsv(sampleCsv);
                   }}
-                  className="text-[11px] text-brand-400 hover:text-brand-300 underline"
+                  className="text-[11px] text-neutral-400 hover:text-white underline"
                 >
                   Load Sample CSV
                 </button>
@@ -197,7 +198,7 @@ Subarray Sum Equals K,LeetCode,https://leetcode.com/problems/subarray-sum-equals
                   parseCsv(e.target.value);
                 }}
                 placeholder="title,platform,url,difficulty,topic,status"
-                className="w-full bg-[#171b28] border border-[#282f45] rounded-lg p-3 text-xs font-mono text-white placeholder-gray-500 focus:outline-none focus:border-brand-500"
+                className="w-full bg-[#181818] border border-[#262626] rounded-lg p-3 text-xs font-mono text-white placeholder-neutral-500 focus:outline-none focus:border-white/30"
               />
             </div>
 
@@ -214,12 +215,12 @@ Subarray Sum Equals K,LeetCode,https://leetcode.com/problems/subarray-sum-equals
 
             {previewRows.length > 0 && (
               <div>
-                <span className="text-xs font-semibold text-gray-300 block mb-1.5">
+                <span className="text-xs font-semibold text-neutral-300 block mb-1.5">
                   Parsed Preview ({previewRows.length} problems ready to import)
                 </span>
-                <div className="max-h-40 overflow-y-auto rounded-lg border border-[#23293a] bg-[#141724]">
-                  <table className="w-full text-left text-xs text-gray-300">
-                    <thead className="bg-[#1c2233] text-gray-400 sticky top-0">
+                <div className="max-h-40 overflow-y-auto rounded-lg border border-[#232323] bg-[#141414]">
+                  <table className="w-full text-left text-xs text-neutral-300">
+                    <thead className="bg-[#181818] text-neutral-400 sticky top-0">
                       <tr>
                         <th className="p-2">Title</th>
                         <th className="p-2">Platform</th>
@@ -227,9 +228,9 @@ Subarray Sum Equals K,LeetCode,https://leetcode.com/problems/subarray-sum-equals
                         <th className="p-2">Topic</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-[#23293a]">
+                    <tbody className="divide-y divide-[#232323]">
                       {previewRows.map((r, idx) => (
-                        <tr key={idx} className="hover:bg-[#1a1f2e]">
+                        <tr key={idx} className="hover:bg-[#1a1a1a]">
                           <td className="p-2 font-medium text-white">{r.title}</td>
                           <td className="p-2">{r.platform}</td>
                           <td className="p-2">{r.difficulty}</td>
@@ -242,7 +243,7 @@ Subarray Sum Equals K,LeetCode,https://leetcode.com/problems/subarray-sum-equals
               </div>
             )}
 
-            <div className="flex items-center justify-end gap-3 pt-3 border-t border-[#1f2433]">
+            <div className="flex items-center justify-end gap-3 pt-3 border-t border-[#232323]">
               <Button type="button" variant="outline" onClick={onClose} size="sm">
                 Cancel
               </Button>
@@ -251,7 +252,7 @@ Subarray Sum Equals K,LeetCode,https://leetcode.com/problems/subarray-sum-equals
                 onClick={handleImport}
                 size="sm"
                 disabled={previewRows.length === 0 || isImporting}
-                className="bg-brand-600 hover:bg-brand-500"
+                className="bg-white hover:bg-neutral-200 text-neutral-950 font-semibold shadow-sm"
               >
                 {isImporting ? "Importing..." : `Import ${previewRows.length} Problems`}
               </Button>

@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { BrainCircuit, Search, Sparkles } from "lucide-react";
+import { BrainCircuit, Search } from "lucide-react";
 import { ConceptCard } from "@/components/concepts/ConceptCard";
 import { getDbRepository } from "@/lib/db/repository";
-import type { Topic, TopicMastery, ConceptCategory } from "@/types";
+import type { Topic, TopicMastery } from "@/types";
 
 export default function ConceptVaultPage() {
   const [topics, setTopics] = useState<Topic[]>([]);
@@ -47,16 +47,16 @@ export default function ConceptVaultPage() {
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-bold tracking-tight text-white flex items-center gap-2.5">
-          <BrainCircuit className="w-6 h-6 text-purple-400" />
+          <BrainCircuit className="w-6 h-6 text-neutral-400" />
           Concept Vault — Personal DSA Knowledge Base
         </h1>
-        <p className="text-xs text-gray-400 mt-1">
+        <p className="text-xs text-neutral-400 mt-1">
           Study definitions, algorithmic intuitions, code templates, when-to-use criteria, and prerequisite flows.
         </p>
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 bg-[#12141d] border border-[#1f2433] rounded-xl p-3.5">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 bg-[#141414] border border-[#232323] rounded-xl p-3.5">
         <div className="flex items-center gap-1.5 overflow-x-auto w-full sm:w-auto pb-1 sm:pb-0">
           {categories.map((cat) => (
             <button
@@ -64,8 +64,8 @@ export default function ConceptVaultPage() {
               onClick={() => setSelectedCategory(cat)}
               className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors shrink-0 ${
                 selectedCategory === cat
-                  ? "bg-brand-600 text-white shadow-sm"
-                  : "bg-[#181b26] text-gray-400 hover:text-white border border-[#272f44]"
+                  ? "bg-white text-neutral-950 font-semibold shadow-sm"
+                  : "bg-[#181818] text-neutral-400 hover:text-white border border-[#262626]"
               }`}
             >
               {cat}
@@ -74,20 +74,20 @@ export default function ConceptVaultPage() {
         </div>
 
         <div className="relative w-full sm:w-72">
-          <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-gray-400" />
+          <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-neutral-400" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search concepts or patterns..."
-            className="w-full bg-[#181b26] border border-[#272f44] rounded-lg pl-9 pr-3 py-1.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-brand-500"
+            className="w-full bg-[#181818] border border-[#262626] rounded-lg pl-9 pr-3 py-1.5 text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-white/30"
           />
         </div>
       </div>
 
       {/* Grid of Concept Cards */}
       {isLoading ? (
-        <div className="py-20 text-center text-xs text-gray-500 animate-pulse">
+        <div className="py-20 text-center text-xs text-neutral-500 animate-pulse">
           Loading concepts...
         </div>
       ) : filteredTopics.length > 0 ? (
@@ -101,7 +101,7 @@ export default function ConceptVaultPage() {
           ))}
         </div>
       ) : (
-        <div className="text-center py-12 bg-[#12141d] rounded-xl border border-[#23293a] text-xs text-gray-400">
+        <div className="text-center py-12 bg-[#141414] rounded-xl border border-[#232323] text-xs text-neutral-400">
           No concepts matched your search.
         </div>
       )}

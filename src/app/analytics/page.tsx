@@ -4,12 +4,9 @@ import React, { useState, useEffect } from "react";
 import {
   BarChart3,
   Download,
-  Calendar,
   Layers,
-  Sparkles,
   PieChart as PieIcon,
   Star,
-  CheckCircle2,
 } from "lucide-react";
 import { Button } from "@/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/ui/card";
@@ -17,7 +14,7 @@ import { HeatmapCalendar } from "@/components/analytics/HeatmapCalendar";
 import { DifficultyPieChart } from "@/components/analytics/DifficultyPieChart";
 import { TopicBarChart } from "@/components/analytics/TopicBarChart";
 import { ConfidenceDistributionChart } from "@/components/analytics/ConfidenceDistributionChart";
-import { serializeBackupJson, generateProblemsCsv } from "@/services/exportService";
+import { generateProblemsCsv } from "@/services/exportService";
 import { getDbRepository } from "@/lib/db/repository";
 import type { Problem, TopicMastery, UserActivity, OverallStats } from "@/types";
 
@@ -79,10 +76,10 @@ export default function AnalyticsPage() {
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold tracking-tight text-white flex items-center gap-2.5">
-            <BarChart3 className="w-6 h-6 text-brand-400" />
+            <BarChart3 className="w-6 h-6 text-neutral-400" />
             Analytics & Reports
           </h1>
-          <p className="text-xs text-gray-400 mt-1">
+          <p className="text-xs text-neutral-400 mt-1">
             Real metrics calculated from your database records. Measure true problem-solving mastery and habit consistency.
           </p>
         </div>
@@ -101,7 +98,7 @@ export default function AnalyticsPage() {
           <Button
             size="sm"
             onClick={handleExportJson}
-            className="bg-brand-600 hover:bg-brand-500 text-xs flex items-center gap-1.5 shadow-sm shadow-brand-600/30"
+            className="bg-white hover:bg-neutral-200 text-neutral-950 font-semibold text-xs flex items-center gap-1.5 shadow-sm"
           >
             <Download className="w-3.5 h-3.5" />
             <span>Full JSON Backup</span>
@@ -111,41 +108,41 @@ export default function AnalyticsPage() {
 
       {/* Metrics Row */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div className="p-4 rounded-xl bg-[#12141e] border border-[#1e2333]">
-          <span className="text-xs text-gray-400">Total Problems</span>
+        <div className="p-4 rounded-xl bg-[#141414] border border-[#232323]">
+          <span className="text-xs text-neutral-400">Total Problems</span>
           <span className="text-2xl font-bold text-white mt-1 block font-mono">
             {stats?.total_problems || 0}
           </span>
-          <span className="text-[10px] text-gray-500">In central vault</span>
+          <span className="text-[10px] text-neutral-500">In central vault</span>
         </div>
 
-        <div className="p-4 rounded-xl bg-[#12141e] border border-[#1e2333]">
+        <div className="p-4 rounded-xl bg-[#141414] border border-[#232323]">
           <span className="text-xs text-emerald-300">Independent Solves</span>
           <span className="text-2xl font-bold text-emerald-400 mt-1 block font-mono">
             {stats?.independently_solved || 0}
           </span>
-          <span className="text-[10px] text-gray-500">No hints or editorial</span>
+          <span className="text-[10px] text-neutral-500">No hints or editorial</span>
         </div>
 
-        <div className="p-4 rounded-xl bg-[#12141e] border border-[#1e2333]">
+        <div className="p-4 rounded-xl bg-[#141414] border border-[#232323]">
           <span className="text-xs text-amber-300">Solved With Hints</span>
           <span className="text-2xl font-bold text-amber-400 mt-1 block font-mono">
             {stats?.solved_with_hint || 0}
           </span>
-          <span className="text-[10px] text-gray-500">Target for recall</span>
+          <span className="text-[10px] text-neutral-500">Target for recall</span>
         </div>
 
-        <div className="p-4 rounded-xl bg-[#12141e] border border-[#1e2333]">
-          <span className="text-xs text-brand-300">Practice Time</span>
-          <span className="text-2xl font-bold text-brand-400 mt-1 block font-mono">
+        <div className="p-4 rounded-xl bg-[#141414] border border-[#232323]">
+          <span className="text-xs text-neutral-300">Practice Time</span>
+          <span className="text-2xl font-bold text-white mt-1 block font-mono">
             {Math.round((stats?.total_practice_time_minutes || 0) / 60)}h
           </span>
-          <span className="text-[10px] text-gray-500">Deliberate problem solving</span>
+          <span className="text-[10px] text-neutral-500">Deliberate problem solving</span>
         </div>
       </div>
 
       {/* Heatmap Contribution Calendar */}
-      <Card className="border-[#1f2433] bg-[#12141e]">
+      <Card className="border-[#232323] bg-[#141414]">
         <CardContent className="p-5">
           <HeatmapCalendar activities={activities} />
         </CardContent>
@@ -154,8 +151,8 @@ export default function AnalyticsPage() {
       {/* Charts Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {/* Difficulty Distribution */}
-        <Card className="border-[#1f2433] bg-[#12141e]">
-          <CardHeader className="py-4 px-5 border-b border-[#1f2433]">
+        <Card className="border-[#232323] bg-[#141414]">
+          <CardHeader className="py-4 px-5 border-b border-[#232323]">
             <CardTitle className="text-sm flex items-center gap-2">
               <PieIcon className="w-4 h-4 text-emerald-400" />
               Difficulty Distribution
@@ -171,10 +168,10 @@ export default function AnalyticsPage() {
         </Card>
 
         {/* Topic Breakdown Bar Chart */}
-        <Card className="border-[#1f2433] bg-[#12141e]">
-          <CardHeader className="py-4 px-5 border-b border-[#1f2433]">
+        <Card className="border-[#232323] bg-[#141414]">
+          <CardHeader className="py-4 px-5 border-b border-[#232323]">
             <CardTitle className="text-sm flex items-center gap-2">
-              <Layers className="w-4 h-4 text-brand-400" />
+              <Layers className="w-4 h-4 text-neutral-400" />
               Topic Problem Solves
             </CardTitle>
           </CardHeader>
@@ -184,8 +181,8 @@ export default function AnalyticsPage() {
         </Card>
 
         {/* Confidence Rating Bar Chart */}
-        <Card className="border-[#1f2433] bg-[#12141e]">
-          <CardHeader className="py-4 px-5 border-b border-[#1f2433]">
+        <Card className="border-[#232323] bg-[#141414]">
+          <CardHeader className="py-4 px-5 border-b border-[#232323]">
             <CardTitle className="text-sm flex items-center gap-2">
               <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
               Confidence Distribution

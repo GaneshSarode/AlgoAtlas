@@ -10,8 +10,6 @@ import {
   Sparkles,
   Play,
 } from "lucide-react";
-import { Button } from "@/ui/button";
-import { Badge } from "@/ui/badge";
 import { RevisionQueueCard } from "@/components/revision/RevisionQueueCard";
 import { partitionRevisions } from "@/services/revisionEngine";
 import { getDbRepository } from "@/lib/db/repository";
@@ -48,10 +46,10 @@ export default function RevisionCentrePage() {
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold tracking-tight text-white flex items-center gap-2.5">
-            <Repeat className="w-6 h-6 text-brand-400" />
+            <Repeat className="w-6 h-6 text-neutral-400" />
             Spaced Repetition Revision Centre
           </h1>
-          <p className="text-xs text-gray-400 mt-1">
+          <p className="text-xs text-neutral-400 mt-1">
             Scientifically spaced intervals (1d → 3d → 7d → 14d → 30d) designed to eliminate pattern decay and build long-term muscle memory.
           </p>
         </div>
@@ -59,9 +57,9 @@ export default function RevisionCentrePage() {
         {(todayQueue.length > 0 || overdueQueue.length > 0) && (
           <Link
             href={`/revision/practice?problemId=${(overdueQueue[0] || todayQueue[0])?.problem_id}`}
-            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-brand-600 hover:bg-brand-500 text-white font-semibold text-xs transition-colors shadow-sm shadow-brand-600/30"
+            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white hover:bg-neutral-200 text-neutral-950 font-semibold text-xs transition-colors shadow-sm"
           >
-            <Play className="w-4 h-4 fill-white" />
+            <Play className="w-4 h-4 fill-neutral-950" />
             <span>Start Revision Session ({overdueQueue.length + todayQueue.length} Due)</span>
           </Link>
         )}
@@ -73,8 +71,8 @@ export default function RevisionCentrePage() {
           onClick={() => setActiveTab("overdue")}
           className={`p-4 rounded-xl border cursor-pointer transition-all ${
             activeTab === "overdue"
-              ? "bg-[#1f1318] border-rose-600 shadow-md shadow-rose-950/40"
-              : "bg-[#141217] border-rose-900/40 hover:border-rose-800"
+              ? "bg-[#1a1111] border-rose-600 shadow-md shadow-rose-950/40"
+              : "bg-[#141414] border-rose-900/40 hover:border-rose-800"
           }`}
         >
           <div className="flex items-center justify-between">
@@ -91,36 +89,36 @@ export default function RevisionCentrePage() {
           onClick={() => setActiveTab("today")}
           className={`p-4 rounded-xl border cursor-pointer transition-all ${
             activeTab === "today"
-              ? "bg-[#1a1c2b] border-brand-500 shadow-md shadow-brand-950/40"
-              : "bg-[#12141e] border-[#1e2333] hover:border-[#2f3852]"
+              ? "bg-[#1e1e1e] border-white/40 shadow-md"
+              : "bg-[#141414] border-[#232323] hover:border-[#333333]"
           }`}
         >
           <div className="flex items-center justify-between">
-            <span className="text-xs text-brand-300 font-medium">Due Today</span>
-            <Repeat className="w-4 h-4 text-brand-400" />
+            <span className="text-xs text-neutral-300 font-medium">Due Today</span>
+            <Repeat className="w-4 h-4 text-neutral-400" />
           </div>
           <span className="text-2xl font-bold text-white mt-2 block font-mono">
             {todayQueue.length}
           </span>
-          <span className="text-[10px] text-gray-400">Scheduled for today</span>
+          <span className="text-[10px] text-neutral-400">Scheduled for today</span>
         </div>
 
         <div
           onClick={() => setActiveTab("upcoming")}
           className={`p-4 rounded-xl border cursor-pointer transition-all ${
             activeTab === "upcoming"
-              ? "bg-[#1a1c2b] border-indigo-500 shadow-md"
-              : "bg-[#12141e] border-[#1e2333] hover:border-[#2f3852]"
+              ? "bg-[#1e1e1e] border-white/40 shadow-md"
+              : "bg-[#141414] border-[#232323] hover:border-[#333333]"
           }`}
         >
           <div className="flex items-center justify-between">
-            <span className="text-xs text-indigo-300 font-medium">Upcoming</span>
-            <Calendar className="w-4 h-4 text-indigo-400" />
+            <span className="text-xs text-neutral-300 font-medium">Upcoming</span>
+            <Calendar className="w-4 h-4 text-neutral-400" />
           </div>
-          <span className="text-2xl font-bold text-gray-200 mt-2 block font-mono">
+          <span className="text-2xl font-bold text-neutral-200 mt-2 block font-mono">
             {upcomingQueue.length}
           </span>
-          <span className="text-[10px] text-gray-400">Scheduled later</span>
+          <span className="text-[10px] text-neutral-400">Scheduled later</span>
         </div>
 
         <div
@@ -128,7 +126,7 @@ export default function RevisionCentrePage() {
           className={`p-4 rounded-xl border cursor-pointer transition-all ${
             activeTab === "mastered"
               ? "bg-[#111c18] border-emerald-500 shadow-md"
-              : "bg-[#12141e] border-[#1e2333] hover:border-[#2f3852]"
+              : "bg-[#141414] border-[#232323] hover:border-[#333333]"
           }`}
         >
           <div className="flex items-center justify-between">
@@ -138,7 +136,7 @@ export default function RevisionCentrePage() {
           <span className="text-2xl font-bold text-emerald-400 mt-2 block font-mono">
             {masteredQueue.length}
           </span>
-          <span className="text-[10px] text-gray-400">Long-term memory</span>
+          <span className="text-[10px] text-neutral-400">Long-term memory</span>
         </div>
       </div>
 
@@ -152,7 +150,7 @@ export default function RevisionCentrePage() {
               </h2>
             </div>
             {overdueQueue.length === 0 ? (
-              <div className="text-center py-12 bg-[#12141d] rounded-xl border border-[#1f2433] text-xs text-emerald-400 flex flex-col items-center gap-2">
+              <div className="text-center py-12 bg-[#141414] rounded-xl border border-[#232323] text-xs text-emerald-400 flex flex-col items-center gap-2">
                 <CheckCircle2 className="w-8 h-8 text-emerald-400" />
                 <span>Zero overdue revisions! You are completely up to date.</span>
               </div>
@@ -170,12 +168,12 @@ export default function RevisionCentrePage() {
           <div>
             <div className="flex items-center justify-between mb-3">
               <h2 className="text-sm font-semibold text-white flex items-center gap-1.5">
-                <Repeat className="w-4 h-4 text-brand-400" /> Today's Revision Queue ({todayQueue.length})
+                <Repeat className="w-4 h-4 text-neutral-400" /> Today's Revision Queue ({todayQueue.length})
               </h2>
             </div>
             {todayQueue.length === 0 ? (
-              <div className="text-center py-12 bg-[#12141d] rounded-xl border border-[#1f2433] text-xs text-gray-400 flex flex-col items-center gap-2">
-                <Sparkles className="w-8 h-8 text-brand-400" />
+              <div className="text-center py-12 bg-[#141414] rounded-xl border border-[#232323] text-xs text-neutral-400 flex flex-col items-center gap-2">
+                <Sparkles className="w-8 h-8 text-neutral-400" />
                 <span>No problems scheduled specifically for today. Check upcoming or overdue tabs.</span>
               </div>
             ) : (
@@ -191,12 +189,12 @@ export default function RevisionCentrePage() {
         {activeTab === "upcoming" && (
           <div>
             <div className="flex items-center justify-between mb-3">
-              <h2 className="text-sm font-semibold text-indigo-300 flex items-center gap-1.5">
-                <Calendar className="w-4 h-4 text-indigo-400" /> Upcoming Revisions ({upcomingQueue.length})
+              <h2 className="text-sm font-semibold text-neutral-300 flex items-center gap-1.5">
+                <Calendar className="w-4 h-4 text-neutral-400" /> Upcoming Revisions ({upcomingQueue.length})
               </h2>
             </div>
             {upcomingQueue.length === 0 ? (
-              <div className="text-center py-12 bg-[#12141d] rounded-xl border border-[#1f2433] text-xs text-gray-400">
+              <div className="text-center py-12 bg-[#141414] rounded-xl border border-[#232323] text-xs text-neutral-400">
                 No upcoming revisions scheduled.
               </div>
             ) : (
@@ -217,7 +215,7 @@ export default function RevisionCentrePage() {
               </h2>
             </div>
             {masteredQueue.length === 0 ? (
-              <div className="text-center py-12 bg-[#12141d] rounded-xl border border-[#1f2433] text-xs text-gray-400">
+              <div className="text-center py-12 bg-[#141414] rounded-xl border border-[#232323] text-xs text-neutral-400">
                 No questions marked Mastered yet. Consistent independent recalls will graduate questions here.
               </div>
             ) : (

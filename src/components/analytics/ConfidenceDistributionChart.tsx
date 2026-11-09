@@ -24,7 +24,7 @@ export function ConfidenceDistributionChart({ problems }: ConfidenceDistribution
     counts[star - 1]++;
   });
 
-  const colors = ["#ef4444", "#f97316", "#f59e0b", "#10b981", "#8b5cf6"];
+  const colors = ["#ef4444", "#f97316", "#f59e0b", "#34d399", "#10b981"];
 
   const data = [
     { label: "1 Star", count: counts[0], color: colors[0] },
@@ -38,15 +38,15 @@ export function ConfidenceDistributionChart({ problems }: ConfidenceDistribution
     <div className="h-56 w-full pt-2">
       <ResponsiveContainer width="100%" height="100%">
         <BarChart data={data} margin={{ top: 10, right: 10, left: -20, bottom: 5 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#1f2538" vertical={false} />
-          <XAxis dataKey="label" stroke="#6b7280" fontSize={11} tickLine={false} />
-          <YAxis stroke="#6b7280" fontSize={11} tickLine={false} />
+          <CartesianGrid strokeDasharray="3 3" stroke="#262626" vertical={false} />
+          <XAxis dataKey="label" stroke="#737373" fontSize={11} tickLine={false} />
+          <YAxis stroke="#737373" fontSize={11} tickLine={false} />
           <Tooltip
             content={({ active, payload }) => {
               if (active && payload && payload.length) {
                 const item = payload[0].payload;
                 return (
-                  <div className="bg-[#12141e] border border-[#2b334d] px-3 py-1.5 rounded-lg shadow-xl text-xs">
+                  <div className="bg-[#141414] border border-[#2a2a2a] px-3 py-1.5 rounded-lg shadow-xl text-xs">
                     <p className="font-semibold text-white">
                       {item.label}: <span className="font-mono font-bold text-amber-400">{item.count} questions</span>
                     </p>

@@ -1,11 +1,10 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import Link from "next/link";
 import {
   ArrowLeft,
-  BrainCircuit,
   CheckCircle2,
   XCircle,
   Copy,
@@ -13,7 +12,6 @@ import {
   Code,
   AlertTriangle,
   FolderCode,
-  ExternalLink,
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/ui/card";
 import { Badge } from "@/ui/badge";
@@ -25,15 +23,14 @@ import type { Topic, TopicMastery, Problem } from "@/types";
 
 export default function ConceptDetailPage() {
   const params = useParams();
-  const router = useRouter();
   const slug = params?.slug as string;
 
-  const [topic, setTopic] = useState<Topic | null>(null);
+  const [, setTopic] = useState<Topic | null>(null);
   const [mastery, setMastery] = useState<TopicMastery | null>(null);
   const [masteryMap, setMasteryMap] = useState<Map<string, TopicMastery>>(new Map());
   const [relatedProblems, setRelatedProblems] = useState<Problem[]>([]);
   const [copiedCode, setCopiedCode] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const [, setIsLoading] = useState(true);
 
   const detailed = DETAILED_CONCEPTS[slug] || {
     id: `t-${slug}`,
@@ -85,7 +82,7 @@ export default function ConceptDetailPage() {
       setIsLoading(false);
     }
     loadData();
-  }, [slug]);
+  }, [slug, detailed.name]);
 
   const handleCopy = () => {
     navigator.clipboard.writeText(detailed.codeTemplate);
@@ -100,17 +97,17 @@ export default function ConceptDetailPage() {
         <div className="flex items-center gap-3">
           <Link
             href="/concepts"
-            className="p-2 rounded-lg bg-[#181b26] border border-[#272e42] text-gray-400 hover:text-white transition-colors"
+            className="p-2 rounded-lg bg-[#141414] border border-[#232323] text-neutral-400 hover:text-white transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
           </Link>
           <div>
             <div className="flex items-center gap-2">
-              <span className="text-[10px] uppercase font-bold tracking-wider text-purple-400">
+              <span className="text-[10px] uppercase font-bold tracking-wider text-neutral-400">
                 {detailed.category}
               </span>
               {mastery && (
-                <Badge variant="purple">{mastery.learning_status}</Badge>
+                <Badge variant="outline">{mastery.learning_status}</Badge>
               )}
             </div>
             <h1 className="text-2xl font-bold text-white capitalize mt-0.5">
@@ -119,7 +116,7 @@ export default function ConceptDetailPage() {
           </div>
         </div>
 
-        <div className="text-xs text-gray-400">
+        <div className="text-xs text-neutral-400">
           <strong className="text-emerald-400 font-semibold">{relatedProblems.length}</strong> problems logged in vault
         </div>
       </div>
@@ -134,42 +131,42 @@ export default function ConceptDetailPage() {
 
       {/* Definition & Mental Model */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <Card>
-          <CardHeader className="py-3 px-4">
-            <CardTitle className="text-sm">Definition & Core Concept</CardTitle>
+        <Card className="border-[#232323] bg-[#141414]">
+          <CardHeader className="py-3 px-4 border-b border-[#232323]">
+            <CardTitle className="text-sm text-white">Definition & Core Concept</CardTitle>
           </CardHeader>
           <CardContent className="p-4 space-y-2">
-            <p className="text-xs text-gray-300 leading-relaxed">
+            <p className="text-xs text-neutral-300 leading-relaxed">
               {detailed.definition}
             </p>
-            <div className="pt-2 border-t border-[#1f2433]">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-gray-500 block mb-1">
+            <div className="pt-2 border-t border-[#232323]">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-500 block mb-1">
                 How It Works:
               </span>
-              <p className="text-xs text-gray-400 leading-relaxed">
+              <p className="text-xs text-neutral-400 leading-relaxed">
                 {detailed.howItWorks}
               </p>
             </div>
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader className="py-3 px-4">
-            <CardTitle className="text-sm">Intuition & Mental Model</CardTitle>
+        <Card className="border-[#232323] bg-[#141414]">
+          <CardHeader className="py-3 px-4 border-b border-[#232323]">
+            <CardTitle className="text-sm text-white">Intuition & Mental Model</CardTitle>
           </CardHeader>
           <CardContent className="p-4 space-y-3">
-            <p className="text-xs text-amber-300/90 italic bg-amber-950/20 border border-amber-900/40 p-3 rounded-lg leading-relaxed">
+            <p className="text-xs text-neutral-200 italic bg-[#181818] border border-[#262626] p-3 rounded-lg leading-relaxed">
               "{detailed.intuition}"
             </p>
 
             <div className="grid grid-cols-2 gap-2 text-xs pt-1">
-              <div className="p-2.5 rounded-lg bg-[#151926] border border-[#232a3d]">
-                <span className="text-[10px] text-gray-400 block font-semibold">Time Complexity</span>
+              <div className="p-2.5 rounded-lg bg-[#181818] border border-[#262626]">
+                <span className="text-[10px] text-neutral-400 block font-semibold">Time Complexity</span>
                 <span className="font-mono text-emerald-400 text-xs">{detailed.timeComplexity}</span>
               </div>
-              <div className="p-2.5 rounded-lg bg-[#151926] border border-[#232a3d]">
-                <span className="text-[10px] text-gray-400 block font-semibold">Space Complexity</span>
-                <span className="font-mono text-indigo-400 text-xs">{detailed.spaceComplexity}</span>
+              <div className="p-2.5 rounded-lg bg-[#181818] border border-[#262626]">
+                <span className="text-[10px] text-neutral-400 block font-semibold">Space Complexity</span>
+                <span className="font-mono text-neutral-300 text-xs">{detailed.spaceComplexity}</span>
               </div>
             </div>
           </CardContent>
@@ -178,7 +175,7 @@ export default function ConceptDetailPage() {
 
       {/* When to Use vs When Not to Use */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <Card className="border-emerald-900/30">
+        <Card className="border-emerald-900/30 bg-[#141414]">
           <CardHeader className="py-3 px-4 bg-emerald-950/20 border-b border-emerald-900/30">
             <CardTitle className="text-sm text-emerald-400 flex items-center gap-1.5">
               <CheckCircle2 className="w-4 h-4" /> When to Use
@@ -186,7 +183,7 @@ export default function ConceptDetailPage() {
           </CardHeader>
           <CardContent className="p-4 space-y-2">
             {detailed.whenToUse.map((item, idx) => (
-              <div key={idx} className="flex items-start gap-2 text-xs text-gray-300">
+              <div key={idx} className="flex items-start gap-2 text-xs text-neutral-300">
                 <span className="text-emerald-400 font-bold shrink-0">•</span>
                 <span>{item}</span>
               </div>
@@ -194,7 +191,7 @@ export default function ConceptDetailPage() {
           </CardContent>
         </Card>
 
-        <Card className="border-rose-900/30">
+        <Card className="border-rose-900/30 bg-[#141414]">
           <CardHeader className="py-3 px-4 bg-rose-950/20 border-b border-rose-900/30">
             <CardTitle className="text-sm text-rose-400 flex items-center gap-1.5">
               <XCircle className="w-4 h-4" /> When NOT to Use / Traps
@@ -202,7 +199,7 @@ export default function ConceptDetailPage() {
           </CardHeader>
           <CardContent className="p-4 space-y-2">
             {detailed.whenNotToUse.map((item, idx) => (
-              <div key={idx} className="flex items-start gap-2 text-xs text-gray-300">
+              <div key={idx} className="flex items-start gap-2 text-xs text-neutral-300">
                 <span className="text-rose-400 font-bold shrink-0">•</span>
                 <span>{item}</span>
               </div>
@@ -212,10 +209,10 @@ export default function ConceptDetailPage() {
       </div>
 
       {/* Code Template */}
-      <Card>
-        <CardHeader className="py-3 px-4 flex flex-row items-center justify-between border-b border-[#1f2433]">
-          <CardTitle className="text-sm flex items-center gap-2">
-            <Code className="w-4 h-4 text-brand-400" />
+      <Card className="border-[#232323] bg-[#141414]">
+        <CardHeader className="py-3 px-4 flex flex-row items-center justify-between border-b border-[#232323]">
+          <CardTitle className="text-sm flex items-center gap-2 text-white">
+            <Code className="w-4 h-4 text-neutral-400" />
             Standard Code Template ({detailed.language})
           </CardTitle>
 
@@ -223,7 +220,7 @@ export default function ConceptDetailPage() {
             size="sm"
             variant="outline"
             onClick={handleCopy}
-            className="text-xs h-7 px-2.5 gap-1.5"
+            className="text-xs h-7 px-2.5 gap-1.5 border-[#262626] text-neutral-300 hover:text-white hover:bg-[#181818]"
           >
             {copiedCode ? (
               <>
@@ -239,7 +236,7 @@ export default function ConceptDetailPage() {
           </Button>
         </CardHeader>
         <CardContent className="p-0">
-          <pre className="p-4 bg-[#0a0c13] text-gray-200 text-xs font-mono overflow-x-auto leading-relaxed">
+          <pre className="p-4 bg-[#0e0e0e] text-neutral-200 text-xs font-mono overflow-x-auto leading-relaxed border-t border-[#232323]">
             <code>{detailed.codeTemplate}</code>
           </pre>
         </CardContent>
@@ -247,7 +244,7 @@ export default function ConceptDetailPage() {
 
       {/* Common Mistakes */}
       {detailed.commonMistakes && detailed.commonMistakes.length > 0 && (
-        <Card className="border-amber-900/40">
+        <Card className="border-amber-900/40 bg-[#141414]">
           <CardHeader className="py-3 px-4 bg-amber-950/20 border-b border-amber-900/30">
             <CardTitle className="text-sm text-amber-400 flex items-center gap-2">
               <AlertTriangle className="w-4 h-4" /> Common Mistakes & Gotchas
@@ -255,7 +252,7 @@ export default function ConceptDetailPage() {
           </CardHeader>
           <CardContent className="p-4 space-y-2">
             {detailed.commonMistakes.map((m, idx) => (
-              <div key={idx} className="flex items-start gap-2 text-xs text-gray-300">
+              <div key={idx} className="flex items-start gap-2 text-xs text-neutral-300">
                 <span className="text-amber-400 font-bold shrink-0">⚠</span>
                 <span>{m}</span>
               </div>
@@ -265,30 +262,30 @@ export default function ConceptDetailPage() {
       )}
 
       {/* Related Problems in Vault */}
-      <Card>
-        <CardHeader className="py-3 px-4 border-b border-[#1f2433]">
-          <CardTitle className="text-sm flex items-center gap-2">
-            <FolderCode className="w-4 h-4 text-brand-400" />
+      <Card className="border-[#232323] bg-[#141414]">
+        <CardHeader className="py-3 px-4 border-b border-[#232323]">
+          <CardTitle className="text-sm flex items-center gap-2 text-white">
+            <FolderCode className="w-4 h-4 text-neutral-400" />
             Problems in Your Vault for "{detailed.name}" ({relatedProblems.length})
           </CardTitle>
         </CardHeader>
         <CardContent className="p-4">
           {relatedProblems.length === 0 ? (
-            <p className="text-xs text-gray-500 py-3 text-center">
+            <p className="text-xs text-neutral-500 py-3 text-center">
               No problems logged under this topic yet. Add questions to your vault to track mastery.
             </p>
           ) : (
-            <div className="divide-y divide-[#1f2433]">
+            <div className="divide-y divide-[#232323]">
               {relatedProblems.map((p) => (
                 <div
                   key={p.id}
-                  className="py-2.5 flex items-center justify-between text-xs hover:bg-[#151926] px-2 rounded transition-colors"
+                  className="py-2.5 flex items-center justify-between text-xs hover:bg-[#181818] px-2 rounded transition-colors"
                 >
                   <div className="flex items-center gap-2">
-                    <span className="font-mono text-gray-400">{p.platform}</span>
+                    <span className="font-mono text-neutral-400">{p.platform}</span>
                     <Link
                       href={`/problems/${p.id}`}
-                      className="font-semibold text-white hover:text-brand-400 transition-colors"
+                      className="font-semibold text-white hover:text-neutral-300 transition-colors"
                     >
                       {p.title}
                     </Link>

@@ -1,11 +1,10 @@
 "use client";
 
 import React, { useState } from "react";
-import { Trophy, Calendar, Plus, Award } from "lucide-react";
 import { Dialog } from "@/ui/dialog";
 import { Button } from "@/ui/button";
 import { getDbRepository } from "@/lib/db/repository";
-import type { PlatformType, ContestResult } from "@/types";
+import type { PlatformType } from "@/types";
 
 export interface ContestModalProps {
   isOpen: boolean;
@@ -80,13 +79,13 @@ export function ContestModal({ isOpen, onClose, onContestAdded }: ContestModalPr
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
-            <label className="block text-xs font-semibold text-gray-300 mb-1">
+            <label className="block text-xs font-semibold text-neutral-300 mb-1">
               Platform
             </label>
             <select
               value={platform}
               onChange={(e) => setPlatform(e.target.value as PlatformType)}
-              className="w-full bg-[#171b28] border border-[#262d40] rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-500"
+              className="w-full bg-[#181818] border border-[#262626] rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-white/30"
             >
               <option value="Codeforces">Codeforces</option>
               <option value="AtCoder">AtCoder</option>
@@ -97,7 +96,7 @@ export function ContestModal({ isOpen, onClose, onContestAdded }: ContestModalPr
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-gray-300 mb-1">
+            <label className="block text-xs font-semibold text-neutral-300 mb-1">
               Contest Date
             </label>
             <input
@@ -105,13 +104,13 @@ export function ContestModal({ isOpen, onClose, onContestAdded }: ContestModalPr
               required
               value={contestDate}
               onChange={(e) => setContestDate(e.target.value)}
-              className="w-full bg-[#171b28] border border-[#262d40] rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-500"
+              className="w-full bg-[#181818] border border-[#262626] rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-white/30"
             />
           </div>
         </div>
 
         <div>
-          <label className="block text-xs font-semibold text-gray-300 mb-1">
+          <label className="block text-xs font-semibold text-neutral-300 mb-1">
             Contest Name
           </label>
           <input
@@ -120,13 +119,13 @@ export function ContestModal({ isOpen, onClose, onContestAdded }: ContestModalPr
             value={contestName}
             onChange={(e) => setContestName(e.target.value)}
             placeholder="e.g. Codeforces Round 912 (Div. 2) or LeetCode Biweekly 120"
-            className="w-full bg-[#171b28] border border-[#262d40] rounded-lg px-3.5 py-2 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-brand-500"
+            className="w-full bg-[#181818] border border-[#262626] rounded-lg px-3.5 py-2 text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-white/30"
           />
         </div>
 
         <div className="grid grid-cols-3 gap-3">
           <div>
-            <label className="block text-xs font-semibold text-gray-300 mb-1">
+            <label className="block text-xs font-semibold text-neutral-300 mb-1">
               Participation
             </label>
             <select
@@ -134,7 +133,7 @@ export function ContestModal({ isOpen, onClose, onContestAdded }: ContestModalPr
               onChange={(e) =>
                 setParticipationType(e.target.value as "Live" | "Virtual" | "Practice")
               }
-              className="w-full bg-[#171b28] border border-[#262d40] rounded-lg px-2.5 py-2 text-xs text-white focus:outline-none"
+              className="w-full bg-[#181818] border border-[#262626] rounded-lg px-2.5 py-2 text-xs text-white focus:outline-none"
             >
               <option value="Live">Live</option>
               <option value="Virtual">Virtual</option>
@@ -143,7 +142,7 @@ export function ContestModal({ isOpen, onClose, onContestAdded }: ContestModalPr
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-gray-300 mb-1">
+            <label className="block text-xs font-semibold text-neutral-300 mb-1">
               Rank
             </label>
             <input
@@ -151,12 +150,12 @@ export function ContestModal({ isOpen, onClose, onContestAdded }: ContestModalPr
               value={rank}
               onChange={(e) => setRank(e.target.value === "" ? "" : Number(e.target.value))}
               placeholder="e.g. 1420"
-              className="w-full bg-[#171b28] border border-[#262d40] rounded-lg px-3 py-2 text-xs text-white focus:outline-none"
+              className="w-full bg-[#181818] border border-[#262626] rounded-lg px-3 py-2 text-xs text-white focus:outline-none"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-gray-300 mb-1">
+            <label className="block text-xs font-semibold text-neutral-300 mb-1">
               Solved / Attempted
             </label>
             <div className="flex items-center gap-1.5">
@@ -165,24 +164,24 @@ export function ContestModal({ isOpen, onClose, onContestAdded }: ContestModalPr
                 min={0}
                 value={solved}
                 onChange={(e) => setSolved(Number(e.target.value))}
-                className="w-full bg-[#171b28] border border-[#262d40] rounded px-2 py-2 text-xs text-white text-center"
+                className="w-full bg-[#181818] border border-[#262626] rounded px-2 py-2 text-xs text-white text-center"
               />
-              <span className="text-gray-500">/</span>
+              <span className="text-neutral-500">/</span>
               <input
                 type="number"
                 min={0}
                 value={attempted}
                 onChange={(e) => setAttempted(Number(e.target.value))}
-                className="w-full bg-[#171b28] border border-[#262d40] rounded px-2 py-2 text-xs text-white text-center"
+                className="w-full bg-[#181818] border border-[#262626] rounded px-2 py-2 text-xs text-white text-center"
               />
             </div>
           </div>
         </div>
 
         {/* Rating Inputs */}
-        <div className="grid grid-cols-3 gap-3 pt-1 border-t border-[#1f2433]">
+        <div className="grid grid-cols-3 gap-3 pt-1 border-t border-[#232323]">
           <div>
-            <label className="block text-xs font-semibold text-gray-300 mb-1">
+            <label className="block text-xs font-semibold text-neutral-300 mb-1">
               Rating Before
             </label>
             <input
@@ -192,12 +191,12 @@ export function ContestModal({ isOpen, onClose, onContestAdded }: ContestModalPr
                 setRatingBefore(e.target.value === "" ? "" : Number(e.target.value))
               }
               placeholder="e.g. 1580"
-              className="w-full bg-[#171b28] border border-[#262d40] rounded-lg px-3 py-2 text-xs text-white focus:outline-none font-mono"
+              className="w-full bg-[#181818] border border-[#262626] rounded-lg px-3 py-2 text-xs text-white focus:outline-none font-mono"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-gray-300 mb-1">
+            <label className="block text-xs font-semibold text-neutral-300 mb-1">
               Rating After
             </label>
             <input
@@ -207,15 +206,15 @@ export function ContestModal({ isOpen, onClose, onContestAdded }: ContestModalPr
                 setRatingAfter(e.target.value === "" ? "" : Number(e.target.value))
               }
               placeholder="e.g. 1625"
-              className="w-full bg-[#171b28] border border-[#262d40] rounded-lg px-3 py-2 text-xs text-white focus:outline-none font-mono"
+              className="w-full bg-[#181818] border border-[#262626] rounded-lg px-3 py-2 text-xs text-white focus:outline-none font-mono"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-gray-300 mb-1">
+            <label className="block text-xs font-semibold text-neutral-300 mb-1">
               Rating Change
             </label>
-            <div className="h-9 px-3 flex items-center bg-[#151824] border border-[#262d40] rounded-lg font-mono text-xs font-bold">
+            <div className="h-9 px-3 flex items-center bg-[#141414] border border-[#262626] rounded-lg font-mono text-xs font-bold">
               {ratingBefore !== "" && ratingAfter !== "" ? (
                 Number(ratingAfter) - Number(ratingBefore) >= 0 ? (
                   <span className="text-emerald-400">
@@ -227,16 +226,16 @@ export function ContestModal({ isOpen, onClose, onContestAdded }: ContestModalPr
                   </span>
                 )
               ) : (
-                <span className="text-gray-500">—</span>
+                <span className="text-neutral-500">—</span>
               )}
             </div>
           </div>
         </div>
 
         {/* Reflection Fields */}
-        <div className="space-y-2 pt-1 border-t border-[#1f2433]">
+        <div className="space-y-2 pt-1 border-t border-[#232323]">
           <div>
-            <label className="block text-xs font-semibold text-gray-300 mb-1">
+            <label className="block text-xs font-semibold text-neutral-300 mb-1">
               What went well during this contest?
             </label>
             <input
@@ -244,12 +243,12 @@ export function ContestModal({ isOpen, onClose, onContestAdded }: ContestModalPr
               value={reflectionGood}
               onChange={(e) => setReflectionGood(e.target.value)}
               placeholder="e.g. Solved A and B within 20 mins without penalty"
-              className="w-full bg-[#171b28] border border-[#262d40] rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none"
+              className="w-full bg-[#181818] border border-[#262626] rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-gray-300 mb-1">
+            <label className="block text-xs font-semibold text-neutral-300 mb-1">
               Which problem was missed & why?
             </label>
             <input
@@ -257,12 +256,12 @@ export function ContestModal({ isOpen, onClose, onContestAdded }: ContestModalPr
               value={reflectionUnsolved}
               onChange={(e) => setReflectionUnsolved(e.target.value)}
               placeholder="e.g. Got stuck on Problem C due to missing modular arithmetic property"
-              className="w-full bg-[#171b28] border border-[#262d40] rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none"
+              className="w-full bg-[#181818] border border-[#262626] rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none"
             />
           </div>
         </div>
 
-        <div className="flex items-center justify-end gap-3 pt-3 border-t border-[#1f2433]">
+        <div className="flex items-center justify-end gap-3 pt-3 border-t border-[#232323]">
           <Button type="button" variant="outline" size="sm" onClick={onClose}>
             Cancel
           </Button>
@@ -270,7 +269,7 @@ export function ContestModal({ isOpen, onClose, onContestAdded }: ContestModalPr
             type="submit"
             size="sm"
             disabled={isSubmitting || !contestName.trim()}
-            className="bg-brand-600 hover:bg-brand-500"
+            className="bg-white hover:bg-neutral-200 text-neutral-950 font-semibold"
           >
             {isSubmitting ? "Saving..." : "Save Contest Log"}
           </Button>

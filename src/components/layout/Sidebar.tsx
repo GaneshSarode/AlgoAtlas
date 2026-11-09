@@ -98,22 +98,22 @@ export function Sidebar({ isMobileOpen = false, onMobileClose, onOpenAddModal }:
   const content = (
     <div
       className={cn(
-        "flex flex-col h-full bg-[#090b10] border-r border-white/[0.07] transition-all duration-200 select-none",
+        "flex flex-col h-full bg-[#111111] border-r border-[#222222] transition-all duration-200 select-none",
         isCollapsed ? "w-[68px]" : "w-[240px]"
       )}
     >
       {/* Brand Header */}
-      <div className="flex items-center justify-between h-14 px-3.5 border-b border-white/[0.06]">
+      <div className="flex items-center justify-between h-14 px-3.5 border-b border-[#222222]">
         <Link href="/" className="flex items-center gap-2.5 overflow-hidden group">
-          <div className="w-7 h-7 rounded-md bg-zinc-900 border border-white/[0.12] flex items-center justify-center text-zinc-100 shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] group-hover:border-white/[0.2] transition-colors shrink-0">
-            <Terminal className="w-3.5 h-3.5 text-zinc-200" />
+          <div className="w-7 h-7 rounded-md bg-neutral-900 border border-white/[0.12] flex items-center justify-center text-neutral-100 shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] group-hover:border-white/[0.2] transition-colors shrink-0">
+            <Terminal className="w-3.5 h-3.5 text-neutral-200" />
           </div>
           {!isCollapsed && (
             <div className="flex flex-col text-left">
               <span className="font-semibold text-xs tracking-tight text-white leading-none">
                 AlgoAtlas
               </span>
-              <span className="text-[10px] text-zinc-500 font-mono tracking-tight mt-0.5">
+              <span className="text-[10px] text-neutral-500 font-mono tracking-tight mt-0.5">
                 v1.0 • prod
               </span>
             </div>
@@ -121,7 +121,7 @@ export function Sidebar({ isMobileOpen = false, onMobileClose, onOpenAddModal }:
         </Link>
         <button
           onClick={() => setIsCollapsed(!isCollapsed)}
-          className="hidden md:flex p-1 rounded-md text-zinc-500 hover:text-zinc-200 hover:bg-white/[0.04] transition-colors"
+          className="hidden md:flex p-1 rounded-md text-neutral-500 hover:text-neutral-200 hover:bg-white/[0.04] transition-colors"
           title={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
         >
           {isCollapsed ? <ChevronRight className="w-3.5 h-3.5" /> : <ChevronLeft className="w-3.5 h-3.5" />}
@@ -129,11 +129,11 @@ export function Sidebar({ isMobileOpen = false, onMobileClose, onOpenAddModal }:
       </div>
 
       {/* Quick Problem Capture Button */}
-      <div className="p-2.5 border-b border-white/[0.06]">
+      <div className="p-2.5 border-b border-[#222222]">
         <button
           onClick={onOpenAddModal}
           className={cn(
-            "w-full flex items-center justify-center gap-1.5 rounded-lg bg-white hover:bg-zinc-200 text-zinc-950 font-semibold text-xs py-1.5 px-3 transition-all duration-150 shadow-[0_1px_2px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.7)] active:scale-[0.98]",
+            "w-full flex items-center justify-center gap-1.5 rounded-lg bg-white hover:bg-neutral-200 text-neutral-950 font-semibold text-xs py-1.5 px-3 transition-all duration-150 shadow-[0_1px_2px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.7)] active:scale-[0.98]",
             isCollapsed && "p-1.5"
           )}
           title="Add New Problem"
@@ -175,12 +175,12 @@ export function Sidebar({ isMobileOpen = false, onMobileClose, onOpenAddModal }:
                 >
                   {/* Subtle active left bar */}
                   {isActive && (
-                    <span className="absolute left-0 top-1.5 bottom-1.5 w-[2px] bg-indigo-400 rounded-r" />
+                    <span className="absolute left-0 top-1.5 bottom-1.5 w-[2px] bg-white/80 rounded-r" />
                   )}
                   <Icon
                     className={cn(
                       "w-4 h-4 shrink-0 transition-colors",
-                      isActive ? "text-indigo-400" : "text-zinc-400 group-hover:text-zinc-200"
+                      isActive ? "text-white" : "text-neutral-400 group-hover:text-neutral-200"
                     )}
                   />
                   {!isCollapsed && <span className="truncate">{item.label}</span>}
@@ -190,7 +190,7 @@ export function Sidebar({ isMobileOpen = false, onMobileClose, onOpenAddModal }:
                         "ml-auto text-[10px] font-mono font-semibold px-1.5 py-0.2 rounded-full border",
                         item.badgeVariant === "danger"
                           ? "bg-rose-500/10 text-rose-400 border-rose-500/30"
-                          : "bg-indigo-500/10 text-indigo-300 border-indigo-500/30"
+                          : "bg-neutral-800 text-neutral-300 border-neutral-700"
                       )}
                     >
                       {item.badge}
@@ -204,15 +204,15 @@ export function Sidebar({ isMobileOpen = false, onMobileClose, onOpenAddModal }:
       </div>
 
       {/* Bottom Status Profile Info */}
-      <div className="p-2.5 border-t border-white/[0.06] bg-[#07080c]">
+      <div className="p-2.5 border-t border-[#222222] bg-[#0d0d0d]">
         <div className={cn("flex items-center gap-2.5 px-1 py-0.5", isCollapsed && "justify-center")}>
-          <div className="w-6 h-6 rounded-md bg-zinc-850 border border-white/[0.08] flex items-center justify-center text-[10px] font-mono text-zinc-300 shrink-0">
+          <div className="w-6 h-6 rounded-md bg-neutral-800 border border-white/[0.08] flex items-center justify-center text-[10px] font-mono text-neutral-300 shrink-0">
             <Activity className="w-3 h-3 text-emerald-400" />
           </div>
           {!isCollapsed && (
             <div className="flex flex-col overflow-hidden text-left leading-none">
-              <span className="text-[11px] font-medium text-zinc-300 truncate">Workspace Active</span>
-              <span className="text-[10px] font-mono text-zinc-500 mt-1">Dual-Mode Ready</span>
+              <span className="text-[11px] font-medium text-neutral-300 truncate">Workspace Active</span>
+              <span className="text-[10px] font-mono text-neutral-500 mt-1">Dual-Mode Ready</span>
             </div>
           )}
         </div>

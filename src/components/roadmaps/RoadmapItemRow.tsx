@@ -25,8 +25,8 @@ export function RoadmapItemRow({
     <div
       className={`flex items-center justify-between p-3 rounded-lg border transition-all text-xs ${
         isCompleted
-          ? "bg-[#111822]/80 border-emerald-900/30 text-gray-400"
-          : "bg-[#141724] border-[#22283a] text-gray-200 hover:border-[#2f3852]"
+          ? "bg-[#121212] border-emerald-900/30 text-neutral-400"
+          : "bg-[#141414] border-[#232323] text-neutral-200 hover:border-[#383838]"
       }`}
     >
       <div className="flex items-center gap-3">
@@ -36,7 +36,7 @@ export function RoadmapItemRow({
           className={`w-5 h-5 rounded flex items-center justify-center transition-colors border ${
             isCompleted
               ? "bg-emerald-600 border-emerald-500 text-white"
-              : "border-[#313b54] bg-[#1a1f2e] hover:border-brand-500"
+              : "border-[#333333] bg-[#1e1e1e] hover:border-white/40"
           }`}
         >
           {isCompleted && <Check className="w-3.5 h-3.5 stroke-[3]" />}
@@ -46,7 +46,7 @@ export function RoadmapItemRow({
           <div className="flex items-center gap-2">
             <span
               className={`font-semibold ${
-                isCompleted ? "line-through text-gray-500" : "text-white"
+                isCompleted ? "line-through text-neutral-500" : "text-white"
               }`}
             >
               {item.title}
@@ -55,13 +55,13 @@ export function RoadmapItemRow({
               href={item.external_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-500 hover:text-gray-300 transition-colors"
+              className="text-neutral-500 hover:text-neutral-300 transition-colors"
               title="Open problem link"
             >
               <ExternalLink className="w-3 h-3" />
             </a>
           </div>
-          <span className="text-[11px] text-gray-500">{item.platform}</span>
+          <span className="text-[11px] text-neutral-500">{item.platform}</span>
         </div>
       </div>
 
@@ -82,7 +82,7 @@ export function RoadmapItemRow({
         {vaultProblem ? (
           <Link
             href={`/problems/${vaultProblem.id}`}
-            className="flex items-center gap-1 text-[11px] text-purple-400 hover:text-purple-300 font-medium bg-purple-950/30 border border-purple-800/40 px-2 py-1 rounded"
+            className="flex items-center gap-1 text-[11px] text-neutral-300 hover:text-white font-medium bg-neutral-800 border border-[#2a2a2a] px-2 py-1 rounded"
           >
             <BookOpen className="w-3 h-3" />
             <span>Journal</span>
@@ -90,10 +90,10 @@ export function RoadmapItemRow({
         ) : (
           <button
             onClick={() => onQuickAddToVault(item)}
-            className="flex items-center gap-1 text-[11px] text-brand-400 hover:text-white bg-[#191d2c] border border-[#272f44] px-2 py-1 rounded hover:bg-brand-600 transition-colors"
+            className="flex items-center gap-1 text-[11px] text-neutral-400 hover:text-white bg-[#181818] border border-[#262626] px-2 py-1 rounded hover:bg-neutral-800 transition-colors"
             title="Add to My Problems"
           >
-            <Plus className="w-3 h-3" />
+            <Plus className="w-3.5 h-3.5" />
             <span>Vault</span>
           </button>
         )}

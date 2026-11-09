@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Sparkles, Compass, AlertTriangle, ArrowRight } from "lucide-react";
+import { Sparkles, Compass } from "lucide-react";
 import { RecommendationCard } from "@/components/recommendations/RecommendationCard";
 import { DailyLearningPlan } from "@/components/recommendations/DailyLearningPlan";
 import {
@@ -24,8 +24,6 @@ export default function RecommendationsPage() {
       const mastery = await repo.getTopicMastery();
       const prereqs = await repo.getPrerequisites();
       const problems = await repo.getProblems();
-
-      const today = new Date().toISOString().split("T")[0];
 
       // Overdue revisions input
       const overdue = revisions
@@ -97,29 +95,29 @@ export default function RecommendationsPage() {
       {/* Page Title */}
       <div>
         <h1 className="text-2xl font-bold tracking-tight text-white flex items-center gap-2.5">
-          <Compass className="w-6 h-6 text-brand-400" />
+          <Compass className="w-6 h-6 text-neutral-400" />
           What Should I Learn Next? — Learning Intelligence
         </h1>
-        <p className="text-xs text-gray-400 mt-1">
+        <p className="text-xs text-neutral-400 mt-1">
           Algorithmic recommendation engine prioritizing: Overdue Revisions → Missing Prerequisites → Weak Topics → Next Roadmap Step → Difficulty Ramp.
         </p>
       </div>
 
       {isLoading ? (
-        <div className="py-20 text-center text-xs text-gray-500 animate-pulse">
+        <div className="py-20 text-center text-xs text-neutral-500 animate-pulse">
           Analyzing your problem vault, revision schedule, and mastery gaps...
         </div>
       ) : plan ? (
         <div className="space-y-6">
           {/* Executive Diagnostic Banner */}
-          <div className="p-5 rounded-2xl bg-gradient-to-r from-brand-950/40 via-[#161a29] to-indigo-950/30 border border-brand-500/30 space-y-1.5">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-brand-400 flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5" /> Diagnostic Assessment
+          <div className="p-5 rounded-2xl bg-[#141414] border border-[#232323] space-y-1.5">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 flex items-center gap-1.5">
+              <Sparkles className="w-3.5 h-3.5 text-neutral-400" /> Diagnostic Assessment
             </span>
             <h2 className="text-lg font-bold text-white tracking-tight">
               {plan.headline}
             </h2>
-            <p className="text-xs text-gray-300">{plan.summary}</p>
+            <p className="text-xs text-neutral-300">{plan.summary}</p>
           </div>
 
           {/* Daily Learning Plan Checklist */}

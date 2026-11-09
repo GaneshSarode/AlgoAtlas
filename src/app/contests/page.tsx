@@ -5,14 +5,10 @@ import {
   Trophy,
   Plus,
   TrendingUp,
-  Calendar,
-  CheckCircle2,
-  Award,
   ChevronDown,
   ChevronUp,
 } from "lucide-react";
 import { Button } from "@/ui/button";
-import { Badge } from "@/ui/badge";
 import { Card, CardHeader, CardTitle, CardContent } from "@/ui/card";
 import { RatingProgressionChart } from "@/components/contests/RatingProgressionChart";
 import { ContestModal } from "@/components/contests/ContestModal";
@@ -53,7 +49,7 @@ export default function ContestsPage() {
             <Trophy className="w-6 h-6 text-amber-400" />
             Competitive Programming Contest Tracker
           </h1>
-          <p className="text-xs text-gray-400 mt-1">
+          <p className="text-xs text-neutral-400 mt-1">
             Track contest rank, rating changes, and post-contest reflections across Codeforces, AtCoder, and LeetCode.
           </p>
         </div>
@@ -61,7 +57,7 @@ export default function ContestsPage() {
         <Button
           onClick={() => setIsModalOpen(true)}
           size="sm"
-          className="bg-brand-600 hover:bg-brand-500 shadow-sm shadow-brand-600/30 flex items-center gap-1.5"
+          className="bg-white hover:bg-neutral-200 text-neutral-950 font-semibold shadow-sm flex items-center gap-1.5"
         >
           <Plus className="w-3.5 h-3.5" />
           <span>Log Contest</span>
@@ -70,44 +66,44 @@ export default function ContestsPage() {
 
       {/* Metrics Row */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div className="p-4 rounded-xl bg-[#12141e] border border-[#1e2333]">
-          <span className="text-xs text-gray-400">Total Contests</span>
+        <div className="p-4 rounded-xl bg-[#141414] border border-[#232323]">
+          <span className="text-xs text-neutral-400">Total Contests</span>
           <span className="text-2xl font-bold text-white mt-1 block font-mono">
             {totalContests}
           </span>
-          <span className="text-[10px] text-gray-500">Official & Virtual</span>
+          <span className="text-[10px] text-neutral-500">Official & Virtual</span>
         </div>
 
-        <div className="p-4 rounded-xl bg-[#12141e] border border-[#1e2333]">
+        <div className="p-4 rounded-xl bg-[#141414] border border-[#232323]">
           <span className="text-xs text-amber-300">Peak Rating</span>
           <span className="text-2xl font-bold text-amber-400 mt-1 block font-mono">
             {peakRating || "—"}
           </span>
-          <span className="text-[10px] text-gray-500">All-time maximum</span>
+          <span className="text-[10px] text-neutral-500">All-time maximum</span>
         </div>
 
-        <div className="p-4 rounded-xl bg-[#12141e] border border-[#1e2333]">
-          <span className="text-xs text-brand-300">Current Rating</span>
-          <span className="text-2xl font-bold text-brand-400 mt-1 block font-mono">
+        <div className="p-4 rounded-xl bg-[#141414] border border-[#232323]">
+          <span className="text-xs text-neutral-300">Current Rating</span>
+          <span className="text-2xl font-bold text-white mt-1 block font-mono">
             {currentRating || "—"}
           </span>
-          <span className="text-[10px] text-gray-500">Most recent</span>
+          <span className="text-[10px] text-neutral-500">Most recent</span>
         </div>
 
-        <div className="p-4 rounded-xl bg-[#12141e] border border-[#1e2333]">
+        <div className="p-4 rounded-xl bg-[#141414] border border-[#232323]">
           <span className="text-xs text-emerald-300">Contest Solves</span>
           <span className="text-2xl font-bold text-emerald-400 mt-1 block font-mono">
             {totalSolvedInContest}
           </span>
-          <span className="text-[10px] text-gray-500">Under contest pressure</span>
+          <span className="text-[10px] text-neutral-500">Under contest pressure</span>
         </div>
       </div>
 
       {/* Rating Progression Chart */}
-      <Card className="border-[#1f2433] bg-[#12141e]">
-        <CardHeader className="py-4 px-5 border-b border-[#1f2433]">
+      <Card className="border-[#232323] bg-[#141414]">
+        <CardHeader className="py-4 px-5 border-b border-[#232323]">
           <CardTitle className="text-sm flex items-center gap-2">
-            <TrendingUp className="w-4 h-4 text-brand-400" />
+            <TrendingUp className="w-4 h-4 text-neutral-400" />
             Rating Progression Trajectory
           </CardTitle>
         </CardHeader>
@@ -123,17 +119,17 @@ export default function ContestsPage() {
         </h2>
 
         {isLoading ? (
-          <div className="py-16 text-center text-xs text-gray-500 animate-pulse">
+          <div className="py-16 text-center text-xs text-neutral-500 animate-pulse">
             Loading contest history...
           </div>
         ) : contests.length === 0 ? (
-          <div className="text-center py-14 bg-[#12141d] rounded-xl border border-dashed border-[#23293a] space-y-2">
-            <Trophy className="w-8 h-8 text-gray-500 mx-auto" />
-            <p className="text-xs text-gray-400">No contests recorded yet.</p>
+          <div className="text-center py-14 bg-[#141414] rounded-xl border border-dashed border-[#2a2a2a] space-y-2">
+            <Trophy className="w-8 h-8 text-neutral-500 mx-auto" />
+            <p className="text-xs text-neutral-400">No contests recorded yet.</p>
             <Button
               size="sm"
               onClick={() => setIsModalOpen(true)}
-              className="bg-brand-600 hover:bg-brand-500 mt-2"
+              className="bg-white hover:bg-neutral-200 text-neutral-950 font-semibold mt-2"
             >
               + Log Your First Contest
             </Button>
@@ -146,19 +142,19 @@ export default function ContestsPage() {
               return (
                 <div
                   key={c.id}
-                  className="rounded-xl border border-[#1f2433] bg-[#12141e] overflow-hidden transition-all"
+                  className="rounded-xl border border-[#232323] bg-[#141414] overflow-hidden transition-all"
                 >
                   <div
                     onClick={() => setExpandedId(isExpanded ? null : c.id)}
-                    className="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 cursor-pointer hover:bg-[#151926] transition-colors"
+                    className="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 cursor-pointer hover:bg-[#181818] transition-colors"
                   >
                     <div className="flex items-center gap-3">
-                      <span className="text-xs font-mono px-2 py-0.5 rounded bg-[#1c2132] text-gray-300 border border-[#2b334c]">
+                      <span className="text-xs font-mono px-2 py-0.5 rounded bg-[#1e1e1e] text-neutral-300 border border-[#2a2a2a]">
                         {c.platform}
                       </span>
                       <div>
                         <h4 className="text-sm font-bold text-white">{c.contest_name}</h4>
-                        <span className="text-xs text-gray-400 flex items-center gap-2 mt-0.5">
+                        <span className="text-xs text-neutral-400 flex items-center gap-2 mt-0.5">
                           <span>{formatDate(c.contest_date)}</span>
                           <span>•</span>
                           <span>{c.participation_type}</span>
@@ -174,7 +170,7 @@ export default function ContestsPage() {
 
                     <div className="flex items-center gap-4 self-end sm:self-auto">
                       <div className="text-right">
-                        <span className="text-xs font-semibold text-gray-300 block">
+                        <span className="text-xs font-semibold text-neutral-300 block">
                           {c.problems_solved} / {c.problems_attempted} Solved
                         </span>
                         {c.rating_change !== undefined && (
@@ -190,22 +186,22 @@ export default function ContestsPage() {
                       </div>
 
                       {isExpanded ? (
-                        <ChevronUp className="w-4 h-4 text-gray-400" />
+                        <ChevronUp className="w-4 h-4 text-neutral-400" />
                       ) : (
-                        <ChevronDown className="w-4 h-4 text-gray-400" />
+                        <ChevronDown className="w-4 h-4 text-neutral-400" />
                       )}
                     </div>
                   </div>
 
                   {/* Expanded Reflection Notes */}
                   {isExpanded && (
-                    <div className="p-4 bg-[#0d0f17] border-t border-[#1f2433] space-y-3 text-xs">
+                    <div className="p-4 bg-[#0e0e0e] border-t border-[#232323] space-y-3 text-xs">
                       {c.reflection_good && (
                         <div>
                           <span className="font-bold text-emerald-400 uppercase text-[10px] tracking-wider block mb-0.5">
                             What Went Well:
                           </span>
-                          <p className="text-gray-300">{c.reflection_good}</p>
+                          <p className="text-neutral-300">{c.reflection_good}</p>
                         </div>
                       )}
                       {c.reflection_unsolved && (
@@ -213,19 +209,19 @@ export default function ContestsPage() {
                           <span className="font-bold text-rose-400 uppercase text-[10px] tracking-wider block mb-0.5">
                             Missed Problems / Obstacles:
                           </span>
-                          <p className="text-gray-300">{c.reflection_unsolved}</p>
+                          <p className="text-neutral-300">{c.reflection_unsolved}</p>
                         </div>
                       )}
                       {c.reflection_next_action && (
                         <div>
-                          <span className="font-bold text-purple-400 uppercase text-[10px] tracking-wider block mb-0.5">
+                          <span className="font-bold text-neutral-400 uppercase text-[10px] tracking-wider block mb-0.5">
                             Action Plan Before Next Contest:
                           </span>
-                          <p className="text-gray-300">{c.reflection_next_action}</p>
+                          <p className="text-neutral-300">{c.reflection_next_action}</p>
                         </div>
                       )}
                       {!c.reflection_good && !c.reflection_unsolved && (
-                        <p className="text-gray-500 italic">No detailed reflection recorded for this contest.</p>
+                        <p className="text-neutral-500 italic">No detailed reflection recorded for this contest.</p>
                       )}
                     </div>
                   )}

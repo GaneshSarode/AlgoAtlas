@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Download, Upload, RefreshCw, AlertCircle, CheckCircle2, Database } from "lucide-react";
+import { Download, AlertCircle, CheckCircle2, Database } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/ui/card";
 import { Button } from "@/ui/button";
 import { getDbRepository } from "@/lib/db/repository";
@@ -78,10 +78,10 @@ export function BackupRestoreSettings() {
   };
 
   return (
-    <Card className="border-[#1f2433] bg-[#12141e]">
-      <CardHeader className="py-4 px-5 border-b border-[#1f2433]">
+    <Card className="border-[#232323] bg-[#141414]">
+      <CardHeader className="py-4 px-5 border-b border-[#232323]">
         <CardTitle className="text-sm flex items-center gap-2">
-          <Database className="w-4 h-4 text-brand-400" />
+          <Database className="w-4 h-4 text-neutral-400" />
           Data Portability, Backup & Restore
         </CardTitle>
       </CardHeader>
@@ -89,27 +89,27 @@ export function BackupRestoreSettings() {
       <CardContent className="p-5 space-y-4">
         {/* Export Row */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <div className="p-4 rounded-xl bg-[#161a26] border border-[#23293a] flex flex-col justify-between space-y-3">
+          <div className="p-4 rounded-xl bg-[#181818] border border-[#262626] flex flex-col justify-between space-y-3">
             <div>
               <h4 className="text-xs font-bold text-white">Full JSON Backup</h4>
-              <p className="text-[11px] text-gray-400 mt-1">
+              <p className="text-[11px] text-neutral-400 mt-1">
                 Download all 21 relational domains: problems, notes, approaches, revisions, roadmaps, and CP contests.
               </p>
             </div>
             <Button
               onClick={handleDownloadBackup}
               size="sm"
-              className="bg-brand-600 hover:bg-brand-500 text-xs w-full"
+              className="bg-white hover:bg-neutral-200 text-neutral-950 font-semibold text-xs w-full shadow-sm"
             >
               <Download className="w-3.5 h-3.5 mr-1.5" />
               Download JSON Backup
             </Button>
           </div>
 
-          <div className="p-4 rounded-xl bg-[#161a26] border border-[#23293a] flex flex-col justify-between space-y-3">
+          <div className="p-4 rounded-xl bg-[#181818] border border-[#262626] flex flex-col justify-between space-y-3">
             <div>
               <h4 className="text-xs font-bold text-white">Export Problems CSV</h4>
-              <p className="text-[11px] text-gray-400 mt-1">
+              <p className="text-[11px] text-neutral-400 mt-1">
                 Export all solved questions and metadata to open in Excel or Google Sheets.
               </p>
             </div>
@@ -126,10 +126,10 @@ export function BackupRestoreSettings() {
         </div>
 
         {/* Restore from JSON */}
-        <div className="p-4 rounded-xl bg-[#161a26] border border-[#23293a] space-y-3">
+        <div className="p-4 rounded-xl bg-[#181818] border border-[#262626] space-y-3">
           <div>
             <h4 className="text-xs font-bold text-white">Restore from Backup File</h4>
-            <p className="text-[11px] text-gray-400 mt-0.5">
+            <p className="text-[11px] text-neutral-400 mt-0.5">
               Upload a previously downloaded `.json` backup file. Records will be validated and merged into your vault.
             </p>
           </div>
@@ -138,11 +138,11 @@ export function BackupRestoreSettings() {
             type="file"
             accept=".json"
             onChange={handleRestoreFile}
-            className="w-full text-xs text-gray-400 file:mr-4 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-brand-600 file:text-white hover:file:bg-brand-500 cursor-pointer"
+            className="w-full text-xs text-neutral-400 file:mr-4 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-neutral-800 file:text-white hover:file:bg-neutral-700 cursor-pointer"
           />
 
           {isProcessing && (
-            <p className="text-xs text-brand-400 font-mono animate-pulse">
+            <p className="text-xs text-neutral-400 font-mono animate-pulse">
               Validating and restoring backup...
             </p>
           )}
@@ -163,10 +163,10 @@ export function BackupRestoreSettings() {
         </div>
 
         {/* Reset Database */}
-        <div className="pt-2 border-t border-[#1f2433] flex items-center justify-between">
+        <div className="pt-2 border-t border-[#232323] flex items-center justify-between">
           <div className="space-y-0.5">
-            <span className="text-xs font-semibold text-gray-300 block">Database Clean Reset</span>
-            <span className="text-[11px] text-gray-500">Restore factory demonstration records.</span>
+            <span className="text-xs font-semibold text-neutral-300 block">Database Clean Reset</span>
+            <span className="text-[11px] text-neutral-500">Restore factory demonstration records.</span>
           </div>
 
           <Button

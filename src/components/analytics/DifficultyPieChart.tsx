@@ -24,7 +24,7 @@ export function DifficultyPieChart({
 
   if (total === 0) {
     return (
-      <div className="h-56 flex items-center justify-center text-xs text-gray-500">
+      <div className="h-56 flex items-center justify-center text-xs text-neutral-500">
         No problems recorded yet.
       </div>
     );
@@ -42,7 +42,7 @@ export function DifficultyPieChart({
             dataKey="value"
           >
             {data.map((entry, index) => (
-              <Cell key={`cell-${index}`} fill={entry.color} stroke="#12141e" strokeWidth={2} />
+              <Cell key={`cell-${index}`} fill={entry.color} stroke="#141414" strokeWidth={2} />
             ))}
           </Pie>
           <Tooltip
@@ -51,7 +51,7 @@ export function DifficultyPieChart({
                 const item = payload[0];
                 const pct = Math.round(((item.value as number) / total) * 100);
                 return (
-                  <div className="bg-[#12141e] border border-[#2b334d] px-3 py-1.5 rounded-lg shadow-xl text-xs">
+                  <div className="bg-[#141414] border border-[#2a2a2a] px-3 py-1.5 rounded-lg shadow-xl text-xs">
                     <span className="font-semibold" style={{ color: item.payload.color }}>
                       {item.name}: {item.value} ({pct}%)
                     </span>
@@ -67,7 +67,7 @@ export function DifficultyPieChart({
       {/* Center Total Count Label */}
       <div className="absolute top-[35%] flex flex-col items-center pointer-events-none">
         <span className="text-xl font-bold font-mono text-white leading-none">{total}</span>
-        <span className="text-[10px] text-gray-500 uppercase tracking-wider">Solved</span>
+        <span className="text-[10px] text-neutral-500 uppercase tracking-wider">Solved</span>
       </div>
 
       {/* Legend */}

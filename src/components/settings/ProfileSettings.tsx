@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { User, Code, Target, Clock, Map, CheckCircle2 } from "lucide-react";
+import { User, Target, Clock, Map, CheckCircle2 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/ui/card";
 import { Button } from "@/ui/button";
 
@@ -10,7 +10,6 @@ export function ProfileSettings() {
   const [language, setLanguage] = useState("C++");
   const [dailyMinutes, setDailyMinutes] = useState(90);
   const [dailyProblems, setDailyProblems] = useState(3);
-  const [weeklyProblems, setWeeklyProblems] = useState(15);
   const [activeRoadmap, setActiveRoadmap] = useState("NeetCode 150");
   const [goals, setGoals] = useState("Reach 1900+ on Codeforces and complete NeetCode 150 before summer tech interviews.");
   const [saved, setSaved] = useState(false);
@@ -22,10 +21,10 @@ export function ProfileSettings() {
   };
 
   return (
-    <Card className="border-[#1f2433] bg-[#12141e]">
-      <CardHeader className="py-4 px-5 border-b border-[#1f2433]">
+    <Card className="border-[#232323] bg-[#141414]">
+      <CardHeader className="py-4 px-5 border-b border-[#232323]">
         <CardTitle className="text-sm flex items-center gap-2">
-          <User className="w-4 h-4 text-brand-400" />
+          <User className="w-4 h-4 text-neutral-400" />
           Profile & Practice Targets
         </CardTitle>
       </CardHeader>
@@ -34,25 +33,25 @@ export function ProfileSettings() {
         <form onSubmit={handleSave} className="space-y-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
-              <label className="block text-xs font-semibold text-gray-300 mb-1">
+              <label className="block text-xs font-semibold text-neutral-300 mb-1">
                 Display Name
               </label>
               <input
                 type="text"
                 value={displayName}
                 onChange={(e) => setDisplayName(e.target.value)}
-                className="w-full bg-[#171b28] border border-[#272f44] rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-500"
+                className="w-full bg-[#181818] border border-[#262626] rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-white/30"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-gray-300 mb-1">
+              <label className="block text-xs font-semibold text-neutral-300 mb-1">
                 Preferred Language
               </label>
               <select
                 value={language}
                 onChange={(e) => setLanguage(e.target.value)}
-                className="w-full bg-[#171b28] border border-[#272f44] rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-500"
+                className="w-full bg-[#181818] border border-[#262626] rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-white/30"
               >
                 <option value="C++">C++</option>
                 <option value="Java">Java</option>
@@ -66,8 +65,8 @@ export function ProfileSettings() {
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div>
-              <label className="block text-xs font-semibold text-gray-300 mb-1 flex items-center gap-1">
-                <Clock className="w-3.5 h-3.5 text-indigo-400" /> Daily Target (mins)
+              <label className="block text-xs font-semibold text-neutral-300 mb-1 flex items-center gap-1">
+                <Clock className="w-3.5 h-3.5 text-neutral-400" /> Daily Target (mins)
               </label>
               <input
                 type="number"
@@ -75,12 +74,12 @@ export function ProfileSettings() {
                 max={480}
                 value={dailyMinutes}
                 onChange={(e) => setDailyMinutes(Number(e.target.value))}
-                className="w-full bg-[#171b28] border border-[#272f44] rounded-lg px-3 py-2 text-xs text-white focus:outline-none"
+                className="w-full bg-[#181818] border border-[#262626] rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-white/30"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-gray-300 mb-1 flex items-center gap-1">
+              <label className="block text-xs font-semibold text-neutral-300 mb-1 flex items-center gap-1">
                 <Target className="w-3.5 h-3.5 text-emerald-400" /> Daily Problems
               </label>
               <input
@@ -89,18 +88,18 @@ export function ProfileSettings() {
                 max={20}
                 value={dailyProblems}
                 onChange={(e) => setDailyProblems(Number(e.target.value))}
-                className="w-full bg-[#171b28] border border-[#272f44] rounded-lg px-3 py-2 text-xs text-white focus:outline-none"
+                className="w-full bg-[#181818] border border-[#262626] rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-white/30"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-gray-300 mb-1 flex items-center gap-1">
-                <Map className="w-3.5 h-3.5 text-purple-400" /> Active Roadmap
+              <label className="block text-xs font-semibold text-neutral-300 mb-1 flex items-center gap-1">
+                <Map className="w-3.5 h-3.5 text-neutral-400" /> Active Roadmap
               </label>
               <select
                 value={activeRoadmap}
                 onChange={(e) => setActiveRoadmap(e.target.value)}
-                className="w-full bg-[#171b28] border border-[#272f44] rounded-lg px-3 py-2 text-xs text-white focus:outline-none"
+                className="w-full bg-[#181818] border border-[#262626] rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-white/30"
               >
                 <option value="NeetCode 150">NeetCode 150</option>
                 <option value="Blind 75">Blind 75</option>
@@ -111,18 +110,18 @@ export function ProfileSettings() {
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-gray-300 mb-1">
+            <label className="block text-xs font-semibold text-neutral-300 mb-1">
               Personal Learning Goals & CP Target
             </label>
             <textarea
               rows={2}
               value={goals}
               onChange={(e) => setGoals(e.target.value)}
-              className="w-full bg-[#171b28] border border-[#272f44] rounded-lg p-2.5 text-xs text-white focus:outline-none resize-none leading-relaxed"
+              className="w-full bg-[#181818] border border-[#262626] rounded-lg p-2.5 text-xs text-white focus:outline-none focus:border-white/30 resize-none leading-relaxed"
             />
           </div>
 
-          <div className="flex items-center justify-between pt-2 border-t border-[#1f2433]">
+          <div className="flex items-center justify-between pt-2 border-t border-[#232323]">
             {saved ? (
               <span className="text-xs text-emerald-400 font-semibold flex items-center gap-1">
                 <CheckCircle2 className="w-4 h-4" /> Preferences Saved!
@@ -131,7 +130,7 @@ export function ProfileSettings() {
               <span />
             )}
 
-            <Button type="submit" size="sm" className="bg-brand-600 hover:bg-brand-500">
+            <Button type="submit" size="sm" className="bg-white hover:bg-neutral-200 text-neutral-950 font-semibold">
               Save Profile Preferences
             </Button>
           </div>

@@ -4,17 +4,14 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   Link as LinkIcon,
-  CheckCircle,
   AlertCircle,
   Clock,
   Code,
-  Tag,
   Star,
   BookOpen,
 } from "lucide-react";
 import { Dialog } from "@/ui/dialog";
 import { Button } from "@/ui/button";
-import { Badge } from "@/ui/badge";
 import { parseProblemUrl } from "@/services/urlParser";
 import { getDbRepository } from "@/lib/db/repository";
 import { slugify } from "@/lib/utils";
@@ -141,8 +138,8 @@ export function AddProblemModal({
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* URL Input */}
         <div>
-          <label className="block text-xs font-semibold text-gray-300 mb-1.5 flex items-center gap-1.5">
-            <LinkIcon className="w-3.5 h-3.5 text-brand-400" />
+          <label className="block text-xs font-semibold text-neutral-300 mb-1.5 flex items-center gap-1.5">
+            <LinkIcon className="w-3.5 h-3.5 text-neutral-400" />
             Problem URL
           </label>
           <input
@@ -151,7 +148,7 @@ export function AddProblemModal({
             value={url}
             onChange={(e) => handleUrlChange(e.target.value)}
             placeholder="e.g. https://leetcode.com/problems/two-sum/ or https://codeforces.com/contest/158/problem/A"
-            className="w-full bg-[#171b28] border border-[#282f45] rounded-lg px-3.5 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-brand-500"
+            className="w-full bg-[#181818] border border-[#262626] rounded-lg px-3.5 py-2 text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-white/30"
           />
           {duplicateWarning && (
             <p className="text-xs text-amber-400 mt-1 flex items-center gap-1">
@@ -164,7 +161,7 @@ export function AddProblemModal({
         {/* Title & Platform */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
-            <label className="block text-xs font-semibold text-gray-300 mb-1.5">
+            <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
               Problem Title
             </label>
             <input
@@ -173,18 +170,18 @@ export function AddProblemModal({
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="e.g. Trapping Rain Water"
-              className="w-full bg-[#171b28] border border-[#282f45] rounded-lg px-3.5 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-brand-500"
+              className="w-full bg-[#181818] border border-[#262626] rounded-lg px-3.5 py-2 text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-white/30"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-gray-300 mb-1.5">
+            <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
               Platform
             </label>
             <select
               value={platform}
               onChange={(e) => setPlatform(e.target.value as PlatformType)}
-              className="w-full bg-[#171b28] border border-[#282f45] rounded-lg px-3.5 py-2 text-sm text-white focus:outline-none focus:border-brand-500"
+              className="w-full bg-[#181818] border border-[#262626] rounded-lg px-3.5 py-2 text-sm text-white focus:outline-none focus:border-white/30"
             >
               <option value="LeetCode">LeetCode</option>
               <option value="Codeforces">Codeforces</option>
@@ -200,13 +197,13 @@ export function AddProblemModal({
         {/* Difficulty, Status & Topic */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <div>
-            <label className="block text-xs font-semibold text-gray-300 mb-1.5">
+            <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
               Difficulty
             </label>
             <select
               value={difficulty}
               onChange={(e) => setDifficulty(e.target.value as DifficultyLevel)}
-              className="w-full bg-[#171b28] border border-[#282f45] rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-500"
+              className="w-full bg-[#181818] border border-[#262626] rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-white/30"
             >
               <option value="Easy">Easy</option>
               <option value="Medium">Medium</option>
@@ -215,13 +212,13 @@ export function AddProblemModal({
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-gray-300 mb-1.5">
+            <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
               Current Status
             </label>
             <select
               value={status}
               onChange={(e) => setStatus(e.target.value as ProblemStatus)}
-              className="w-full bg-[#171b28] border border-[#282f45] rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-500"
+              className="w-full bg-[#181818] border border-[#262626] rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-white/30"
             >
               <option value="Solved Independently">Solved Independently</option>
               <option value="Solved With Hint">Solved With Hint</option>
@@ -233,13 +230,13 @@ export function AddProblemModal({
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-gray-300 mb-1.5">
+            <label className="block text-xs font-semibold text-neutral-300 mb-1.5">
               Primary Topic
             </label>
             <select
               value={primaryTopic}
               onChange={(e) => setPrimaryTopic(e.target.value)}
-              className="w-full bg-[#171b28] border border-[#282f45] rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-500"
+              className="w-full bg-[#181818] border border-[#262626] rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-white/30"
             >
               <option value="Arrays">Arrays</option>
               <option value="Strings">Strings</option>
@@ -264,7 +261,7 @@ export function AddProblemModal({
         {/* Confidence, Time Spent & Language */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <div>
-            <label className="block text-xs font-semibold text-gray-300 mb-1.5 flex items-center gap-1">
+            <label className="block text-xs font-semibold text-neutral-300 mb-1.5 flex items-center gap-1">
               <Star className="w-3.5 h-3.5 text-amber-400" />
               Confidence (1-5)
             </label>
@@ -275,19 +272,19 @@ export function AddProblemModal({
                   key={star}
                   onClick={() => setConfidence(star)}
                   className={`p-1 text-sm rounded ${
-                    confidence >= star ? "text-amber-400" : "text-gray-600"
+                    confidence >= star ? "text-amber-400" : "text-neutral-600"
                   }`}
                 >
                   ★
                 </button>
               ))}
-              <span className="text-xs text-gray-400 ml-1 font-mono">({confidence}/5)</span>
+              <span className="text-xs text-neutral-400 ml-1 font-mono">({confidence}/5)</span>
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-gray-300 mb-1.5 flex items-center gap-1">
-              <Clock className="w-3.5 h-3.5 text-gray-400" />
+            <label className="block text-xs font-semibold text-neutral-300 mb-1.5 flex items-center gap-1">
+              <Clock className="w-3.5 h-3.5 text-neutral-400" />
               Time Spent (min)
             </label>
             <input
@@ -296,19 +293,19 @@ export function AddProblemModal({
               max={600}
               value={timeSpent}
               onChange={(e) => setTimeSpent(Number(e.target.value))}
-              className="w-full bg-[#171b28] border border-[#282f45] rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-500"
+              className="w-full bg-[#181818] border border-[#262626] rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-white/30"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-semibold text-gray-300 mb-1.5 flex items-center gap-1">
-              <Code className="w-3.5 h-3.5 text-gray-400" />
+            <label className="block text-xs font-semibold text-neutral-300 mb-1.5 flex items-center gap-1">
+              <Code className="w-3.5 h-3.5 text-neutral-400" />
               Language
             </label>
             <select
               value={language}
               onChange={(e) => setLanguage(e.target.value)}
-              className="w-full bg-[#171b28] border border-[#282f45] rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-brand-500"
+              className="w-full bg-[#181818] border border-[#262626] rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-white/30"
             >
               <option value="C++">C++</option>
               <option value="Java">Java</option>
@@ -322,33 +319,33 @@ export function AddProblemModal({
         </div>
 
         {/* Learning flags */}
-        <div className="flex flex-wrap gap-4 pt-1 border-t border-[#1f2433]">
-          <label className="flex items-center gap-2 text-xs text-gray-300 cursor-pointer">
+        <div className="flex flex-wrap gap-4 pt-1 border-t border-[#232323]">
+          <label className="flex items-center gap-2 text-xs text-neutral-300 cursor-pointer">
             <input
               type="checkbox"
               checked={viewedEditorial}
               onChange={(e) => setViewedEditorial(e.target.checked)}
-              className="rounded bg-[#171b28] border-[#282f45] text-brand-500 focus:ring-0"
+              className="rounded bg-[#181818] border-[#262626] text-white focus:ring-0"
             />
             Viewed Editorial
           </label>
 
-          <label className="flex items-center gap-2 text-xs text-gray-300 cursor-pointer">
+          <label className="flex items-center gap-2 text-xs text-neutral-300 cursor-pointer">
             <input
               type="checkbox"
               checked={usedExternalHelp}
               onChange={(e) => setUsedExternalHelp(e.target.checked)}
-              className="rounded bg-[#171b28] border-[#282f45] text-brand-500 focus:ring-0"
+              className="rounded bg-[#181818] border-[#262626] text-white focus:ring-0"
             />
             Used External Help
           </label>
 
-          <label className="flex items-center gap-2 text-xs text-gray-300 cursor-pointer">
+          <label className="flex items-center gap-2 text-xs text-neutral-300 cursor-pointer">
             <input
               type="checkbox"
               checked={isBookmarked}
               onChange={(e) => setIsBookmarked(e.target.checked)}
-              className="rounded bg-[#171b28] border-[#282f45] text-brand-500 focus:ring-0"
+              className="rounded bg-[#181818] border-[#262626] text-white focus:ring-0"
             />
             Bookmark for Revision
           </label>
@@ -356,8 +353,8 @@ export function AddProblemModal({
 
         {/* Initial Understanding Note */}
         <div>
-          <label className="block text-xs font-semibold text-gray-300 mb-1.5 flex items-center gap-1.5">
-            <BookOpen className="w-3.5 h-3.5 text-purple-400" />
+          <label className="block text-xs font-semibold text-neutral-300 mb-1.5 flex items-center gap-1.5">
+            <BookOpen className="w-3.5 h-3.5 text-neutral-400" />
             Quick Learning Note / First Thought
           </label>
           <textarea
@@ -365,12 +362,12 @@ export function AddProblemModal({
             value={initialNote}
             onChange={(e) => setInitialNote(e.target.value)}
             placeholder="What was the main idea or trick? (You can detail full Brute/Optimal approaches in the journal)."
-            className="w-full bg-[#171b28] border border-[#282f45] rounded-lg px-3.5 py-2 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-brand-500 resize-none"
+            className="w-full bg-[#181818] border border-[#262626] rounded-lg px-3.5 py-2 text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-white/30 resize-none"
           />
         </div>
 
         {/* Actions */}
-        <div className="flex items-center justify-end gap-3 pt-3 border-t border-[#1f2433]">
+        <div className="flex items-center justify-end gap-3 pt-3 border-t border-[#232323]">
           <Button type="button" variant="outline" onClick={onClose} size="sm">
             Cancel
           </Button>
@@ -378,7 +375,7 @@ export function AddProblemModal({
             type="submit"
             size="sm"
             disabled={isSubmitting || !title.trim()}
-            className="bg-brand-600 hover:bg-brand-500"
+            className="bg-white hover:bg-neutral-200 text-neutral-950 font-semibold shadow-sm"
           >
             {isSubmitting ? "Saving..." : "Save to Vault & Journal"}
           </Button>

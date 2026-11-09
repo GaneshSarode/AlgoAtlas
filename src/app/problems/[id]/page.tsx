@@ -134,7 +134,7 @@ export default function ProblemDetailPage() {
 
   if (isLoading) {
     return (
-      <div className="py-20 text-center text-xs text-gray-500 animate-pulse">
+      <div className="py-20 text-center text-xs text-neutral-500 animate-pulse">
         Loading problem journal...
       </div>
     );
@@ -144,12 +144,12 @@ export default function ProblemDetailPage() {
     return (
       <div className="py-20 text-center space-y-3">
         <h2 className="text-base font-semibold text-white">Problem Not Found</h2>
-        <p className="text-xs text-gray-400">
+        <p className="text-xs text-neutral-400">
           This problem entry might have been deleted or does not exist.
         </p>
         <button
           onClick={() => router.push("/problems")}
-          className="text-xs text-brand-400 hover:underline"
+          className="text-xs text-neutral-300 hover:text-white underline"
         >
           ← Return to Problems Vault
         </button>

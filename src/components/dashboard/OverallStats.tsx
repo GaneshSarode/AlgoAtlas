@@ -45,14 +45,14 @@ export function OverallStats({ stats }: OverallStatsProps) {
       value: stats.needs_revision,
       subtitle: "Scheduled in queue",
       icon: Repeat,
-      accent: stats.needs_revision > 0 ? "text-rose-400" : "text-zinc-400",
+      accent: stats.needs_revision > 0 ? "text-rose-400" : "text-neutral-400",
     },
     {
       label: "Mastered Patterns",
       value: stats.mastered,
       subtitle: "High recall retention",
       icon: Award,
-      accent: "text-indigo-400",
+      accent: "text-emerald-400",
     },
     {
       label: "Learning Streak",
@@ -66,14 +66,14 @@ export function OverallStats({ stats }: OverallStatsProps) {
       value: `${Math.round(stats.total_practice_time_minutes / 60)}h`,
       subtitle: `${stats.total_practice_time_minutes % 60}m recorded`,
       icon: Clock,
-      accent: "text-zinc-300",
+      accent: "text-neutral-300",
     },
     {
       label: "Not Attempted",
       value: stats.not_attempted,
       subtitle: "In study backlog",
       icon: Target,
-      accent: "text-zinc-500",
+      accent: "text-neutral-500",
     },
   ];
 
@@ -84,19 +84,19 @@ export function OverallStats({ stats }: OverallStatsProps) {
         return (
           <div
             key={idx}
-            className="p-3.5 rounded-xl bg-[#0c0e14] border border-white/[0.07] hover:border-white/[0.14] transition-all duration-150 flex flex-col justify-between group shadow-[inset_0_1px_0_0_rgba(255,255,255,0.03)]"
+            className="p-3.5 rounded-xl bg-[#141414] border border-[#232323] hover:border-[#383838] transition-all duration-150 flex flex-col justify-between group shadow-[inset_0_1px_0_0_rgba(255,255,255,0.03)]"
           >
             <div className="flex items-center justify-between">
-              <span className="text-[11px] text-zinc-400 font-medium tracking-tight">
+              <span className="text-[11px] text-neutral-400 font-medium tracking-tight">
                 {card.label}
               </span>
-              <Icon className={`w-3.5 h-3.5 ${card.accent || "text-zinc-400"} shrink-0 group-hover:scale-110 transition-transform`} />
+              <Icon className={`w-3.5 h-3.5 ${card.accent || "text-neutral-400"} shrink-0 group-hover:scale-110 transition-transform`} />
             </div>
             <div className="mt-2.5">
               <span className="text-2xl font-bold font-mono tracking-tight text-white block">
                 {card.value}
               </span>
-              <span className="text-[10px] text-zinc-500 font-mono mt-0.5 block truncate">
+              <span className="text-[10px] text-neutral-500 font-mono mt-0.5 block truncate">
                 {card.subtitle}
               </span>
             </div>

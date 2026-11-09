@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Globe2, History, CheckCircle2, AlertCircle, ShieldAlert } from "lucide-react";
+import { Globe2, History } from "lucide-react";
 import { PlatformCard } from "@/components/integrations/PlatformCard";
 import { CsvImportModal } from "@/components/problems/CsvImportModal";
 import { Card, CardHeader, CardTitle, CardContent } from "@/ui/card";
@@ -108,17 +108,17 @@ export default function IntegrationsPage() {
       {/* Title */}
       <div>
         <h1 className="text-2xl font-bold tracking-tight text-white flex items-center gap-2.5">
-          <Globe2 className="w-6 h-6 text-brand-400" />
+          <Globe2 className="w-6 h-6 text-neutral-400" />
           Platform Integrations & Public APIs
         </h1>
-        <p className="text-xs text-gray-400 mt-1">
+        <p className="text-xs text-neutral-400 mt-1">
           Connect your coding handles. Official public APIs are utilized for Codeforces and AtCoder; safe CSV and manual logging workflows are provided for other platforms.
         </p>
       </div>
 
       {/* Grid of Platform Cards */}
       {isLoading ? (
-        <div className="py-20 text-center text-xs text-gray-500 animate-pulse">
+        <div className="py-20 text-center text-xs text-neutral-500 animate-pulse">
           Loading platform credentials...
         </div>
       ) : (
@@ -145,20 +145,20 @@ export default function IntegrationsPage() {
       )}
 
       {/* Sync Logs Table */}
-      <Card className="border-[#1f2433] bg-[#12141e]">
-        <CardHeader className="py-4 px-5 border-b border-[#1f2433]">
+      <Card className="border-[#232323] bg-[#141414]">
+        <CardHeader className="py-4 px-5 border-b border-[#232323]">
           <CardTitle className="text-sm flex items-center gap-2">
-            <History className="w-4 h-4 text-brand-400" />
+            <History className="w-4 h-4 text-neutral-400" />
             Audit Sync Logs & API History ({syncLogs.length})
           </CardTitle>
         </CardHeader>
         <CardContent className="p-4">
           {syncLogs.length === 0 ? (
-            <p className="text-xs text-gray-500 text-center py-4">
+            <p className="text-xs text-neutral-500 text-center py-4">
               No synchronization events logged yet. Click "Sync Live" on Codeforces or AtCoder to log events.
             </p>
           ) : (
-            <div className="divide-y divide-[#1f2433] text-xs">
+            <div className="divide-y divide-[#232323] text-xs">
               {syncLogs.slice(0, 10).map((log) => (
                 <div key={log.id} className="py-2.5 flex items-center justify-between">
                   <div className="flex items-center gap-2.5">
@@ -174,12 +174,12 @@ export default function IntegrationsPage() {
                       {log.status}
                     </Badge>
                     <span className="font-semibold text-white">{log.platform}</span>
-                    <span className="text-gray-400">
+                    <span className="text-neutral-400">
                       {log.details || log.error_message || "Synchronization completed"}
                     </span>
                   </div>
 
-                  <span className="text-gray-500 text-[11px] font-mono">
+                  <span className="text-neutral-500 text-[11px] font-mono">
                     {formatDateTime(log.created_at)}
                   </span>
                 </div>

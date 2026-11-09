@@ -94,13 +94,13 @@ export default function ProblemsPage() {
   return (
     <div className="space-y-4 pb-12">
       {/* Top Banner & Actions */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 p-4 sm:p-5 rounded-xl bg-[#0c0e14] border border-white/[0.07] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.03)]">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 p-4 sm:p-5 rounded-xl bg-[#141414] border border-[#232323] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.03)]">
         <div>
           <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-white flex items-center gap-2.5 font-sans">
-            <FolderCode className="w-5 h-5 text-indigo-400" />
+            <FolderCode className="w-5 h-5 text-neutral-400" />
             Central Problem Vault
           </h1>
-          <p className="text-xs text-zinc-400 mt-0.5">
+          <p className="text-xs text-neutral-400 mt-0.5">
             Store, categorize, and master your DSA problems across all competitive programming platforms.
           </p>
         </div>
@@ -119,7 +119,7 @@ export default function ProblemsPage() {
           <Button
             size="sm"
             onClick={() => setIsAddOpen(true)}
-            className="bg-white hover:bg-zinc-200 text-zinc-950 font-semibold shadow-sm flex items-center gap-1.5"
+            className="bg-white hover:bg-neutral-200 text-neutral-950 font-semibold shadow-sm flex items-center gap-1.5"
           >
             <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
             <span>Add Problem</span>
@@ -170,12 +170,12 @@ export default function ProblemsPage() {
           />
         )
       ) : (
-        <div className="text-center py-16 bg-[#0c0e14] border border-dashed border-white/[0.08] rounded-xl p-6 space-y-3">
-          <div className="w-10 h-10 rounded-full bg-zinc-900 border border-white/[0.08] text-zinc-400 flex items-center justify-center mx-auto">
-            <Sparkles className="w-5 h-5 text-indigo-400" />
+        <div className="text-center py-16 bg-[#141414] border border-dashed border-[#262626] rounded-xl p-6 space-y-3">
+          <div className="w-10 h-10 rounded-full bg-neutral-900 border border-[#262626] text-neutral-400 flex items-center justify-center mx-auto">
+            <Sparkles className="w-5 h-5 text-neutral-400" />
           </div>
           <h3 className="text-sm font-semibold text-white">No problems found</h3>
-          <p className="text-xs text-zinc-400 max-w-sm mx-auto">
+          <p className="text-xs text-neutral-400 max-w-sm mx-auto">
             {problems.length === 0
               ? "Your vault is currently empty. Click 'Add Problem' or 'Import CSV' to log your first question."
               : "No problems matched your current filter criteria. Try resetting your filters."}
@@ -183,7 +183,7 @@ export default function ProblemsPage() {
           <Button
             size="sm"
             onClick={() => setIsAddOpen(true)}
-            className="bg-white hover:bg-zinc-200 text-zinc-950 font-semibold mt-1"
+            className="bg-white hover:bg-neutral-200 text-neutral-950 font-semibold mt-1"
           >
             + Add First Problem
           </Button>

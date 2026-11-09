@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { ArrowRight, BookOpen, Layers, CheckCircle } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Card, CardContent } from "@/ui/card";
 import { Badge } from "@/ui/badge";
 import type { Topic, TopicMastery } from "@/types";
@@ -22,23 +22,23 @@ export function ConceptCard({ topic, mastery }: ConceptCardProps) {
       case "Practising":
         return <Badge variant="warning">Practising</Badge>;
       case "Currently Learning":
-        return <Badge variant="purple">Learning</Badge>;
+        return <Badge variant="default">Learning</Badge>;
       default:
         return <Badge variant="secondary">Not Started</Badge>;
     }
   };
 
   return (
-    <Card className="bg-[#12141e] border-[#1e2333] hover:border-[#2f3852] transition-all flex flex-col justify-between">
+    <Card className="bg-[#141414] border-[#232323] hover:border-[#383838] transition-all flex flex-col justify-between">
       <CardContent className="p-5 space-y-3">
         <div className="flex items-start justify-between gap-2">
           <div className="space-y-1">
-            <span className="text-[10px] uppercase font-bold text-gray-500 tracking-wider">
+            <span className="text-[10px] uppercase font-bold text-neutral-500 tracking-wider">
               {topic.category}
             </span>
             <Link
               href={`/concepts/${topic.slug}`}
-              className="text-base font-semibold text-white hover:text-brand-400 block transition-colors"
+              className="text-base font-semibold text-white hover:text-neutral-300 block transition-colors"
             >
               {topic.name}
             </Link>
@@ -46,19 +46,19 @@ export function ConceptCard({ topic, mastery }: ConceptCardProps) {
           {getStatusBadge(mastery?.learning_status)}
         </div>
 
-        <p className="text-xs text-gray-400 line-clamp-2 leading-relaxed">
+        <p className="text-xs text-neutral-400 line-clamp-2 leading-relaxed">
           {topic.description}
         </p>
 
-        <div className="flex items-center justify-between pt-3 border-t border-[#1d2235] text-xs">
-          <span className="text-gray-400 font-medium">
+        <div className="flex items-center justify-between pt-3 border-t border-[#232323] text-xs">
+          <span className="text-neutral-400 font-medium">
             {mastery?.problems_solved_count || 0} solved{" "}
             {mastery?.hints_used_count ? `(${mastery.hints_used_count} with hints)` : ""}
           </span>
 
           <Link
             href={`/concepts/${topic.slug}`}
-            className="flex items-center gap-1 text-xs text-brand-400 hover:text-brand-300 font-medium"
+            className="flex items-center gap-1 text-xs text-neutral-200 hover:text-white font-medium"
           >
             Explore <ArrowRight className="w-3.5 h-3.5" />
           </Link>

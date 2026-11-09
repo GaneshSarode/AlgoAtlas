@@ -7,9 +7,8 @@ import {
   CheckCircle2,
   AlertCircle,
   Upload,
-  Globe2,
 } from "lucide-react";
-import { Card, CardHeader, CardTitle, CardContent } from "@/ui/card";
+import { Card, CardContent } from "@/ui/card";
 import { Button } from "@/ui/button";
 import { Badge } from "@/ui/badge";
 import { formatDateTime } from "@/lib/utils";
@@ -56,7 +55,7 @@ export function PlatformCard({
   };
 
   return (
-    <Card className="bg-[#12141e] border-[#1e2333] hover:border-[#2e3752] transition-all flex flex-col justify-between">
+    <Card className="bg-[#141414] border-[#232323] hover:border-[#383838] transition-all flex flex-col justify-between">
       <CardContent className="p-5 space-y-4">
         {/* Header */}
         <div className="flex items-start justify-between gap-2">
@@ -78,17 +77,17 @@ export function PlatformCard({
 
           {account.rating && (
             <div className="text-right">
-              <span className="text-sm font-bold font-mono text-brand-400 block">
+              <span className="text-sm font-bold font-mono text-white block">
                 {account.rating}
               </span>
-              <span className="text-[10px] text-gray-500">Rating</span>
+              <span className="text-[10px] text-neutral-500">Rating</span>
             </div>
           )}
         </div>
 
         {/* Handle Input & Save */}
         <div className="space-y-1.5">
-          <label className="text-xs font-semibold text-gray-300 block">
+          <label className="text-xs font-semibold text-neutral-300 block">
             Username / Handle
           </label>
           <div className="flex items-center gap-2">
@@ -100,10 +99,10 @@ export function PlatformCard({
                 setIsEditing(true);
               }}
               placeholder={`Enter ${account.platform} handle...`}
-              className="flex-1 bg-[#171b28] border border-[#272f44] rounded-lg px-3 py-1.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-brand-500"
+              className="flex-1 bg-[#181818] border border-[#262626] rounded-lg px-3 py-1.5 text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-white/30"
             />
             {isEditing && (
-              <Button size="sm" onClick={handleSaveHandle} className="h-8 text-xs px-2.5">
+              <Button size="sm" onClick={handleSaveHandle} className="h-8 text-xs px-2.5 bg-white text-neutral-950 font-semibold">
                 Save
               </Button>
             )}
@@ -111,10 +110,10 @@ export function PlatformCard({
         </div>
 
         {/* Sync Info or Manual Guidance */}
-        <div className="p-3 rounded-lg bg-[#0e1017] border border-[#1b1f2e] text-xs space-y-1.5">
-          <p className="text-[11px] text-gray-400">{notes}</p>
+        <div className="p-3 rounded-lg bg-[#0f0f0f] border border-[#232323] text-xs space-y-1.5">
+          <p className="text-[11px] text-neutral-400">{notes}</p>
           {account.last_synced_at && (
-            <div className="flex items-center gap-1.5 text-[10px] text-gray-500 pt-1 border-t border-[#1b1f2e]">
+            <div className="flex items-center gap-1.5 text-[10px] text-neutral-500 pt-1 border-t border-[#232323]">
               <CheckCircle2 className="w-3 h-3 text-emerald-400" />
               <span>Last sync: {formatDateTime(account.last_synced_at)}</span>
             </div>
@@ -130,13 +129,13 @@ export function PlatformCard({
         )}
 
         {/* Actions Bar */}
-        <div className="flex items-center justify-between pt-2 border-t border-[#1d2235]">
+        <div className="flex items-center justify-between pt-2 border-t border-[#232323]">
           {account.profile_url ? (
             <a
               href={account.profile_url}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1 text-xs text-gray-400 hover:text-white transition-colors"
+              className="flex items-center gap-1 text-xs text-neutral-400 hover:text-white transition-colors"
             >
               <span>View Profile</span>
               <ExternalLink className="w-3 h-3" />
@@ -163,7 +162,7 @@ export function PlatformCard({
                 size="sm"
                 disabled={isSyncing || !handle.trim()}
                 onClick={handleTriggerSync}
-                className="bg-brand-600 hover:bg-brand-500 text-xs h-7 px-2.5"
+                className="bg-white hover:bg-neutral-200 text-neutral-950 font-semibold text-xs h-7 px-2.5 shadow-sm"
               >
                 <RefreshCw
                   className={`w-3 h-3 mr-1 ${isSyncing ? "animate-spin" : ""}`}

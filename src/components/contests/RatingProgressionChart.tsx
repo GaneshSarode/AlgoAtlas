@@ -34,7 +34,7 @@ export function RatingProgressionChart({ contests }: RatingProgressionChartProps
 
   if (data.length === 0) {
     return (
-      <div className="h-64 flex items-center justify-center text-xs text-gray-500 border border-dashed border-[#23293a] rounded-xl bg-[#0f1118]">
+      <div className="h-64 flex items-center justify-center text-xs text-neutral-400 border border-dashed border-[#2a2a2a] rounded-xl bg-[#141414]">
         No rating history recorded yet. Log your contest participation to view your rating trajectory.
       </div>
     );
@@ -47,16 +47,16 @@ export function RatingProgressionChart({ contests }: RatingProgressionChartProps
     <div className="h-64 w-full pt-2">
       <ResponsiveContainer width="100%" height="100%">
         <LineChart data={data} margin={{ top: 10, right: 20, left: 0, bottom: 10 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#1f2538" />
+          <CartesianGrid strokeDasharray="3 3" stroke="#262626" />
           <XAxis
             dataKey="date"
-            stroke="#6b7280"
+            stroke="#737373"
             fontSize={11}
             tickLine={false}
           />
           <YAxis
             domain={[minRating, maxRating]}
-            stroke="#6b7280"
+            stroke="#737373"
             fontSize={11}
             tickLine={false}
             width={45}
@@ -66,20 +66,20 @@ export function RatingProgressionChart({ contests }: RatingProgressionChartProps
               if (active && payload && payload.length) {
                 const item = payload[0].payload;
                 return (
-                  <div className="bg-[#12141f] border border-[#2b334d] p-3 rounded-lg shadow-xl text-xs space-y-1">
+                  <div className="bg-[#141414] border border-[#2a2a2a] p-3 rounded-lg shadow-xl text-xs space-y-1">
                     <p className="font-bold text-white">{item.name}</p>
-                    <p className="text-gray-400">
-                      Platform: <span className="text-gray-200">{item.platform}</span>
+                    <p className="text-neutral-400">
+                      Platform: <span className="text-neutral-200">{item.platform}</span>
                     </p>
-                    <p className="text-gray-400">
-                      Rating: <span className="font-mono text-brand-400 font-bold">{item.rating}</span>{" "}
+                    <p className="text-neutral-400">
+                      Rating: <span className="font-mono text-white font-bold">{item.rating}</span>{" "}
                       {item.change !== undefined && (
                         <span className={item.change >= 0 ? "text-emerald-400 font-bold" : "text-rose-400 font-bold"}>
                           ({item.change >= 0 ? `+${item.change}` : item.change})
                         </span>
                       )}
                     </p>
-                    <p className="text-gray-500 text-[10px]">{item.date}</p>
+                    <p className="text-neutral-500 text-[10px]">{item.date}</p>
                   </div>
                 );
               }
@@ -89,10 +89,10 @@ export function RatingProgressionChart({ contests }: RatingProgressionChartProps
           <Line
             type="monotone"
             dataKey="rating"
-            stroke="#8b5cf6"
-            strokeWidth={2.5}
-            dot={{ r: 4, fill: "#8b5cf6", strokeWidth: 1, stroke: "#ffffff" }}
-            activeDot={{ r: 6, fill: "#10b981" }}
+            stroke="#d4d4d4"
+            strokeWidth={2}
+            dot={{ r: 3.5, fill: "#d4d4d4", strokeWidth: 1, stroke: "#141414" }}
+            activeDot={{ r: 5, fill: "#10b981" }}
           />
         </LineChart>
       </ResponsiveContainer>

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { CheckSquare, Square, Clock, Sparkles } from "lucide-react";
+import { CheckSquare, Clock, Sparkles } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/ui/card";
 import type { RecommendationItem } from "@/services/recommendationEngine";
 
@@ -32,32 +32,32 @@ export function DailyLearningPlan({
   const progressPercent = totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0;
 
   return (
-    <Card className="border-[#1f2433] bg-[#12141e]">
-      <CardHeader className="py-4 px-5 border-b border-[#1f2433] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+    <Card className="border-[#232323] bg-[#141414]">
+      <CardHeader className="py-4 px-5 border-b border-[#232323] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
           <CardTitle className="text-base text-white flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-brand-400" />
+            <Sparkles className="w-4 h-4 text-neutral-400" />
             Today's Daily Learning Plan
           </CardTitle>
-          <span className="text-xs text-gray-400">
+          <span className="text-xs text-neutral-400">
             {completedCount} of {totalCount} daily goals checked off ({progressPercent}%)
           </span>
         </div>
 
         {/* Target Study Hours Selector */}
         <div className="flex items-center gap-2">
-          <span className="text-xs text-gray-400 flex items-center gap-1">
-            <Clock className="w-3.5 h-3.5 text-gray-500" /> Daily Target:
+          <span className="text-xs text-neutral-400 flex items-center gap-1">
+            <Clock className="w-3.5 h-3.5 text-neutral-500" /> Daily Target:
           </span>
-          <div className="flex items-center bg-[#181b26] border border-[#272f44] rounded-lg p-0.5 text-xs">
+          <div className="flex items-center bg-[#181818] border border-[#262626] rounded-lg p-0.5 text-xs">
             {[1, 2, 3, 4].map((hrs) => (
               <button
                 key={hrs}
                 onClick={() => onTargetHoursChange(hrs)}
                 className={`px-2.5 py-1 rounded font-medium transition-colors ${
                   targetHours === hrs
-                    ? "bg-brand-600 text-white font-bold"
-                    : "text-gray-400 hover:text-white"
+                    ? "bg-white text-neutral-950 font-bold"
+                    : "text-neutral-400 hover:text-white"
                 }`}
               >
                 {hrs}h
@@ -69,9 +69,9 @@ export function DailyLearningPlan({
 
       <CardContent className="p-5 space-y-3">
         {/* Progress Bar */}
-        <div className="w-full h-2 rounded-full bg-[#1b2030] overflow-hidden">
+        <div className="w-full h-2 rounded-full bg-[#242424] overflow-hidden">
           <div
-            className="h-full bg-gradient-to-r from-brand-600 to-emerald-400 transition-all duration-300"
+            className="h-full bg-emerald-500 transition-all duration-300"
             style={{ width: `${progressPercent}%` }}
           />
         </div>
@@ -87,8 +87,8 @@ export function DailyLearningPlan({
                 onClick={() => toggleTask(item.id)}
                 className={`flex items-start gap-3 p-3 rounded-lg border transition-all cursor-pointer text-xs ${
                   isDone
-                    ? "bg-[#111722]/60 border-emerald-900/30 text-gray-500"
-                    : "bg-[#161a26] border-[#22283a] text-gray-200 hover:border-[#2f3852]"
+                    ? "bg-[#121212] border-emerald-900/30 text-neutral-500"
+                    : "bg-[#181818] border-[#262626] text-neutral-200 hover:border-[#383838]"
                 }`}
               >
                 <button
@@ -96,7 +96,7 @@ export function DailyLearningPlan({
                   className={`mt-0.5 w-4 h-4 rounded flex items-center justify-center shrink-0 border transition-colors ${
                     isDone
                       ? "bg-emerald-600 border-emerald-500 text-white"
-                      : "border-[#313b54] bg-[#1a1f2e]"
+                      : "border-[#333333] bg-[#1e1e1e]"
                   }`}
                 >
                   {isDone && <CheckSquare className="w-3.5 h-3.5" />}
@@ -106,16 +106,16 @@ export function DailyLearningPlan({
                   <div className="flex items-center justify-between">
                     <span
                       className={`font-semibold ${
-                        isDone ? "line-through text-gray-500" : "text-white"
+                        isDone ? "line-through text-neutral-500" : "text-white"
                       }`}
                     >
                       {idx + 1}. {item.title}
                     </span>
-                    <span className="text-[11px] font-mono text-gray-500">
+                    <span className="text-[11px] font-mono text-neutral-500">
                       ~{item.estimatedMinutes}m
                     </span>
                   </div>
-                  <p className="text-[11px] text-gray-400">{item.subtitle}</p>
+                  <p className="text-[11px] text-neutral-400">{item.subtitle}</p>
                 </div>
               </div>
             );
