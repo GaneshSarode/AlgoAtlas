@@ -22,87 +22,83 @@ export function OverallStats({ stats }: OverallStatsProps) {
     {
       label: "Total Questions",
       value: stats.total_problems,
-      subtitle: `${stats.total_attempts} total attempts`,
+      subtitle: `${stats.total_attempts} logged attempts`,
       icon: FolderCode,
-      color: "text-brand-400",
-      bg: "bg-brand-950/40 border-brand-900/40",
+      badge: "Vault",
     },
     {
       label: "Independently Solved",
       value: stats.independently_solved,
-      subtitle: "Unassisted solutions",
+      subtitle: `${stats.total_problems > 0 ? Math.round((stats.independently_solved / stats.total_problems) * 100) : 0}% unassisted`,
       icon: CheckCircle2,
-      color: "text-emerald-400",
-      bg: "bg-emerald-950/40 border-emerald-900/40",
+      accent: "text-emerald-400",
     },
     {
       label: "Solved With Hints",
       value: stats.solved_with_hint,
-      subtitle: "Target for reinforcement",
+      subtitle: "Target for recall",
       icon: HelpCircle,
-      color: "text-amber-400",
-      bg: "bg-amber-950/40 border-amber-900/40",
+      accent: "text-amber-400",
     },
     {
       label: "Needs Revision",
       value: stats.needs_revision,
       subtitle: "Scheduled in queue",
       icon: Repeat,
-      color: "text-rose-400",
-      bg: "bg-rose-950/40 border-rose-900/40",
+      accent: stats.needs_revision > 0 ? "text-rose-400" : "text-zinc-400",
     },
     {
       label: "Mastered Patterns",
       value: stats.mastered,
       subtitle: "High recall retention",
       icon: Award,
-      color: "text-purple-400",
-      bg: "bg-purple-950/40 border-purple-900/40",
+      accent: "text-indigo-400",
     },
     {
       label: "Learning Streak",
       value: `${stats.current_streak}d`,
-      subtitle: "Consecutive practice",
+      subtitle: "Consecutive days active",
       icon: Flame,
-      color: "text-orange-400",
-      bg: "bg-orange-950/40 border-orange-900/40",
+      accent: "text-amber-400",
     },
     {
       label: "Total Practice Time",
       value: `${Math.round(stats.total_practice_time_minutes / 60)}h`,
       subtitle: `${stats.total_practice_time_minutes % 60}m recorded`,
       icon: Clock,
-      color: "text-indigo-400",
-      bg: "bg-indigo-950/40 border-indigo-900/40",
+      accent: "text-zinc-300",
     },
     {
       label: "Not Attempted",
       value: stats.not_attempted,
-      subtitle: "In study queue",
+      subtitle: "In study backlog",
       icon: Target,
-      color: "text-gray-400",
-      bg: "bg-[#161a26] border-[#222839]",
+      accent: "text-zinc-500",
     },
   ];
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
       {cards.map((card, idx) => {
         const Icon = card.icon;
         return (
           <div
             key={idx}
-            className={`p-4 rounded-xl border transition-all ${card.bg} flex flex-col justify-between`}
+            className="p-3.5 rounded-xl bg-[#0c0e14] border border-white/[0.07] hover:border-white/[0.14] transition-all duration-150 flex flex-col justify-between group shadow-[inset_0_1px_0_0_rgba(255,255,255,0.03)]"
           >
             <div className="flex items-center justify-between">
-              <span className="text-xs text-gray-300 font-medium line-clamp-1">{card.label}</span>
-              <Icon className={`w-4 h-4 ${card.color} shrink-0`} />
+              <span className="text-[11px] text-zinc-400 font-medium tracking-tight">
+                {card.label}
+              </span>
+              <Icon className={`w-3.5 h-3.5 ${card.accent || "text-zinc-400"} shrink-0 group-hover:scale-110 transition-transform`} />
             </div>
-            <div className="mt-2">
-              <span className="text-2xl font-bold font-mono text-white block">
+            <div className="mt-2.5">
+              <span className="text-2xl font-bold font-mono tracking-tight text-white block">
                 {card.value}
               </span>
-              <span className="text-[10px] text-gray-400">{card.subtitle}</span>
+              <span className="text-[10px] text-zinc-500 font-mono mt-0.5 block truncate">
+                {card.subtitle}
+              </span>
             </div>
           </div>
         );

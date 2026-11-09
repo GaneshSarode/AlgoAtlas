@@ -25,69 +25,88 @@ export function ProblemTable({
   const getStatusBadge = (status: Problem["status"]) => {
     switch (status) {
       case "Mastered":
-        return <Badge variant="success">Mastered</Badge>;
+        return <Badge variant="success" dot>Mastered</Badge>;
       case "Solved Independently":
-        return <Badge variant="success">Solved (Independent)</Badge>;
+        return <Badge variant="success" dot>Independent</Badge>;
       case "Solved With Hint":
-        return <Badge variant="warning">Solved (Hint)</Badge>;
+        return <Badge variant="warning" dot>Hint Used</Badge>;
       case "Needs Revision":
-        return <Badge variant="danger">Needs Revision</Badge>;
+        return <Badge variant="danger" dot>Needs Revision</Badge>;
       case "Attempted":
-        return <Badge variant="purple">Attempted</Badge>;
+        return <Badge variant="purple" dot>Attempted</Badge>;
       default:
-        return <Badge variant="secondary">Not Started</Badge>;
+        return <Badge variant="secondary" dot>Not Started</Badge>;
     }
   };
 
   const getDifficultyBadge = (diff: Problem["difficulty"]) => {
     switch (diff) {
       case "Easy":
-        return <span className="text-emerald-400 font-medium text-xs">Easy</span>;
+        return (
+          <span className="inline-flex items-center gap-1.5 text-emerald-400 font-mono text-xs font-medium">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0" />
+            Easy
+          </span>
+        );
       case "Medium":
-        return <span className="text-amber-400 font-medium text-xs">Medium</span>;
+        return (
+          <span className="inline-flex items-center gap-1.5 text-amber-400 font-mono text-xs font-medium">
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shrink-0" />
+            Medium
+          </span>
+        );
       case "Hard":
-        return <span className="text-rose-400 font-medium text-xs">Hard</span>;
+        return (
+          <span className="inline-flex items-center gap-1.5 text-rose-400 font-mono text-xs font-medium">
+            <span className="w-1.5 h-1.5 rounded-full bg-rose-400 shrink-0" />
+            Hard
+          </span>
+        );
     }
   };
 
   return (
-    <div className="overflow-x-auto rounded-xl border border-[#1f2433] bg-[#12141d]">
-      <table className="w-full text-left text-xs text-gray-300">
-        <thead className="bg-[#171a25] text-gray-400 uppercase tracking-wider text-[10px] border-b border-[#1f2433]">
+    <div className="overflow-x-auto rounded-xl border border-white/[0.07] bg-[#0c0e14] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.03)]">
+      <table className="w-full text-left text-xs text-zinc-300">
+        <thead className="bg-zinc-900/60 text-zinc-400 font-mono uppercase tracking-wider text-[10px] border-b border-white/[0.06]">
           <tr>
-            <th className="p-3.5 w-10 text-center">★</th>
-            <th className="p-3.5">Problem</th>
-            <th className="p-3.5">Platform</th>
-            <th className="p-3.5">Difficulty</th>
-            <th className="p-3.5">Topic</th>
-            <th className="p-3.5">Status</th>
-            <th className="p-3.5">Confidence</th>
-            <th className="p-3.5">Time</th>
-            <th className="p-3.5 text-right">Actions</th>
+            <th className="p-3 w-8 text-center">★</th>
+            <th className="p-3">Problem</th>
+            <th className="p-3">Platform</th>
+            <th className="p-3">Difficulty</th>
+            <th className="p-3">Topic</th>
+            <th className="p-3">Status</th>
+            <th className="p-3">Confidence</th>
+            <th className="p-3">Time</th>
+            <th className="p-3 text-right">Actions</th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-[#1f2433]">
+        <tbody className="divide-y divide-white/[0.04]">
           {problems.map((p) => (
-            <tr key={p.id} className="hover:bg-[#161924] transition-colors group">
+            <tr key={p.id} className="hover:bg-white/[0.03] transition-colors group">
               {/* Bookmark Toggle */}
-              <td className="p-3.5 text-center">
+              <td className="p-3 text-center">
                 <button
                   onClick={() => onToggleBookmark(p.id, p.is_bookmarked)}
-                  className={`transition-colors ${
-                    p.is_bookmarked ? "text-amber-400" : "text-gray-600 hover:text-gray-400"
-                  }`}
+                  className="transition-transform active:scale-125 focus:outline-none"
                   title={p.is_bookmarked ? "Remove bookmark" : "Bookmark problem"}
                 >
-                  ★
+                  <Star
+                    className={`w-3.5 h-3.5 transition-colors ${
+                      p.is_bookmarked
+                        ? "text-amber-400 fill-amber-400"
+                        : "text-zinc-600 hover:text-zinc-400"
+                    }`}
+                  />
                 </button>
               </td>
 
               {/* Title & Link */}
-              <td className="p-3.5 font-medium text-white max-w-xs">
+              <td className="p-3 font-medium text-white max-w-xs">
                 <div className="flex items-center gap-1.5">
                   <Link
                     href={`/problems/${p.id}`}
-                    className="hover:text-brand-400 truncate max-w-[220px] transition-colors"
+                    className="hover:text-indigo-400 truncate max-w-[240px] transition-colors font-medium text-zinc-100"
                   >
                     {p.title}
                   </Link>
@@ -95,7 +114,7 @@ export function ProblemTable({
                     href={p.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-gray-500 hover:text-gray-300 shrink-0"
+                    className="text-zinc-500 hover:text-zinc-300 shrink-0 transition-colors"
                     title="Open on official platform"
                   >
                     <ExternalLink className="w-3 h-3" />
@@ -104,54 +123,60 @@ export function ProblemTable({
               </td>
 
               {/* Platform */}
-              <td className="p-3.5">
-                <span className="px-2 py-0.5 rounded bg-[#1c202e] border border-[#272e42] text-[11px] font-mono text-gray-300">
+              <td className="p-3">
+                <span className="px-2 py-0.5 rounded bg-zinc-900 border border-white/[0.08] text-[11px] font-mono text-zinc-300">
                   {p.platform}
                 </span>
               </td>
 
               {/* Difficulty */}
-              <td className="p-3.5">{getDifficultyBadge(p.difficulty)}</td>
+              <td className="p-3">{getDifficultyBadge(p.difficulty)}</td>
 
               {/* Topic */}
-              <td className="p-3.5">
-                <span className="text-gray-300">{p.primary_topic || "General"}</span>
+              <td className="p-3">
+                <span className="text-zinc-400 font-mono text-[11px]">{p.primary_topic || "General"}</span>
               </td>
 
               {/* Status */}
-              <td className="p-3.5">{getStatusBadge(p.status)}</td>
+              <td className="p-3">{getStatusBadge(p.status)}</td>
 
               {/* Confidence Stars */}
-              <td className="p-3.5">
-                <div className="flex items-center gap-0.5 text-amber-400">
-                  {"★".repeat(p.confidence_rating)}
-                  <span className="text-gray-600">
-                    {"★".repeat(5 - p.confidence_rating)}
-                  </span>
+              <td className="p-3">
+                <div className="flex items-center gap-0.5">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <span
+                      key={i}
+                      className={`text-xs ${
+                        i < p.confidence_rating ? "text-amber-400" : "text-zinc-700"
+                      }`}
+                    >
+                      ★
+                    </span>
+                  ))}
                 </div>
               </td>
 
               {/* Time Spent */}
-              <td className="p-3.5 text-gray-400 font-mono">
+              <td className="p-3 text-zinc-400 font-mono text-[11px]">
                 {p.time_spent_minutes ? `${p.time_spent_minutes}m` : "—"}
               </td>
 
               {/* Actions */}
-              <td className="p-3.5 text-right">
-                <div className="flex items-center justify-end gap-2">
+              <td className="p-3 text-right">
+                <div className="flex items-center justify-end gap-1.5 opacity-70 group-hover:opacity-100 transition-opacity">
                   <Link
                     href={`/problems/${p.id}`}
-                    className="p-1.5 rounded-md text-gray-400 hover:text-white hover:bg-[#1f2434] transition-colors"
+                    className="p-1 rounded text-zinc-400 hover:text-white hover:bg-white/[0.08] transition-colors"
                     title="Open Learning Journal"
                   >
-                    <BookOpen className="w-4 h-4 text-purple-400" />
+                    <BookOpen className="w-3.5 h-3.5" />
                   </Link>
                   <button
                     onClick={() => onDeleteProblem(p.id)}
-                    className="p-1.5 rounded-md text-gray-500 hover:text-rose-400 hover:bg-rose-950/30 transition-colors"
+                    className="p-1 rounded text-zinc-500 hover:text-rose-400 hover:bg-rose-500/10 transition-colors"
                     title="Delete Problem"
                   >
-                    <Trash2 className="w-4 h-4" />
+                    <Trash2 className="w-3.5 h-3.5" />
                   </button>
                 </div>
               </td>

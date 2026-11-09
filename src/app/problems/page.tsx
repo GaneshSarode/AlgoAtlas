@@ -54,12 +54,10 @@ export default function ProblemsPage() {
     }
   };
 
-  // Compute available topics dynamically from database problems
   const availableTopics = Array.from(
     new Set(problems.map((p) => p.primary_topic).filter(Boolean) as string[])
   ).sort();
 
-  // Filter and sort problems
   const filteredProblems = problems.filter((p) => {
     if (filters.search) {
       const q = filters.search.toLowerCase();
@@ -76,7 +74,6 @@ export default function ProblemsPage() {
     return true;
   });
 
-  // Sort
   filteredProblems.sort((a, b) => {
     if (filters.sortBy === "confidence-asc") {
       return a.confidence_rating - b.confidence_rating;
@@ -91,20 +88,19 @@ export default function ProblemsPage() {
       const diffWeight = { Easy: 1, Medium: 2, Hard: 3 };
       return diffWeight[a.difficulty] - diffWeight[b.difficulty];
     }
-    // Default: recent
     return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
   });
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 pb-12">
       {/* Top Banner & Actions */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 p-4 sm:p-5 rounded-xl bg-[#0c0e14] border border-white/[0.07] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.03)]">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-white flex items-center gap-2.5">
-            <FolderCode className="w-6 h-6 text-brand-400" />
+          <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-white flex items-center gap-2.5 font-sans">
+            <FolderCode className="w-5 h-5 text-indigo-400" />
             Central Problem Vault
           </h1>
-          <p className="text-xs text-gray-400 mt-1">
+          <p className="text-xs text-zinc-400 mt-0.5">
             Store, categorize, and master your DSA problems across all competitive programming platforms.
           </p>
         </div>
@@ -123,9 +119,9 @@ export default function ProblemsPage() {
           <Button
             size="sm"
             onClick={() => setIsAddOpen(true)}
-            className="bg-brand-600 hover:bg-brand-500 shadow-sm shadow-brand-600/30 flex items-center gap-1.5"
+            className="bg-white hover:bg-zinc-200 text-zinc-950 font-semibold shadow-sm flex items-center gap-1.5"
           >
-            <Plus className="w-3.5 h-3.5" />
+            <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
             <span>Add Problem</span>
           </Button>
         </div>
@@ -150,11 +146,11 @@ export default function ProblemsPage() {
         availableTopics={availableTopics}
       />
 
-      {/* Problems Counter Banner */}
-      <div className="flex items-center justify-between text-xs text-gray-400 px-1">
+      {/* Counter */}
+      <div className="flex items-center justify-between text-xs text-zinc-400 font-mono px-1">
         <span>
-          Showing <strong className="text-white">{filteredProblems.length}</strong> of{" "}
-          <strong className="text-white">{problems.length}</strong> questions
+          Showing <strong className="text-white font-semibold">{filteredProblems.length}</strong> of{" "}
+          <strong className="text-white font-semibold">{problems.length}</strong> questions
         </span>
       </div>
 
@@ -174,13 +170,12 @@ export default function ProblemsPage() {
           />
         )
       ) : (
-        /* Empty State */
-        <div className="text-center py-16 bg-[#12141d] border border-dashed border-[#23293a] rounded-xl p-6 space-y-3">
-          <div className="w-12 h-12 rounded-full bg-brand-950/60 border border-brand-800/40 text-brand-400 flex items-center justify-center mx-auto">
-            <Sparkles className="w-6 h-6" />
+        <div className="text-center py-16 bg-[#0c0e14] border border-dashed border-white/[0.08] rounded-xl p-6 space-y-3">
+          <div className="w-10 h-10 rounded-full bg-zinc-900 border border-white/[0.08] text-zinc-400 flex items-center justify-center mx-auto">
+            <Sparkles className="w-5 h-5 text-indigo-400" />
           </div>
-          <h3 className="text-base font-semibold text-white">No problems found</h3>
-          <p className="text-xs text-gray-400 max-w-sm mx-auto">
+          <h3 className="text-sm font-semibold text-white">No problems found</h3>
+          <p className="text-xs text-zinc-400 max-w-sm mx-auto">
             {problems.length === 0
               ? "Your vault is currently empty. Click 'Add Problem' or 'Import CSV' to log your first question."
               : "No problems matched your current filter criteria. Try resetting your filters."}
@@ -188,7 +183,7 @@ export default function ProblemsPage() {
           <Button
             size="sm"
             onClick={() => setIsAddOpen(true)}
-            className="bg-brand-600 hover:bg-brand-500 mt-2"
+            className="bg-white hover:bg-zinc-200 text-zinc-950 font-semibold mt-1"
           >
             + Add First Problem
           </Button>

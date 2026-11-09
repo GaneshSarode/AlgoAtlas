@@ -2,53 +2,96 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #090a0f;
-  --foreground: #f3f4f6;
-  --surface: #11131a;
-  --surface-card: #161822;
-  --surface-border: #222634;
-  --radius: 0.5rem;
+@layer base {
+  :root {
+    --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    
+    --background: #090a0f;
+    --foreground: #f4f4f5;
+    
+    --surface-base: #0c0e14;
+    --surface-raised: #11141d;
+    --surface-overlay: #161b26;
+    --surface-hover: #1c2230;
+    
+    --border-subtle: rgba(255, 255, 255, 0.06);
+    --border-default: rgba(255, 255, 255, 0.1);
+    --border-strong: rgba(255, 255, 255, 0.18);
+    
+    --radius: 0.5rem;
+  }
+
+  .light {
+    --background: #f8fafc;
+    --foreground: #09090b;
+    --surface-base: #ffffff;
+    --surface-raised: #f4f4f6;
+    --surface-overlay: #ffffff;
+    --surface-hover: #eaebee;
+    --border-subtle: rgba(0, 0, 0, 0.05);
+    --border-default: rgba(0, 0, 0, 0.09);
+    --border-strong: rgba(0, 0, 0, 0.16);
+  }
+
+  * {
+    border-color: var(--border-default);
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    letter-spacing: -0.011em;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11", "calt";
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 }
 
-.light {
-  --background: #f8fafc;
-  --foreground: #0f172a;
-  --surface: #ffffff;
-  --surface-card: #ffffff;
-  --surface-border: #e2e8f0;
+/* Linear-style hardware inset border / highlight */
+.craft-border {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.05), 0 1px 2px 0 rgba(0, 0, 0, 0.35);
 }
 
-body {
-  background-color: var(--background);
-  color: var(--foreground);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-  min-height: 100vh;
-  margin: 0;
-  padding: 0;
-  -webkit-font-smoothing: antialiased;
+.craft-card {
+  background: #0e1118;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.04), 0 2px 8px -2px rgba(0, 0, 0, 0.4);
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Custom modern scrollbar */
+.craft-card:hover {
+  border-color: rgba(255, 255, 255, 0.14);
+  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.08), 0 4px 16px -4px rgba(0, 0, 0, 0.5);
+}
+
+/* Subtle dot grid pattern */
+.bg-grid-subtle {
+  background-size: 24px 24px;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+}
+
+/* Subtle sleek scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #2a2e3f;
-  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #3b4259;
+  background: rgba(255, 255, 255, 0.22);
 }
 
-/* Code block styles */
-pre code {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: 0.875rem;
-  line-height: 1.5;
+/* Monospace numerals */
+.num-mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
 }

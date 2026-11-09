@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import {
-  Code2,
   Plus,
   Compass,
   Repeat,
@@ -66,53 +65,53 @@ export default function DashboardPage() {
   }, []);
 
   return (
-    <div className="space-y-6 pb-12">
-      {/* Hero Welcome Banner */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-gradient-to-r from-[#121422] via-[#15192b] to-[#121422] border border-[#21273b] p-6 rounded-2xl shadow-xl shadow-brand-950/10">
+    <div className="space-y-5 pb-10">
+      {/* Executive Header Banner */}
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-5 rounded-xl bg-[#0c0e14] border border-white/[0.08] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.04)]">
         <div className="space-y-1">
           <div className="flex items-center gap-2">
-            <span className="text-[10px] font-bold uppercase tracking-widest text-brand-400 font-mono px-2 py-0.5 rounded bg-brand-950 border border-brand-800">
+            <span className="text-[10px] font-mono font-medium text-zinc-400 tracking-wider uppercase px-2 py-0.5 rounded bg-zinc-900 border border-white/[0.06]">
               Personal DSA Learning OS
             </span>
-            <span className="text-xs text-emerald-400 font-medium flex items-center gap-1">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              Engine Online
+            <span className="text-[11px] text-emerald-400 font-mono font-medium flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
+              Continuous Telemetry
             </span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-            AlgoAtlas
+          <h1 className="text-xl sm:text-2xl font-bold text-white tracking-tight font-sans">
+            AlgoAtlas Overview
           </h1>
-          <p className="text-xs text-gray-300 max-w-xl">
-            Don't just count solved problems. Measure actual learning, understanding, problem-solving ability, and long-term pattern mastery.
+          <p className="text-xs text-zinc-400 max-w-xl font-sans">
+            Measuring genuine problem-solving understanding, algorithmic patterns, and long-term retention.
           </p>
         </div>
 
-        <div className="flex items-center gap-2.5 w-full sm:w-auto">
+        <div className="flex items-center gap-2 w-full sm:w-auto">
           <Link
             href="/recommendations"
-            className="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-lg bg-[#181d2c] border border-[#2a344d] hover:border-brand-500/60 text-xs font-semibold text-gray-200 hover:text-white transition-colors"
+            className="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg bg-zinc-900/80 hover:bg-zinc-800 border border-white/[0.08] hover:border-white/[0.18] text-xs font-medium text-zinc-200 hover:text-white transition-all shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]"
           >
-            <Compass className="w-3.5 h-3.5 text-purple-400" />
+            <Compass className="w-3.5 h-3.5 text-indigo-400" />
             <span>Next Steps</span>
           </Link>
 
           <Button
             size="sm"
             onClick={() => setIsAddModalOpen(true)}
-            className="flex-1 sm:flex-initial bg-brand-600 hover:bg-brand-500 shadow-md shadow-brand-600/30 flex items-center justify-center gap-1.5 text-xs py-2 px-4"
+            className="flex-1 sm:flex-initial bg-white hover:bg-zinc-200 text-zinc-950 font-semibold shadow-sm flex items-center justify-center gap-1.5 text-xs py-1.5 px-3.5"
           >
-            <Plus className="w-4 h-4" />
+            <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
             <span>Add Problem</span>
           </Button>
         </div>
       </div>
 
       {isLoading ? (
-        <div className="py-20 text-center text-xs text-gray-500 animate-pulse">
-          Loading your learning metrics...
+        <div className="py-24 text-center text-xs text-zinc-500 font-mono">
+          Loading learning telemetry...
         </div>
       ) : (
-        <div className="space-y-6">
+        <div className="space-y-4">
           {/* Section A: Overall Statistics */}
           {stats && <OverallStats stats={stats} />}
 
@@ -125,14 +124,14 @@ export default function DashboardPage() {
           <PlatformBreakdown platformStats={platformStats} />
 
           {/* Section C: Daily Consistency Heatmap */}
-          <Card className="border-[#1f2433] bg-[#12141e]">
-            <CardContent className="p-5">
+          <Card className="border border-white/[0.07] bg-[#0c0e14]">
+            <CardContent className="p-4 sm:p-5">
               <HeatmapCalendar activities={activities} />
             </CardContent>
           </Card>
 
-          {/* Section E: 2-Column Grid (Pending Revisions & Recent Activity) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {/* Section E: 2-Column Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
             <UpcomingRevisionsWidget revisions={revisions} />
             <RecentActivityWidget problems={recentProblems} />
           </div>

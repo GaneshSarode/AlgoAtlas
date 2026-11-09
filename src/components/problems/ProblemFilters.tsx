@@ -1,8 +1,7 @@
 "use client";
 
 import React from "react";
-import { Search, Filter, LayoutList, LayoutGrid, X } from "lucide-react";
-import { Button } from "@/ui/button";
+import { Search, LayoutList, LayoutGrid, X, Star } from "lucide-react";
 import type { PlatformType, DifficultyLevel, ProblemStatus } from "@/types";
 
 export interface FilterState {
@@ -38,17 +37,17 @@ export function ProblemFilters({
     filters.bookmarkedOnly;
 
   return (
-    <div className="bg-[#12141d] border border-[#1f2433] rounded-xl p-4 space-y-3">
+    <div className="bg-[#0c0e14] border border-white/[0.07] rounded-xl p-3 sm:p-4 space-y-3 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.03)]">
       {/* Search and View Toggle */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-2.5">
         <div className="relative w-full sm:w-80">
-          <Search className="w-4 h-4 absolute left-3 top-3 text-gray-400" />
+          <Search className="w-3.5 h-3.5 absolute left-3 top-3 text-zinc-400" />
           <input
             type="text"
             value={filters.search}
             onChange={(e) => onChange({ search: e.target.value })}
-            placeholder="Search problems by name or tag..."
-            className="w-full bg-[#181b26] border border-[#272e42] rounded-lg pl-9 pr-4 py-2 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-brand-500"
+            placeholder="Filter problems by title, topic, platform..."
+            className="w-full bg-zinc-900 border border-white/[0.08] rounded-lg pl-9 pr-3.5 py-1.5 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-indigo-500/80 transition-all shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]"
           />
         </div>
 
@@ -56,50 +55,51 @@ export function ProblemFilters({
           {/* Bookmark Toggle */}
           <button
             onClick={() => onChange({ bookmarkedOnly: !filters.bookmarkedOnly })}
-            className={`px-3 py-1.5 rounded-lg text-xs font-medium border transition-colors flex items-center gap-1.5 ${
+            className={`px-2.5 py-1.5 rounded-lg text-xs font-medium border transition-all flex items-center gap-1.5 ${
               filters.bookmarkedOnly
-                ? "bg-amber-500/20 text-amber-300 border-amber-500/40"
-                : "bg-[#181b26] text-gray-400 border-[#272e42] hover:text-white"
+                ? "bg-amber-500/10 text-amber-300 border-amber-500/30"
+                : "bg-zinc-900/60 text-zinc-400 border-white/[0.08] hover:text-white hover:border-white/[0.16]"
             }`}
           >
-            ★ Bookmarked
+            <Star className={`w-3.5 h-3.5 ${filters.bookmarkedOnly ? "fill-amber-400 text-amber-400" : "text-zinc-500"}`} />
+            <span>Bookmarked</span>
           </button>
 
           {/* View Mode Switcher */}
-          <div className="flex items-center bg-[#181b26] border border-[#272e42] rounded-lg p-0.5">
+          <div className="flex items-center bg-zinc-900 border border-white/[0.08] rounded-lg p-0.5">
             <button
               onClick={() => onChange({ viewMode: "table" })}
-              className={`p-1.5 rounded text-xs transition-colors ${
+              className={`p-1.5 rounded text-xs transition-all ${
                 filters.viewMode === "table"
-                  ? "bg-brand-600 text-white"
-                  : "text-gray-400 hover:text-white"
+                  ? "bg-white/[0.12] text-white shadow-sm"
+                  : "text-zinc-400 hover:text-white"
               }`}
               title="Table View"
             >
-              <LayoutList className="w-4 h-4" />
+              <LayoutList className="w-3.5 h-3.5" />
             </button>
             <button
               onClick={() => onChange({ viewMode: "cards" })}
-              className={`p-1.5 rounded text-xs transition-colors ${
+              className={`p-1.5 rounded text-xs transition-all ${
                 filters.viewMode === "cards"
-                  ? "bg-brand-600 text-white"
-                  : "text-gray-400 hover:text-white"
+                  ? "bg-white/[0.12] text-white shadow-sm"
+                  : "text-zinc-400 hover:text-white"
               }`}
               title="Card Grid View"
             >
-              <LayoutGrid className="w-4 h-4" />
+              <LayoutGrid className="w-3.5 h-3.5" />
             </button>
           </div>
         </div>
       </div>
 
       {/* Filter Dropdowns Grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 pt-1 border-t border-[#1f2433]">
+      <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 pt-2 border-t border-white/[0.06]">
         {/* Platform */}
         <select
           value={filters.platform}
           onChange={(e) => onChange({ platform: e.target.value })}
-          className="bg-[#181b26] border border-[#272e42] rounded-lg px-2.5 py-1.5 text-xs text-gray-300 focus:outline-none focus:border-brand-500"
+          className="bg-zinc-900 border border-white/[0.08] rounded-lg px-2.5 py-1.5 text-xs text-zinc-300 focus:outline-none focus:border-indigo-500 transition-colors"
         >
           <option value="">All Platforms</option>
           <option value="LeetCode">LeetCode</option>
@@ -115,7 +115,7 @@ export function ProblemFilters({
         <select
           value={filters.difficulty}
           onChange={(e) => onChange({ difficulty: e.target.value })}
-          className="bg-[#181b26] border border-[#272e42] rounded-lg px-2.5 py-1.5 text-xs text-gray-300 focus:outline-none focus:border-brand-500"
+          className="bg-zinc-900 border border-white/[0.08] rounded-lg px-2.5 py-1.5 text-xs text-zinc-300 focus:outline-none focus:border-indigo-500 transition-colors"
         >
           <option value="">All Difficulties</option>
           <option value="Easy">Easy</option>
@@ -127,7 +127,7 @@ export function ProblemFilters({
         <select
           value={filters.status}
           onChange={(e) => onChange({ status: e.target.value })}
-          className="bg-[#181b26] border border-[#272e42] rounded-lg px-2.5 py-1.5 text-xs text-gray-300 focus:outline-none focus:border-brand-500"
+          className="bg-zinc-900 border border-white/[0.08] rounded-lg px-2.5 py-1.5 text-xs text-zinc-300 focus:outline-none focus:border-indigo-500 transition-colors"
         >
           <option value="">All Statuses</option>
           <option value="Solved Independently">Solved Independently</option>
@@ -142,7 +142,7 @@ export function ProblemFilters({
         <select
           value={filters.topic}
           onChange={(e) => onChange({ topic: e.target.value })}
-          className="bg-[#181b26] border border-[#272e42] rounded-lg px-2.5 py-1.5 text-xs text-gray-300 focus:outline-none focus:border-brand-500"
+          className="bg-zinc-900 border border-white/[0.08] rounded-lg px-2.5 py-1.5 text-xs text-zinc-300 focus:outline-none focus:border-indigo-500 transition-colors"
         >
           <option value="">All Topics</option>
           {availableTopics.map((top) => (
@@ -156,7 +156,7 @@ export function ProblemFilters({
         <select
           value={filters.sortBy}
           onChange={(e) => onChange({ sortBy: e.target.value })}
-          className="bg-[#181b26] border border-[#272e42] rounded-lg px-2.5 py-1.5 text-xs text-gray-300 focus:outline-none focus:border-brand-500"
+          className="bg-zinc-900 border border-white/[0.08] rounded-lg px-2.5 py-1.5 text-xs text-zinc-300 focus:outline-none focus:border-indigo-500 transition-colors"
         >
           <option value="recent">Recently Added</option>
           <option value="confidence-asc">Lowest Confidence</option>
@@ -167,11 +167,11 @@ export function ProblemFilters({
       </div>
 
       {hasActiveFilters && (
-        <div className="flex items-center justify-between text-[11px] text-gray-400 pt-1">
+        <div className="flex items-center justify-between text-[11px] text-zinc-400 pt-1">
           <span>Active filter applied</span>
           <button
             onClick={onReset}
-            className="flex items-center gap-1 text-brand-400 hover:text-brand-300 underline"
+            className="flex items-center gap-1 text-indigo-400 hover:text-indigo-300 transition-colors"
           >
             <X className="w-3 h-3" /> Reset Filters
           </button>
