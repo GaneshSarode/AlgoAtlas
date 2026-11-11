@@ -2,7 +2,7 @@ import React from "react";
 import { cn } from "@/lib/utils";
 
 export interface BadgeProps extends React.HTMLAttributes<HTMLDivElement> {
-  variant?: "default" | "secondary" | "success" | "warning" | "danger" | "purple" | "outline" | "brand";
+  variant?: "default" | "secondary" | "success" | "warning" | "danger" | "purple" | "outline" | "brand" | "accent";
   dot?: boolean;
 }
 
@@ -14,24 +14,26 @@ export function Badge({
   ...props
 }: BadgeProps) {
   const variantStyles = {
-    default: "bg-neutral-800 text-neutral-300 border-white/[0.08]",
-    secondary: "bg-neutral-900/60 text-neutral-400 border-white/[0.04]",
-    success: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
-    warning: "bg-amber-500/10 text-amber-300 border-amber-500/20",
-    danger: "bg-rose-500/10 text-rose-400 border-rose-500/20",
-    purple: "bg-neutral-800 text-neutral-300 border-white/[0.08]",
-    brand: "bg-neutral-800 text-neutral-300 border-white/[0.08]",
-    outline: "text-neutral-400 border-white/[0.1] bg-transparent",
+    default: "bg-surface-raised text-foreground border-border-default",
+    secondary: "bg-surface-overlay text-neutral-400 border-border-subtle",
+    accent: "bg-accent-muted text-accent border-accent-border",
+    brand: "bg-accent-muted text-accent border-accent-border",
+    purple: "bg-surface-raised text-neutral-300 border-border-default",
+    success: "bg-emerald-500/10 text-emerald-400 border-emerald-500/25",
+    warning: "bg-amber-500/10 text-amber-300 border-amber-500/25",
+    danger: "bg-rose-500/10 text-rose-400 border-rose-500/25",
+    outline: "text-neutral-400 border-border-default bg-transparent",
   };
 
   const dotStyles = {
     default: "bg-neutral-400",
     secondary: "bg-neutral-500",
+    accent: "bg-accent shadow-[0_0_6px_rgba(59,130,246,0.6)]",
+    brand: "bg-accent shadow-[0_0_6px_rgba(59,130,246,0.6)]",
+    purple: "bg-neutral-400",
     success: "bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.6)]",
     warning: "bg-amber-400 shadow-[0_0_6px_rgba(251,191,36,0.6)]",
     danger: "bg-rose-400 shadow-[0_0_6px_rgba(248,113,113,0.6)]",
-    purple: "bg-neutral-400",
-    brand: "bg-neutral-400",
     outline: "bg-neutral-400",
   };
 

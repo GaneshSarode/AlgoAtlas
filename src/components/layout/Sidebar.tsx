@@ -30,15 +30,18 @@ export interface SidebarProps {
   onOpenAddModal: () => void;
 }
 
+interface NavItem {
+  label: string;
+  href?: string;
+  onClick?: () => void;
+  icon: React.ComponentType<{ className?: string }>;
+  badge?: string;
+  badgeVariant?: "brand" | "danger" | "warning";
+}
+
 interface NavSection {
-  title?: string;
-  items: {
-    label: string;
-    href: string;
-    icon: React.ComponentType<{ className?: string }>;
-    badge?: string;
-    badgeVariant?: "brand" | "danger" | "warning";
-  }[];
+  title: string;
+  items: NavItem[];
 }
 
 export function Sidebar({ isMobileOpen = false, onMobileClose, onOpenAddModal }: SidebarProps) {
@@ -58,15 +61,21 @@ export function Sidebar({ isMobileOpen = false, onMobileClose, onOpenAddModal }:
 
   const navSections: NavSection[] = [
     {
+      title: "WORKSPACE",
       items: [
         { label: "Dashboard", href: "/", icon: LayoutDashboard },
         { label: "Central Vault", href: "/problems", icon: FolderCode },
-        { label: "Learning Journal", href: "/problems/journal", icon: BookOpen },
+        {
+          label: "Add Problem",
+          onClick: onOpenAddModal,
+          icon: Plus,
+        },
       ],
     },
     {
-      title: "KNOWLEDGE & MASTERY",
+      title: "LEARNING",
       items: [
+        { label: "Learning Journal", href: "/problems/journal", icon: BookOpen },
         { label: "Concept Vault", href: "/concepts", icon: BrainCircuit },
         { label: "DSA Roadmaps", href: "/roadmaps", icon: MapIcon },
         {
@@ -80,16 +89,20 @@ export function Sidebar({ isMobileOpen = false, onMobileClose, onOpenAddModal }:
           label: "Next to Learn",
           href: "/recommendations",
           icon: Sparkles,
-          badgeVariant: "brand",
         },
       ],
     },
     {
-      title: "ANALYTICS & SYNC",
+      title: "PERFORMANCE",
       items: [
         { label: "Contest Tracker", href: "/contests", icon: Trophy },
-        { label: "Analytics & Reports", href: "/analytics", icon: BarChart3 },
-        { label: "Integrations & APIs", href: "/integrations", icon: Globe2 },
+        { label: "Analytics", href: "/analytics", icon: BarChart3 },
+      ],
+    },
+    {
+      title: "SYSTEM",
+      items: [
+        { label: "Integrations", href: "/integrations", icon: Globe2 },
         { label: "Settings", href: "/settings", icon: Settings },
       ],
     },
@@ -98,22 +111,22 @@ export function Sidebar({ isMobileOpen = false, onMobileClose, onOpenAddModal }:
   const content = (
     <div
       className={cn(
-        "flex flex-col h-full bg-[#111111] border-r border-[#222222] transition-all duration-200 select-none",
-        isCollapsed ? "w-[68px]" : "w-[240px]"
+        "flex flex-col h-full bg-surface-base border-r border-border-default transition-all duration-200 select-none",
+        isCollapsed ? "w-[64px]" : "w-[240px]"
       )}
     >
       {/* Brand Header */}
-      <div className="flex items-center justify-between h-14 px-3.5 border-b border-[#222222]">
+      <div className="flex items-center justify-between h-14 px-3.5 border-b border-border-subtle">
         <Link href="/" className="flex items-center gap-2.5 overflow-hidden group">
-          <div className="w-7 h-7 rounded-md bg-neutral-900 border border-white/[0.12] flex items-center justify-center text-neutral-100 shadow-[inset_0_1px_0_rgba(255,255,255,0.1)] group-hover:border-white/[0.2] transition-colors shrink-0">
-            <Terminal className="w-3.5 h-3.5 text-neutral-200" />
+          <div className="w-7 h-7 rounded-md bg-accent-muted border border-accent-border flex items-center justify-center text-accent shrink-0 shadow-sm transition-colors group-hover:bg-accent/20">
+            <Terminal className="w-3.5 h-3.5 stroke-[2.2]" />
           </div>
           {!isCollapsed && (
             <div className="flex flex-col text-left">
-              <span className="font-semibold text-xs tracking-tight text-white leading-none">
+              <span className="font-semibold text-xs tracking-tight text-foreground leading-none">
                 AlgoAtlas
               </span>
-              <span className="text-[10px] text-neutral-500 font-mono tracking-tight mt-0.5">
+              <span className="text-[10px] text-neutral-400 font-mono tracking-tight mt-0.5">
                 v1.0 • prod
               </span>
             </div>
@@ -121,34 +134,19 @@ export function Sidebar({ isMobileOpen = false, onMobileClose, onOpenAddModal }:
         </Link>
         <button
           onClick={() => setIsCollapsed(!isCollapsed)}
-          className="hidden md:flex p-1 rounded-md text-neutral-500 hover:text-neutral-200 hover:bg-white/[0.04] transition-colors"
+          className="hidden md:flex p-1 rounded-md text-neutral-400 hover:text-foreground hover:bg-surface-hover transition-colors"
           title={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
         >
           {isCollapsed ? <ChevronRight className="w-3.5 h-3.5" /> : <ChevronLeft className="w-3.5 h-3.5" />}
         </button>
       </div>
 
-      {/* Quick Problem Capture Button */}
-      <div className="p-2.5 border-b border-[#222222]">
-        <button
-          onClick={onOpenAddModal}
-          className={cn(
-            "w-full flex items-center justify-center gap-1.5 rounded-lg bg-white hover:bg-neutral-200 text-neutral-950 font-semibold text-xs py-1.5 px-3 transition-all duration-150 shadow-[0_1px_2px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.7)] active:scale-[0.98]",
-            isCollapsed && "p-1.5"
-          )}
-          title="Add New Problem"
-        >
-          <Plus className="w-3.5 h-3.5 stroke-[2.5] shrink-0" />
-          {!isCollapsed && <span>Add Problem</span>}
-        </button>
-      </div>
-
       {/* Navigation Sections */}
-      <div className="flex-1 overflow-y-auto py-2.5 px-2 space-y-4">
+      <div className="flex-1 overflow-y-auto py-2.5 px-2 space-y-3.5">
         {navSections.map((section, sIdx) => (
           <div key={sIdx} className="space-y-0.5">
-            {!isCollapsed && section.title && (
-              <div className="px-2.5 pt-2 pb-1 text-[10px] font-mono font-medium text-zinc-500 tracking-wider">
+            {!isCollapsed && (
+              <div className="px-2.5 pt-1.5 pb-1 text-[10px] font-mono font-medium text-neutral-400 tracking-wider">
                 {section.title}
               </div>
             )}
@@ -157,30 +155,21 @@ export function Sidebar({ isMobileOpen = false, onMobileClose, onOpenAddModal }:
               const isActive =
                 item.href === "/"
                   ? pathname === "/"
-                  : pathname === item.href || pathname.startsWith(item.href + "/");
+                  : item.href
+                  ? pathname === item.href || pathname.startsWith(item.href + "/")
+                  : false;
 
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => onMobileClose && onMobileClose()}
-                  className={cn(
-                    "flex items-center gap-2.5 px-2.5 py-1.5 rounded-md text-xs font-medium transition-all relative group",
-                    isActive
-                      ? "bg-white/[0.08] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]"
-                      : "text-zinc-400 hover:text-zinc-100 hover:bg-white/[0.04]",
-                    isCollapsed && "justify-center px-0"
-                  )}
-                  title={isCollapsed ? item.label : undefined}
-                >
-                  {/* Subtle active left bar */}
+              const elementContent = (
+                <>
                   {isActive && (
-                    <span className="absolute left-0 top-1.5 bottom-1.5 w-[2px] bg-white/80 rounded-r" />
+                    <span className="absolute left-0 top-1.5 bottom-1.5 w-[2px] bg-accent rounded-r" />
                   )}
                   <Icon
                     className={cn(
                       "w-4 h-4 shrink-0 transition-colors",
-                      isActive ? "text-white" : "text-neutral-400 group-hover:text-neutral-200"
+                      isActive
+                        ? "text-accent"
+                        : "text-neutral-400 group-hover:text-foreground"
                     )}
                   />
                   {!isCollapsed && <span className="truncate">{item.label}</span>}
@@ -190,12 +179,48 @@ export function Sidebar({ isMobileOpen = false, onMobileClose, onOpenAddModal }:
                         "ml-auto text-[10px] font-mono font-semibold px-1.5 py-0.2 rounded-full border",
                         item.badgeVariant === "danger"
                           ? "bg-rose-500/10 text-rose-400 border-rose-500/30"
-                          : "bg-neutral-800 text-neutral-300 border-neutral-700"
+                          : "bg-surface-overlay text-foreground border-border-default"
                       )}
                     >
                       {item.badge}
                     </span>
                   )}
+                </>
+              );
+
+              const itemClass = cn(
+                "flex items-center gap-2.5 px-2.5 py-1.5 rounded-md text-xs font-medium transition-all relative group w-full text-left",
+                isActive
+                  ? "bg-accent-muted text-foreground font-semibold shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]"
+                  : "text-neutral-400 hover:text-foreground hover:bg-surface-hover",
+                isCollapsed && "justify-center px-0"
+              );
+
+              if (item.onClick) {
+                return (
+                  <button
+                    key={item.label}
+                    onClick={() => {
+                      if (onMobileClose) onMobileClose();
+                      item.onClick!();
+                    }}
+                    className={itemClass}
+                    title={isCollapsed ? item.label : undefined}
+                  >
+                    {elementContent}
+                  </button>
+                );
+              }
+
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href!}
+                  onClick={() => onMobileClose && onMobileClose()}
+                  className={itemClass}
+                  title={isCollapsed ? item.label : undefined}
+                >
+                  {elementContent}
                 </Link>
               );
             })}
@@ -203,16 +228,16 @@ export function Sidebar({ isMobileOpen = false, onMobileClose, onOpenAddModal }:
         ))}
       </div>
 
-      {/* Bottom Status Profile Info */}
-      <div className="p-2.5 border-t border-[#222222] bg-[#0d0d0d]">
-        <div className={cn("flex items-center gap-2.5 px-1 py-0.5", isCollapsed && "justify-center")}>
-          <div className="w-6 h-6 rounded-md bg-neutral-800 border border-white/[0.08] flex items-center justify-center text-[10px] font-mono text-neutral-300 shrink-0">
-            <Activity className="w-3 h-3 text-emerald-400" />
+      {/* Bottom Status / Profile Info */}
+      <div className="p-3 border-t border-border-subtle bg-surface-base">
+        <div className={cn("flex items-center gap-2.5", isCollapsed && "justify-center")}>
+          <div className="w-6 h-6 rounded-md bg-emerald-500/10 border border-emerald-500/25 flex items-center justify-center shrink-0">
+            <Activity className="w-3.5 h-3.5 text-emerald-400" />
           </div>
           {!isCollapsed && (
-            <div className="flex flex-col overflow-hidden text-left leading-none">
-              <span className="text-[11px] font-medium text-neutral-300 truncate">Workspace Active</span>
-              <span className="text-[10px] font-mono text-neutral-500 mt-1">Dual-Mode Ready</span>
+            <div className="flex flex-col text-left leading-none min-w-0">
+              <span className="text-[11px] font-medium text-foreground truncate">Workspace Active</span>
+              <span className="text-[10px] font-mono text-neutral-400 mt-1">Dual-Mode Ready</span>
             </div>
           )}
         </div>
@@ -229,7 +254,7 @@ export function Sidebar({ isMobileOpen = false, onMobileClose, onOpenAddModal }:
       {isMobileOpen && (
         <div className="md:hidden fixed inset-0 z-50 flex">
           <div
-            className="fixed inset-0 bg-black/80 backdrop-blur-sm transition-opacity"
+            className="fixed inset-0 bg-black/75 backdrop-blur-sm transition-opacity"
             onClick={onMobileClose}
           />
           <div className="relative z-50 h-full w-[240px] shadow-2xl">

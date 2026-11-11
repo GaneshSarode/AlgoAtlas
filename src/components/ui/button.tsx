@@ -2,28 +2,30 @@ import React from "react";
 import { cn } from "@/lib/utils";
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary" | "outline" | "ghost" | "danger" | "success";
+  variant?: "primary" | "secondary" | "outline" | "ghost" | "danger" | "success" | "accent";
   size?: "sm" | "md" | "lg" | "icon";
 }
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = "primary", size = "md", children, disabled, ...props }, ref) => {
     const baseStyles =
-      "inline-flex items-center justify-center font-medium rounded-lg transition-all duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/20 disabled:opacity-40 disabled:pointer-events-none select-none active:scale-[0.98]";
+      "inline-flex items-center justify-center font-medium rounded-lg transition-all duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 disabled:opacity-40 disabled:pointer-events-none select-none active:scale-[0.98]";
 
     const variantStyles = {
       primary:
-        "bg-white hover:bg-zinc-200 text-zinc-950 font-semibold shadow-[0_1px_2px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.6)] border border-transparent",
+        "bg-foreground text-background hover:opacity-90 font-semibold shadow-[0_1px_2px_rgba(0,0,0,0.4),inset_0_1px_0_rgba(255,255,255,0.2)] border border-transparent",
       secondary:
-        "bg-zinc-900/80 hover:bg-zinc-800 text-zinc-200 border border-white/[0.08] shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]",
+        "bg-surface-raised hover:bg-surface-hover text-foreground border border-border-default shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]",
       outline:
-        "border border-white/[0.1] text-zinc-300 hover:bg-white/[0.04] hover:text-white hover:border-white/[0.18]",
+        "border border-border-default text-foreground hover:bg-surface-hover hover:border-border-strong",
+      accent:
+        "bg-accent hover:bg-accent-hover text-white font-semibold shadow-sm border border-transparent",
       ghost:
-        "text-zinc-400 hover:text-zinc-100 hover:bg-white/[0.05]",
+        "text-neutral-400 hover:text-foreground hover:bg-surface-hover",
       danger:
-        "bg-rose-500/10 hover:bg-rose-500/20 text-rose-300 border border-rose-500/20 shadow-sm",
+        "bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/30 shadow-sm",
       success:
-        "bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-300 border border-emerald-500/20 shadow-sm",
+        "bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 shadow-sm",
     };
 
     const sizeStyles = {

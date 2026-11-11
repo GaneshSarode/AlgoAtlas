@@ -22,7 +22,18 @@ const config: Config = {
           overlay: "var(--surface-overlay)",
           hover: "var(--surface-hover)",
         },
-        // Warm neutral palette — no blue tint
+        border: {
+          subtle: "var(--border-subtle)",
+          default: "var(--border-default)",
+          strong: "var(--border-strong)",
+        },
+        accent: {
+          DEFAULT: "var(--accent)",
+          muted: "var(--accent-muted)",
+          border: "var(--accent-border)",
+          hover: "var(--accent-hover)",
+          foreground: "var(--accent-foreground)",
+        },
         neutral: {
           50: "#fafafa",
           100: "#f5f5f5",
