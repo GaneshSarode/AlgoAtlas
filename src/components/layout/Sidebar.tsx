@@ -111,19 +111,19 @@ export function Sidebar({ isMobileOpen = false, onMobileClose, onOpenAddModal }:
   const content = (
     <div
       className={cn(
-        "flex flex-col h-full bg-surface-base border-r border-border-default transition-all duration-200 select-none",
+        "flex flex-col h-full bg-surface-base/95 border-r border-border-default transition-all duration-200 select-none",
         isCollapsed ? "w-[64px]" : "w-[240px]"
       )}
     >
       {/* Brand Header */}
-      <div className="flex items-center justify-between h-14 px-3.5 border-b border-border-subtle">
+      <div className="flex items-center justify-between h-16 px-4 border-b border-border-subtle">
         <Link href="/" className="flex items-center gap-2.5 overflow-hidden group">
-          <div className="w-7 h-7 rounded-md bg-accent-muted border border-accent-border flex items-center justify-center text-accent shrink-0 shadow-sm transition-colors group-hover:bg-accent/20">
-            <Terminal className="w-3.5 h-3.5 stroke-[2.2]" />
+          <div className="w-9 h-9 rounded-xl bg-accent-muted border border-accent-border flex items-center justify-center text-accent shrink-0 shadow-sm transition-colors group-hover:bg-accent/20">
+            <Terminal className="w-4 h-4 stroke-[2.2]" />
           </div>
           {!isCollapsed && (
             <div className="flex flex-col text-left">
-              <span className="font-semibold text-xs tracking-tight text-foreground leading-none">
+              <span className="font-semibold text-sm tracking-tight text-foreground leading-none">
                 AlgoAtlas
               </span>
               <span className="text-[10px] text-neutral-400 font-mono tracking-tight mt-0.5">
@@ -142,11 +142,11 @@ export function Sidebar({ isMobileOpen = false, onMobileClose, onOpenAddModal }:
       </div>
 
       {/* Navigation Sections */}
-      <div className="flex-1 overflow-y-auto py-2.5 px-2 space-y-3.5">
+      <div className="flex-1 overflow-y-auto py-4 px-3 space-y-5">
         {navSections.map((section, sIdx) => (
-          <div key={sIdx} className="space-y-0.5">
+          <div key={sIdx} className="space-y-1">
             {!isCollapsed && (
-              <div className="px-2.5 pt-1.5 pb-1 text-[10px] font-mono font-medium text-neutral-400 tracking-wider">
+              <div className="px-3 pt-1.5 pb-2 text-[10px] font-semibold text-neutral-500 tracking-[0.14em]">
                 {section.title}
               </div>
             )}
@@ -189,7 +189,7 @@ export function Sidebar({ isMobileOpen = false, onMobileClose, onOpenAddModal }:
               );
 
               const itemClass = cn(
-                "flex items-center gap-2.5 px-2.5 py-1.5 rounded-md text-xs font-medium transition-all relative group w-full text-left",
+                "flex items-center gap-3 px-3 py-2.5 rounded-xl text-[13px] font-medium transition-all relative group w-full text-left",
                 isActive
                   ? "bg-accent-muted text-foreground font-semibold shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]"
                   : "text-neutral-400 hover:text-foreground hover:bg-surface-hover",

@@ -1,28 +1,11 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import {
-  Flame,
-  ArrowRight,
-  Clock,
-  AlertTriangle,
-  RotateCcw,
-  Sparkles,
-  ExternalLink,
-  ChevronRight,
-  Code2,
-  Plus,
-  BookOpen,
-  Trophy,
-  Calendar,
-  Terminal,
-  AlertOctagon,
-  Eye,
-  EyeOff,
-  TrendingUp,
+  ArrowRight, BookOpen, Calendar, CheckCircle2, ChevronRight, Clock, Code2,
+  ExternalLink, Eye, EyeOff, Flame, Plus, RotateCcw, Sparkles, Target, Trophy,
 } from "lucide-react";
-import { Badge } from "@/ui/badge";
 import { Button } from "@/ui/button";
 import { AddProblemModal } from "@/components/problems/AddProblemModal";
 import { getDbRepository } from "@/lib/db/repository";
@@ -41,10 +24,9 @@ export default function DashboardPage() {
     setIsLoading(true);
     const repo = getDbRepository();
     repo.seedSampleWorkspaceData();
-    const st = await repo.getOverallStats();
-    const ps = await repo.getPlatformStats();
-    const pr = await repo.getProblems();
-    const rv = await repo.getRevisionItems();
+    const [st, ps, pr, rv] = await Promise.all([
+      repo.getOverallStats(), repo.getPlatformStats(), repo.getProblems(), repo.getRevisionItems(),
+    ]);
     setStats(st);
     setPlatformStats(ps);
     setProblems(pr);
@@ -52,558 +34,117 @@ export default function DashboardPage() {
     setIsLoading(false);
   };
 
-  useEffect(() => {
-    loadData();
-  }, []);
+  useEffect(() => { void loadData(); }, []);
 
   const overdueRevisions = revisions.filter((r) => r.is_overdue);
-  const dueTodayRevisions = revisions.filter(
-    (r) => !r.is_overdue && r.scheduled_for <= new Date().toISOString().split("T")[0]
-  );
-
-  // Heatmap generation: 16 weeks x 7 days
+  const dueTodayRevisions = revisions.filter((r) => !r.is_overdue && r.scheduled_for <= new Date().toISOString().split("T")[0]);
+  const reviewItems = [...overdueRevisions, ...dueTodayRevisions];
   const weeks = Array.from({ length: 16 }, (_, w) =>
-    Array.from({ length: 7 }, (_, d) => {
-      const val = (w * 7 + d) % 5 === 0 ? 0 : ((w + d) % 4) + 1;
-      return val;
-    })
+    Array.from({ length: 7 }, (_, d) => ((w * 7 + d) % 5 === 0 ? 0 : ((w + d) % 4) + 1))
   );
-
-  // Telemetry map correlated to recent problems for Concept B 20% element
-  const telemetryBySlug: Record<
-    string,
-    { verdict: "AC" | "TLE" | "WA"; runtime: string; memory: string; lang: string; timeAgo: string }
-  > = {
-    "two-sum": { verdict: "AC", runtime: "4ms", memory: "10.4MB", lang: "C++20", timeAgo: "1h ago" },
-    "valid-anagram": { verdict: "AC", runtime: "7ms", memory: "8.1MB", lang: "C++20", timeAgo: "3h ago" },
-    "group-anagrams": { verdict: "AC", runtime: "28ms", memory: "19.5MB", lang: "C++20", timeAgo: "1d ago" },
-    "two-sum-ii-input-array-is-sorted": { verdict: "AC", runtime: "6ms", memory: "14.2MB", lang: "C++20", timeAgo: "2d ago" },
-    "3sum": { verdict: "AC", runtime: "64ms", memory: "22.8MB", lang: "C++20", timeAgo: "2d ago" },
-    "container-with-most-water": { verdict: "AC", runtime: "48ms", memory: "59.1MB", lang: "C++20", timeAgo: "3d ago" },
-    "trapping-rain-water": { verdict: "AC", runtime: "8ms", memory: "20.1MB", lang: "C++20", timeAgo: "4d ago" },
-  };
 
   return (
-    <div className="space-y-4 pb-12 font-sans">
-      {/* Hidden SEO heading for semantic structure & accessibility */}
-      <h1 className="sr-only">AlgoAtlas Developer Workspace</h1>
-
-      {/* Top Command Status Strip (70% Concept A Cockpit + 20% Concept B subtle CP rating pill) */}
-      <div className="p-3.5 px-4 rounded-xl bg-surface-base border border-border-default shadow-sm flex flex-col xl:flex-row xl:items-center justify-between gap-3">
-        {/* Active Focus Pill */}
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-accent-muted border border-accent-border flex items-center justify-center text-accent shrink-0">
-            <Code2 className="w-4 h-4 stroke-[2.2]" />
+    <div className="space-y-8 pb-12 font-sans">
+      <section className="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-accent-border bg-accent-muted px-3 py-1 text-xs font-medium text-accent">
+            <Code2 className="h-3.5 w-3.5" /> Personal DSA Learning OS
           </div>
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="text-xs font-semibold text-foreground">AlgoAtlas Cockpit</span>
-              <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-surface-raised border border-border-subtle text-neutral-400">
-                Personal DSA Learning OS
-              </span>
-              <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-surface-raised border border-border-subtle text-neutral-400">
-                NeetCode 150
-              </span>
-            </div>
-            <p className="text-[11px] text-neutral-400 mt-0.5">
-              Active Focus: <strong className="text-foreground font-medium">Two Pointers & Monotonic Stack</strong>
-            </p>
-          </div>
+          <h1 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">AlgoAtlas</h1>
+          <p className="mt-2 max-w-xl text-sm leading-6 text-neutral-400">A clearer path from understanding a pattern to solving the next problem.</p>
         </div>
-
-        {/* Middle Daily Practice Progress Target */}
-        <div className="flex items-center gap-3 border-y xl:border-y-0 xl:border-x border-border-subtle py-2 xl:py-0 xl:px-5">
-          <div className="text-left">
-            <span className="text-[10px] font-mono text-neutral-400 block uppercase tracking-wider">
-              Today's Practice Target
-            </span>
-            <span className="text-xs font-semibold text-foreground">
-              3 of 4 Solved <span className="text-emerald-400 text-[11px] font-mono font-normal">(75%)</span>
-            </span>
-          </div>
-          <div className="w-24 h-2 bg-surface-raised rounded-full overflow-hidden border border-border-subtle">
-            <div className="h-full bg-emerald-500 rounded-full w-3/4" />
-          </div>
-        </div>
-
-        {/* Right HUD: Streak + Restrained CP Rating Pill (Concept B) + Action */}
-        <div className="flex flex-wrap items-center gap-2">
-          {/* Daily Streak */}
-          <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-surface-raised border border-border-default text-xs font-mono">
-            <Flame className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
-            <span className="font-semibold text-amber-400">{stats?.current_streak || 14}d</span>
-            <span className="text-neutral-500 text-[11px]">streak</span>
-          </div>
-
-          {/* Restrained Codeforces & LeetCode Rating Pill (Concept B 20%) */}
-          <div className="flex items-center gap-2 px-2.5 py-1 rounded-lg bg-surface-raised border border-border-default text-xs font-mono">
-            <Trophy className="w-3.5 h-3.5 text-cyan-400" />
-            <span className="text-neutral-400 text-[11px]">CF</span>
-            <span className="font-semibold text-foreground">1715</span>
-            <span className="text-emerald-400 text-[10px] flex items-center">
-              <TrendingUp className="w-2.5 h-2.5 mr-0.5" />+75
-            </span>
-            <span className="text-neutral-600">|</span>
-            <span className="text-neutral-400 text-[11px]">LC</span>
-            <span className="font-semibold text-foreground">1945</span>
-          </div>
-
-          {/* Add Problem Modal Trigger */}
-          <Button size="sm" onClick={() => setIsAddModalOpen(true)} className="gap-1 text-xs">
-            <Plus className="w-3.5 h-3.5" />
-            <span>Add Problem</span>
-          </Button>
-        </div>
-      </div>
+        <Button onClick={() => setIsAddModalOpen(true)} className="h-10 gap-2 px-4"><Plus className="h-4 w-4" /> Log a problem</Button>
+      </section>
 
       {isLoading ? (
-        <div className="py-24 text-center text-xs text-neutral-500 font-mono">
-          Loading learning telemetry...
-        </div>
+        <div className="rounded-2xl border border-border-default bg-surface-base py-24 text-center text-sm text-neutral-400">Loading your learning space…</div>
       ) : (
-        /* Asymmetric 62% / 38% Grid Layout */
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
-          {/* LEFT COLUMN (62% - lg:col-span-7) */}
-          <div className="lg:col-span-7 space-y-4">
-            {/* 1. Active Roadmap Milestone Target (Hero - Concept A) */}
-            <div className="p-4 rounded-xl bg-surface-base border border-border-default relative overflow-hidden group">
-              <div className="absolute top-0 right-0 w-40 h-40 bg-accent/5 rounded-full blur-2xl pointer-events-none" />
-              <div className="flex items-start justify-between gap-3">
-                <div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-[10px] font-mono uppercase tracking-wider text-accent font-semibold">
-                      Current Roadmap Target
-                    </span>
-                    <Badge variant="danger" dot>Hard</Badge>
-                    <span className="text-[10px] font-mono text-neutral-400">LeetCode #42</span>
-                  </div>
-                  <h3 className="text-base font-semibold text-foreground mt-1 flex items-center gap-2">
-                    Trapping Rain Water
-                    <a
-                      href="https://leetcode.com/problems/trapping-rain-water/"
-                      target="_blank"
-                      rel="noreferrer"
-                      className="text-neutral-500 hover:text-foreground"
-                      title="Open on LeetCode"
-                    >
-                      <ExternalLink className="w-3.5 h-3.5" />
-                    </a>
-                  </h3>
-                  <p className="text-xs text-neutral-400 mt-1 leading-relaxed">
-                    Key Observation: Water trapped above bar <code className="text-accent font-mono text-[11px]">i</code> is strictly bounded by <code className="text-accent font-mono text-[11px]">min(max_left, max_right) - height[i]</code>. Solvable in <code className="font-mono text-neutral-300">O(1)</code> space using converging Two Pointers.
-                  </p>
-                </div>
+        <>
+          <section className="grid grid-cols-1 gap-3 sm:grid-cols-3" aria-label="Learning overview">
+            <div className="rounded-2xl border border-border-default bg-surface-base p-5 shadow-sm">
+              <div className="flex items-center justify-between text-sm text-neutral-400"><span>Problems solved</span><CheckCircle2 className="h-4 w-4 text-emerald-400" /></div>
+              <div className="mt-3 text-3xl font-semibold tracking-tight text-foreground">{stats?.total_problems || 10}</div>
+              <p className="mt-1 text-xs text-neutral-500">Across your learning workspace</p>
+            </div>
+            <div className="rounded-2xl border border-border-default bg-surface-base p-5 shadow-sm">
+              <div className="flex items-center justify-between text-sm text-neutral-400"><span>Learning streak</span><Flame className="h-4 w-4 text-amber-400" /></div>
+              <div className="mt-3 text-3xl font-semibold tracking-tight text-foreground">{stats?.current_streak || 14}<span className="ml-1 text-base font-medium text-neutral-400">days</span></div>
+              <p className="mt-1 text-xs text-neutral-500">Small daily sessions add up</p>
+            </div>
+            <div className="rounded-2xl border border-border-default bg-surface-base p-5 shadow-sm">
+              <div className="flex items-center justify-between text-sm text-neutral-400"><span>Ready to review</span><RotateCcw className="h-4 w-4 text-accent" /></div>
+              <div className="mt-3 text-3xl font-semibold tracking-tight text-foreground">{reviewItems.length}</div>
+              <p className="mt-1 text-xs text-neutral-500">Due now or scheduled for today</p>
+            </div>
+          </section>
 
-                <div className="flex flex-col gap-1.5 shrink-0">
-                  <Link href="/problems/prob-trapping-rain-water">
-                    <Button size="sm" variant="secondary" className="gap-1 text-xs w-full">
-                      <BookOpen className="w-3.5 h-3.5" />
-                      <span>Journal</span>
-                    </Button>
-                  </Link>
+          <section className="relative overflow-hidden rounded-3xl border border-accent-border bg-[linear-gradient(120deg,#122b3a_0%,#14283a_52%,#172238_100%)] p-6 shadow-xl shadow-black/10 sm:p-8">
+            <div className="pointer-events-none absolute -right-12 -top-24 h-72 w-72 rounded-full bg-cyan-300/10 blur-3xl" />
+            <div className="relative grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
+              <div className="max-w-2xl">
+                <div className="flex flex-wrap items-center gap-2 text-xs font-medium text-accent"><Target className="h-4 w-4" /> YOUR NEXT STEP <span className="rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-neutral-300">NeetCode 150 · Two Pointers</span></div>
+                <h2 className="mt-4 text-2xl font-semibold tracking-tight text-white sm:text-3xl">Trapping Rain Water</h2>
+                <p className="mt-3 max-w-xl text-sm leading-6 text-slate-300">Use the lower boundary to decide which pointer can move. Each step locks in water that can no longer be affected by the other side.</p>
+                <div className="mt-5 flex flex-wrap gap-2 text-xs"><span className="rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-slate-300">LeetCode #42</span><span className="rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-slate-300">Hard</span><span className="rounded-lg border border-white/10 bg-white/5 px-3 py-2 font-mono text-accent">O(n) time · O(1) space</span></div>
+              </div>
+              <div className="flex flex-wrap items-center gap-3">
+                <Link href="/problems/prob-trapping-rain-water"><Button className="h-11 gap-2 px-5">Continue learning <ArrowRight className="h-4 w-4" /></Button></Link>
+                <a href="https://leetcode.com/problems/trapping-rain-water/" target="_blank" rel="noreferrer" className="inline-flex h-11 items-center gap-2 rounded-xl border border-white/15 px-4 text-sm font-medium text-white transition hover:bg-white/10">Open problem <ExternalLink className="h-4 w-4" /></a>
+              </div>
+            </div>
+          </section>
+
+          <section className="grid grid-cols-1 gap-5 xl:grid-cols-[1.15fr_0.85fr]">
+            <div className="space-y-5">
+              <div className="rounded-2xl border border-border-default bg-surface-base p-5 sm:p-6">
+                <div className="flex items-start justify-between gap-4">
+                  <div><div className="flex items-center gap-2 text-accent"><Sparkles className="h-4 w-4" /><h2 className="text-sm font-semibold">Your Learning Intelligence</h2></div><p className="mt-2 text-sm leading-6 text-neutral-300">Hints came up often on <strong className="text-foreground">Two Pointers</strong>. Try <strong className="text-foreground">Container With Most Water</strong> next to build confidence with boundary decisions.</p></div>
+                  <span className="hidden rounded-xl bg-surface-raised px-3 py-2 text-center sm:block"><span className="block text-lg font-semibold text-foreground">3/5</span><span className="text-[11px] text-neutral-400">confidence</span></span>
+                </div>
+                <Link href="/recommendations" className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-accent hover:text-white">See your learning plan <ArrowRight className="h-4 w-4" /></Link>
+              </div>
+
+              <div className="overflow-hidden rounded-2xl border border-border-default bg-surface-base">
+                <div className="flex items-center justify-between border-b border-border-subtle px-5 py-4 sm:px-6"><div><h2 className="text-base font-semibold text-foreground">Recent problems</h2><p className="mt-1 text-xs text-neutral-400">Pick up where you left off</p></div><Link href="/problems" className="inline-flex items-center gap-1 text-sm font-medium text-accent hover:text-white">View all <ChevronRight className="h-4 w-4" /></Link></div>
+                <div className="divide-y divide-border-subtle">
+                  {problems.slice(0, 5).map((problem) => <Link key={problem.id} href={`/problems/${problem.id}`} className="flex items-center justify-between gap-4 px-5 py-4 transition hover:bg-surface-raised sm:px-6"><div className="flex min-w-0 items-center gap-3"><span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-accent-muted text-accent"><Code2 className="h-4 w-4" /></span><div className="min-w-0"><span className="block truncate text-sm font-medium text-foreground">{problem.title}</span><span className="mt-1 block truncate text-xs text-neutral-400">{problem.platform} · {problem.primary_topic || "General"}</span></div></div><span className={`shrink-0 rounded-full px-2.5 py-1 text-xs ${problem.difficulty === "Easy" ? "bg-emerald-500/10 text-emerald-400" : problem.difficulty === "Medium" ? "bg-amber-500/10 text-amber-400" : "bg-rose-500/10 text-rose-400"}`}>{problem.difficulty}</span></Link>)}
+                  {problems.length === 0 && <p className="px-6 py-10 text-center text-sm text-neutral-400">Log your first problem to start building your history.</p>}
                 </div>
               </div>
 
-              <div className="mt-3.5 pt-3 border-t border-border-subtle flex items-center justify-between text-xs">
-                <span className="text-neutral-400 text-[11px]">
-                  Roadmap: <strong>NeetCode 150</strong> › Two Pointers (Problem 4 of 5)
-                </span>
-                <span className="text-rose-400 text-[11px] font-mono flex items-center gap-1 font-medium">
-                  <AlertTriangle className="w-3 h-3" /> Scheduled for spaced recall today
-                </span>
+              <div className="rounded-2xl border border-border-default bg-surface-base p-5 sm:p-6">
+                <div className="mb-4 flex flex-wrap items-center justify-between gap-3"><div><h2 className="text-base font-semibold text-foreground">Daily Problem-Solving Consistency</h2><p className="mt-1 text-xs text-neutral-400">Your last 16 weeks of practice</p></div><div className="flex items-center gap-1.5 text-[11px] text-neutral-400"><span>Less</span>{["bg-surface-raised", "bg-emerald-950", "bg-emerald-800", "bg-emerald-600", "bg-emerald-400"].map((level) => <span key={level} className={`h-3 w-3 rounded-sm ${level}`} />)}<span>More</span></div></div>
+                <div className="flex gap-1.5 overflow-x-auto pb-1">{weeks.map((week, wIdx) => <div key={wIdx} className="flex shrink-0 flex-col gap-1.5">{week.map((level, dIdx) => <div key={dIdx} title={`Week ${wIdx + 1}, day ${dIdx + 1}: ${level} problems`} className={`h-3 w-3 rounded-[4px] ${level === 0 ? "bg-surface-raised" : level === 1 ? "bg-emerald-950" : level === 2 ? "bg-emerald-800" : level === 3 ? "bg-emerald-600" : "bg-emerald-400"}`} />)}</div>)}</div>
+                <div className="mt-4 flex flex-wrap items-center justify-between gap-2 border-t border-border-subtle pt-4 text-sm"><span className="text-neutral-400">Total solved <strong className="ml-1 text-foreground">{stats?.total_problems || 10}</strong></span><span className="text-xs text-neutral-500">Consistency beats intensity</span></div>
               </div>
             </div>
 
-            {/* 2. Coding Activity Heatmap (Concept A) */}
-            <div className="p-4 rounded-xl bg-surface-base border border-border-default">
-              <div className="flex items-center justify-between mb-3 text-xs">
-                <div>
-                  <span className="font-semibold text-foreground">Daily Problem-Solving Consistency</span>
-                  <span className="text-neutral-400 text-[11px] ml-2">Last 16 weeks</span>
-                </div>
-                <div className="flex items-center gap-2 text-[11px] text-neutral-400 font-mono">
-                  <span>Less</span>
-                  <span className="w-2.5 h-2.5 rounded-sm bg-surface-raised border border-border-subtle" />
-                  <span className="w-2.5 h-2.5 rounded-sm bg-emerald-950 border border-emerald-900" />
-                  <span className="w-2.5 h-2.5 rounded-sm bg-emerald-800" />
-                  <span className="w-2.5 h-2.5 rounded-sm bg-emerald-600" />
-                  <span className="w-2.5 h-2.5 rounded-sm bg-emerald-400" />
-                  <span>More</span>
-                </div>
+            <div className="space-y-5">
+              <div className="overflow-hidden rounded-2xl border border-border-default bg-surface-base">
+                <div className="flex items-center justify-between border-b border-border-subtle px-5 py-4 sm:px-6"><div className="flex items-center gap-3"><span className="flex h-9 w-9 items-center justify-center rounded-xl bg-rose-500/10 text-rose-400"><RotateCcw className="h-4 w-4" /></span><div><h2 className="text-base font-semibold text-foreground">Revision inbox</h2><p className="mt-1 text-xs text-neutral-400">{reviewItems.length} items ready</p></div></div><Link href="/revision" className="text-sm font-medium text-accent hover:text-white">Full queue</Link></div>
+                <div className="space-y-2 p-4 sm:p-5">{reviewItems.slice(0, 4).map((revision) => <div key={revision.id} className="flex items-center justify-between gap-3 rounded-xl border border-border-subtle bg-surface-raised p-3.5"><div className="min-w-0"><span className="block truncate text-sm font-medium text-foreground">{revision.problem_title}</span><span className="mt-1 flex items-center gap-1.5 text-xs text-neutral-400"><Clock className="h-3.5 w-3.5" />{revision.is_overdue ? "Overdue" : "Due today"} · {revision.interval_stage} day interval</span></div><Link href="/revision/practice" className="shrink-0 rounded-lg bg-accent-muted px-3 py-2 text-xs font-semibold text-accent transition hover:bg-accent hover:text-slate-950">Review</Link></div>)}{reviewItems.length === 0 && <p className="py-6 text-center text-sm text-neutral-400">You’re all caught up. Nice work.</p>}</div>
               </div>
 
-              {/* Matrix */}
-              <div className="flex gap-1 overflow-x-auto pb-1">
-                {weeks.map((week, wIdx) => (
-                  <div key={wIdx} className="flex flex-col gap-1">
-                    {week.map((level, dIdx) => (
-                      <div
-                        key={dIdx}
-                        className={`w-3 h-3 rounded-sm border transition-colors ${
-                          level === 0
-                            ? "bg-surface-raised border-border-subtle"
-                            : level === 1
-                            ? "bg-emerald-950 border-emerald-900"
-                            : level === 2
-                            ? "bg-emerald-800 border-emerald-700"
-                            : level === 3
-                            ? "bg-emerald-600 border-emerald-500"
-                            : "bg-emerald-400 border-emerald-300"
-                        }`}
-                        title={`Week ${wIdx + 1}, Day ${dIdx + 1}: ${level} solves`}
-                      />
-                    ))}
-                  </div>
-                ))}
+              <div className="rounded-2xl border border-border-default bg-surface-base p-5 sm:p-6">
+                <div className="flex items-center justify-between"><div className="flex items-center gap-2 text-accent"><BookOpen className="h-4 w-4" /><h2 className="text-base font-semibold text-foreground">Active recall</h2></div><span className="rounded-full bg-purple-500/10 px-2.5 py-1 text-xs text-purple-300">3 day review</span></div>
+                <h3 className="mt-5 text-lg font-semibold text-foreground">3Sum <span className="text-sm font-normal text-neutral-400">· Two Pointers</span></h3>
+                <p className="mt-2 text-sm leading-6 text-neutral-400">How can you find unique triplets that add to zero without checking every combination?</p>
+                <div className="mt-4 rounded-xl border border-border-subtle bg-surface-raised p-4"><div className="mb-3 flex items-center justify-between text-xs"><span className="font-medium text-neutral-400">Your approach</span><button onClick={() => setFlashcardRevealed(!flashcardRevealed)} className="inline-flex items-center gap-1.5 font-medium text-accent hover:text-white">{flashcardRevealed ? <EyeOff className="h-3.5 w-3.5" /> : <Eye className="h-3.5 w-3.5" />}{flashcardRevealed ? "Hide answer" : "Reveal answer"}</button></div><p className={`text-sm leading-6 text-neutral-200 ${flashcardRevealed ? "" : "select-none blur-sm"}`}>Sort first, then fix one value and scan with two pointers. Skip duplicates at each step. This keeps time at O(n²) and extra space at O(1).</p></div>
+                <Link href="/revision/practice" className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-accent hover:text-white">Practice recall <ArrowRight className="h-4 w-4" /></Link>
               </div>
 
-              {/* Solved breakdown tally */}
-              <div className="mt-3 pt-3 border-t border-border-subtle flex items-center justify-between text-xs font-mono">
-                <span className="text-neutral-400">
-                  Total Solved: <strong className="text-foreground">{stats?.total_problems || 10}</strong>
-                </span>
-                <div className="flex items-center gap-3">
-                  <span className="text-emerald-400">14 Easy</span>
-                  <span className="text-amber-400">8 Med</span>
-                  <span className="text-rose-400">3 Hard</span>
-                </div>
+              <div className="rounded-2xl border border-border-default bg-surface-base p-5 sm:p-6">
+                <div className="mb-5 flex items-center justify-between"><div><h2 className="text-base font-semibold text-foreground">Topic mastery</h2><p className="mt-1 text-xs text-neutral-400">Where to focus next</p></div><Link href="/analytics" className="text-xs font-medium text-accent">See analytics</Link></div>
+                <div className="space-y-4">{[{ name: "Arrays & Hashing", value: 92, tone: "bg-emerald-400", label: "Strong" }, { name: "Two Pointers", value: 60, tone: "bg-amber-400", label: "Practising" }, { name: "Dynamic Programming", value: 35, tone: "bg-rose-400", label: "Needs practice" }, { name: "Binary Search", value: 25, tone: "bg-rose-400", label: "Needs practice" }].map((topic) => <div key={topic.name}><div className="mb-2 flex items-center justify-between gap-3 text-sm"><span className="text-neutral-200">{topic.name}</span><span className="shrink-0 text-xs text-neutral-400">{topic.value}% · {topic.label}</span></div><div className="h-2 overflow-hidden rounded-full bg-surface-raised"><div className={`h-full rounded-full ${topic.tone}`} style={{ width: `${topic.value}%` }} /></div></div>)}</div>
+                <Link href="/roadmaps" className="mt-5 flex items-center justify-between rounded-xl border border-border-subtle bg-surface-raised px-4 py-3 text-sm transition hover:border-accent-border"><span className="flex items-center gap-2 text-neutral-200"><Calendar className="h-4 w-4 text-accent" />NeetCode 150 roadmap</span><ArrowRight className="h-4 w-4 text-neutral-400" /></Link>
+                <div className="mt-4 flex items-center gap-2 text-xs text-neutral-500"><Trophy className="h-3.5 w-3.5" /> Coding Platforms Distribution · {platformStats.length} connected</div>
               </div>
             </div>
-
-            {/* 3. Compact Recent Problem History + Concept B Submission Telemetry */}
-            <div className="rounded-xl bg-surface-base border border-border-default overflow-hidden">
-              <div className="p-3 px-4 border-b border-border-subtle flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <Terminal className="w-3.5 h-3.5 text-neutral-400" />
-                  <span className="text-xs font-semibold text-foreground">Recent Problem History & Telemetry</span>
-                </div>
-                <Link href="/problems" className="text-[11px] text-accent hover:underline flex items-center gap-1">
-                  View all ({problems.length}) <ChevronRight className="w-3 h-3" />
-                </Link>
-              </div>
-
-              <div className="divide-y divide-border-subtle text-xs">
-                {problems.slice(0, 6).map((p) => {
-                  const telem = telemetryBySlug[p.slug] || {
-                    verdict: "AC",
-                    runtime: "12ms",
-                    memory: "16.4MB",
-                    lang: "C++20",
-                    timeAgo: "2d ago",
-                  };
-
-                  return (
-                    <div
-                      key={p.id}
-                      className="p-3 px-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2 hover:bg-surface-raised transition-colors"
-                    >
-                      <div className="flex items-center gap-2.5 min-w-0">
-                        {/* Concept B Telemetry Badge */}
-                        <span className="text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 shrink-0">
-                          {telem.verdict}
-                        </span>
-                        <span className="text-[10px] font-mono text-neutral-400 bg-surface-raised px-1.5 py-0.5 rounded border border-border-subtle shrink-0">
-                          {p.platform === "LeetCode" ? "LC" : p.platform === "Codeforces" ? "CF" : p.platform}
-                        </span>
-                        <Link
-                          href={`/problems/${p.id}`}
-                          className="font-medium text-foreground hover:text-accent truncate"
-                        >
-                          {p.title}
-                        </Link>
-                        <span className="text-[11px] text-neutral-400 hidden md:inline">• {p.primary_topic}</span>
-                      </div>
-
-                      <div className="flex items-center gap-3 shrink-0 text-neutral-400 text-[11px] font-mono">
-                        <Badge
-                          dot
-                          variant={
-                            p.difficulty === "Easy"
-                              ? "success"
-                              : p.difficulty === "Medium"
-                              ? "warning"
-                              : "danger"
-                          }
-                        >
-                          {p.difficulty}
-                        </Badge>
-                        <span className="hidden sm:inline text-neutral-500">{telem.lang}</span>
-                        <span className="hidden sm:inline">{telem.runtime}</span>
-                        <span className="text-amber-400 text-[11px] hidden lg:inline">
-                          {"★".repeat(p.confidence_rating)}
-                        </span>
-                        <span className="text-neutral-500">{telem.timeAgo}</span>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* 4. Bottom Balanced Grid: Next Deliberate Practice + Gotchas & Traps */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
-              {/* Deliberate Practice Recommendation (Concept A) */}
-              <div className="p-3.5 rounded-xl bg-surface-base border border-border-default flex flex-col justify-between space-y-2">
-                <div>
-                  <div className="flex items-center gap-1.5 text-xs font-semibold text-accent pb-1">
-                    <Sparkles className="w-3.5 h-3.5" />
-                    <span>Your Learning Intelligence</span>
-                  </div>
-                  <p className="text-xs text-neutral-300 leading-relaxed">
-                    Hints were frequently referenced on <strong>Two Pointers</strong>. Solve <strong>Container With Most Water</strong> next to reinforce boundary calculations.
-                  </p>
-                </div>
-                <div className="pt-2 border-t border-border-subtle flex items-center justify-between text-[11px]">
-                  <span className="text-neutral-500 font-mono">3/5 avg confidence</span>
-                  <Link href="/recommendations" className="text-accent hover:underline flex items-center gap-1">
-                    Full Plan <ArrowRight className="w-3 h-3" />
-                  </Link>
-                </div>
-              </div>
-
-              {/* Mistakes & Gotchas Callout (Concept C 10%) */}
-              <div className="p-3.5 rounded-xl bg-surface-base border border-border-default space-y-2">
-                <div className="flex items-center justify-between text-xs pb-1 border-b border-border-subtle">
-                  <span className="font-semibold text-foreground flex items-center gap-1.5 text-rose-400">
-                    <AlertOctagon className="w-3.5 h-3.5" />
-                    Active Gotchas & Traps
-                  </span>
-                  <span className="text-[10px] font-mono text-neutral-500">Retrospective</span>
-                </div>
-                <div className="space-y-1.5 text-xs">
-                  <div className="p-1.5 rounded-lg bg-rose-500/[0.04] border border-rose-500/20 text-neutral-300">
-                    <span className="font-semibold text-foreground block text-[11px]">
-                      BS Midpoint Overflow
-                    </span>
-                    <p className="text-[10px] text-neutral-400 mt-0.5">
-                      Use <code className="text-emerald-400 font-mono">mid = l + (r - l) / 2</code> to prevent 32-bit signed overflow.
-                    </p>
-                  </div>
-                  <div className="p-1.5 rounded-lg bg-amber-500/[0.04] border border-amber-500/20 text-neutral-300">
-                    <span className="font-semibold text-foreground block text-[11px]">
-                      3Sum Duplicate Skipping
-                    </span>
-                    <p className="text-[10px] text-neutral-400 mt-0.5">
-                      Remember outer check <code className="text-amber-400 font-mono">if (i &gt; 0 &amp;&amp; nums[i] == nums[i-1]) continue;</code>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* RIGHT COLUMN (38% - lg:col-span-5) */}
-          <div className="lg:col-span-5 space-y-4">
-            {/* 1. Revision Inbox (Concept A) */}
-            <div className="rounded-xl bg-surface-base border border-border-default overflow-hidden">
-              <div className="p-3.5 px-4 border-b border-border-subtle flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <RotateCcw className="w-4 h-4 text-rose-400" />
-                  <span className="text-xs font-semibold text-foreground">Revision Inbox</span>
-                  <span className="px-1.5 py-0.2 rounded-full text-[10px] font-mono bg-rose-500/10 text-rose-400 border border-rose-500/30">
-                    {overdueRevisions.length + dueTodayRevisions.length} due
-                  </span>
-                </div>
-                <Link href="/revision">
-                  <Button size="sm" variant="ghost" className="h-6 text-[11px] px-2 text-accent">
-                    Full Queue →
-                  </Button>
-                </Link>
-              </div>
-
-              <div className="p-3 space-y-2">
-                {overdueRevisions.map((rev) => (
-                  <div
-                    key={rev.id}
-                    className="p-2.5 rounded-lg bg-rose-500/[0.04] border border-rose-500/20 flex items-center justify-between"
-                  >
-                    <div>
-                      <span className="text-xs font-medium text-foreground block">{rev.problem_title}</span>
-                      <span className="text-[10px] text-rose-400 font-mono flex items-center gap-1 mt-0.5">
-                        <Clock className="w-3 h-3" /> Overdue 2 days • Interval {rev.interval_stage}d
-                      </span>
-                    </div>
-                    <Link href="/revision/practice">
-                      <Button size="sm" variant="danger" className="h-6 text-[11px] px-2">
-                        Revise
-                      </Button>
-                    </Link>
-                  </div>
-                ))}
-
-                {dueTodayRevisions.map((rev) => (
-                  <div
-                    key={rev.id}
-                    className="p-2.5 rounded-lg bg-amber-500/[0.04] border border-amber-500/20 flex items-center justify-between"
-                  >
-                    <div>
-                      <span className="text-xs font-medium text-foreground block">{rev.problem_title}</span>
-                      <span className="text-[10px] text-amber-400 font-mono flex items-center gap-1 mt-0.5">
-                        <Clock className="w-3 h-3" /> Due today • Interval {rev.interval_stage}d
-                      </span>
-                    </div>
-                    <Link href="/revision/practice">
-                      <Button size="sm" variant="outline" className="h-6 text-[11px] px-2">
-                        Review
-                      </Button>
-                    </Link>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* 2. Active Recall Flashcard Challenge (Concept C 10%) */}
-            <div className="p-3.5 rounded-xl bg-surface-base border border-border-default space-y-3">
-              <div className="flex items-center justify-between text-xs pb-2 border-b border-border-subtle">
-                <div className="flex items-center gap-1.5">
-                  <BookOpen className="w-4 h-4 text-purple-400" />
-                  <span className="font-semibold text-foreground">Active Recall Challenge</span>
-                </div>
-                <span className="text-[10px] font-mono text-purple-400 bg-purple-500/10 px-1.5 py-0.5 rounded border border-purple-500/20">
-                  Spaced Interval: 3d
-                </span>
-              </div>
-
-              <div>
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-semibold text-foreground">
-                    3Sum (LeetCode #15)
-                  </span>
-                  <span className="text-[10px] font-mono text-neutral-400">Two Pointers</span>
-                </div>
-                <p className="text-xs text-neutral-400 mt-1 leading-relaxed">
-                  Find all unique triplets <code className="text-accent font-mono text-[11px]">[a, b, c]</code> summing to 0 without duplicates in sorted search space.
-                </p>
-              </div>
-
-              {/* Blur-reveal optimal approach */}
-              <div className="p-2.5 rounded-lg bg-surface-raised border border-border-subtle space-y-2">
-                <div className="flex items-center justify-between text-xs">
-                  <span className="text-[10px] font-mono text-neutral-400 uppercase tracking-wider">
-                    Optimal Intuition & Gotcha
-                  </span>
-                  <button
-                    onClick={() => setFlashcardRevealed(!flashcardRevealed)}
-                    className="text-accent hover:underline flex items-center gap-1 text-[11px]"
-                  >
-                    {flashcardRevealed ? <EyeOff className="w-3 h-3" /> : <Eye className="w-3 h-3" />}
-                    <span>{flashcardRevealed ? "Hide" : "Reveal Answer"}</span>
-                  </button>
-                </div>
-
-                <div className={flashcardRevealed ? "" : "filter blur-sm select-none"}>
-                  <p className="text-[11px] text-neutral-200 font-mono leading-relaxed">
-                    1. Sort O(N log N). Outer loop i: if nums[i] == nums[i-1], skip.<br />
-                    2. Two pointers (l = i+1, r = n-1) checking sum == -nums[i].<br />
-                    Complexity: O(N²) Time • O(1) Extra Space.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex gap-2 pt-0.5">
-                <Button size="sm" variant="outline" className="flex-1 text-xs h-7">
-                  Need Hints
-                </Button>
-                <Button size="sm" variant="success" className="flex-1 text-xs h-7">
-                  Recalled Cleanly
-                </Button>
-              </div>
-            </div>
-
-            {/* 3. Topic Mastery & Weak Areas (Concept A) */}
-            <div className="p-4 rounded-xl bg-surface-base border border-border-default space-y-3">
-              <div className="flex items-center justify-between text-xs">
-                <span className="font-semibold text-foreground">Topic Mastery & Weak Areas</span>
-                <span className="text-[11px] text-neutral-400">Continuous Assessment</span>
-              </div>
-
-              <div className="space-y-2.5 text-xs">
-                <div>
-                  <div className="flex justify-between text-[11px] mb-1">
-                    <span className="text-foreground font-medium">Arrays & Hashing</span>
-                    <span className="text-emerald-400 font-mono">92% (Strong)</span>
-                  </div>
-                  <div className="w-full h-1.5 bg-surface-raised rounded-full overflow-hidden">
-                    <div className="h-full bg-emerald-500 rounded-full w-[92%]" />
-                  </div>
-                </div>
-
-                <div>
-                  <div className="flex justify-between text-[11px] mb-1">
-                    <span className="text-foreground font-medium">Two Pointers</span>
-                    <span className="text-amber-400 font-mono">60% (Practising)</span>
-                  </div>
-                  <div className="w-full h-1.5 bg-surface-raised rounded-full overflow-hidden">
-                    <div className="h-full bg-amber-500 rounded-full w-[60%]" />
-                  </div>
-                </div>
-
-                <div>
-                  <div className="flex justify-between text-[11px] mb-1">
-                    <span className="text-foreground font-medium">Dynamic Programming</span>
-                    <span className="text-rose-400 font-mono">35% (Weak Area)</span>
-                  </div>
-                  <div className="w-full h-1.5 bg-surface-raised rounded-full overflow-hidden">
-                    <div className="h-full bg-rose-500 rounded-full w-[35%]" />
-                  </div>
-                </div>
-
-                <div>
-                  <div className="flex justify-between text-[11px] mb-1">
-                    <span className="text-foreground font-medium">Binary Search on Answers</span>
-                    <span className="text-rose-400 font-mono">25% (Needs Study)</span>
-                  </div>
-                  <div className="w-full h-1.5 bg-surface-raised rounded-full overflow-hidden">
-                    <div className="h-full bg-rose-500 rounded-full w-[25%]" />
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* 4. Upcoming Contest Horizon & Platforms (Concept B 20%) */}
-            <div className="p-3.5 rounded-xl bg-surface-base border border-border-default space-y-2.5">
-              <div className="flex items-center justify-between text-xs pb-2 border-b border-border-subtle">
-                <span className="font-semibold text-foreground flex items-center gap-1.5">
-                  <Calendar className="w-3.5 h-3.5 text-cyan-400" />
-                  Upcoming Contest Horizon & Coding Platforms Distribution
-                </span>
-                <Link href="/contests" className="text-[10px] text-accent hover:underline">
-                  View Schedule →
-                </Link>
-              </div>
-
-              <div className="space-y-2 text-xs">
-                <div className="p-2.5 rounded-lg bg-surface-raised border border-border-subtle flex justify-between items-start">
-                  <div>
-                    <span className="font-semibold text-foreground block">Codeforces Round 985</span>
-                    <span className="text-[10px] text-cyan-400 font-mono">Div. 2 • Rated</span>
-                  </div>
-                  <span className="text-[10px] font-mono text-neutral-400 bg-surface-base px-1.5 py-0.5 rounded border border-border-subtle">
-                    In 2d 4h
-                  </span>
-                </div>
-
-                <div className="p-2.5 rounded-lg bg-surface-raised border border-border-subtle flex justify-between items-start">
-                  <div>
-                    <span className="font-semibold text-foreground block">LeetCode Weekly Contest 420</span>
-                    <span className="text-[10px] text-amber-400 font-mono">Rank &lt;500 Target</span>
-                  </div>
-                  <span className="text-[10px] font-mono text-neutral-400 bg-surface-base px-1.5 py-0.5 rounded border border-border-subtle">
-                    In 3d 12h
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+          </section>
+        </>
       )}
 
-      {/* Add Problem Modal */}
-      <AddProblemModal
-        isOpen={isAddModalOpen}
-        onClose={() => setIsAddModalOpen(false)}
-        onProblemAdded={loadData}
-      />
+      <AddProblemModal isOpen={isAddModalOpen} onClose={() => setIsAddModalOpen(false)} onProblemAdded={loadData} />
     </div>
   );
 }

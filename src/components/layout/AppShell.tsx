@@ -10,7 +10,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
   return (
-    <div className="flex min-h-screen bg-[#090a0f] text-gray-100">
+    <div className="flex min-h-screen bg-background text-foreground">
       {/* Sidebar */}
       <Sidebar
         isMobileOpen={isMobileOpen}
@@ -24,7 +24,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           onMobileOpen={() => setIsMobileOpen(true)}
           onOpenAddModal={() => setIsAddModalOpen(true)}
         />
-        <main className="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto animate-in fade-in duration-150">
+        <main className="flex-1 p-4 sm:p-7 lg:p-9 max-w-[1440px] w-full mx-auto animate-in fade-in duration-150">
           {children}
         </main>
       </div>
